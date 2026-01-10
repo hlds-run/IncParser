@@ -1,0 +1,16 @@
+{
+  "legacy_addon_id": "",
+  "title": "AMX X Documentation",
+  "description": "AMXX Pawn .inc documentation viewer",
+  "version_id": 1000100,
+  "version_string": "1.0.0",
+  "dev": "Albertio",
+  "dev_url": "https://hlds.run/members/41/",
+  "extra_urls": {
+    "GitHub": "https://github.com/hlds-run/IncParser"
+  },
+  "require": {
+    "XF": [2030000, "XenForo 2.3.+"]
+  },
+  "icon" : "fa-book"
+}

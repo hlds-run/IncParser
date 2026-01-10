@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <template type="public" title="inc_parser_viewer" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('inc_parser_title') }}</xf:title>
+<div class="amxx-layout">
+    <aside class="amxx-sidebar">
+        <div class="block-header">
+            {{ phrase('inc_parser_include') }}: {$files|count}
+        </div>
+        <xf:foreach loop="$files" value="$f">
+            <details class="amxx-file"<xf:if is="$activeFile == $f.file"> open</xf:if>>
+            <summary>{$f.file}</summary>
+            <ul class="amxx-itemList">
+                <xf:foreach loop="$f.items" value="$it">
+                    <li class="amxx-itemLink amxx-itemLink--{$it.kind}<xf:if is="$selectedItem.id == $it.id"> is-active</xf:if>">
+                        <a href="{{ link('amxx', null, {'file': $f.file, 'item': $it.id, 'q': $query}) }}">
+                            <xf:if is="$it.kind == 'section'">
+                                {$it.name}
+                            <xf:else />
+                                {$it.id}
+                            </xf:if>
+                        </a>
+                    </li>
+                </xf:foreach>
+            </ul>
+            </details>
+        </xf:foreach>
+    </aside>
+    <main class="amxx-content">
+        <form method="get" action="{{ link('amxx') }}">
+            <input type="hidden" name="file" value="{$activeFile}" />
+            <xf:textbox
+                name="q"
+                value="{$query}"
+                placeholder="{{ phrase('inc_parser_search_placeholder') }}"
+                autocomplete="off" />
+        </form>
+        <xf:if is="$selectedItem">
+            <div class="amxx-item-view">
+                <xf:if is="$selectedItem.kind == 'define'">
+                    <code class="pawn-code pawn-code--block"><xf:foreach loop="$selectedItem.highlighted|default($selectedItem.signature)" value="$line"><span class="pawn-line">{$line|raw}</span></xf:foreach></code>
+                <xf:elseif is="$selectedItem.kind == 'section'" />
+                    <div class="amxx-section" id="{$selectedItem.id}">
+                        <div class="amxx-section-header">
+                            {$selectedItem.title}
+                        </div>
+                        <div class="amxx-section-items">
+                            <xf:foreach loop="$selectedItem.items" value="$item">
+                                <xf:if is="$item.kind == 'define'">
+                                    <code class="pawn-code pawn-code--block"><xf:foreach loop="$item.highlighted|default($item.signature)" value="$line"><span class="pawn-line">{$line|raw}</span></xf:foreach></code>
+                                <xf:else />
+                                    <div class="pawn-code">
+                                        <code>{$item.highlighted|default($item.signature)|raw}</code>
+                                    </div>
+                                </xf:if>
+                                <xf:if is="$item.doc.description">
+                                    <div class="amxx-docBlock amxx-docBlock--description">
+                                        <div class="amxx-docBlock-title">
+                                            {{ phrase('inc_parser_description') }}
+                                        </div>
+                                        <p>{$item.doc.description}</p>
+                                    </div>
+                                </xf:if>
+                            </xf:foreach>
+                        </div>
+                    </div>
+                <xf:else />
+					<xf:if is="$selectedItem.body">
+						<code class="pawn-code pawn-code--block"><xf:foreach loop="$selectedItem.highlightedBody" value="$line"><span class="pawn-line">{$line|raw}</span></xf:foreach></code>
+					<xf:else />
+                        <div class="pawn-code">
+                            <code>{$selectedItem.highlighted|default($selectedItem.signature)|raw}</code>
+                        </div>
+                    </xf:if>
+                </xf:if>
+                <xf:if is="$selectedItem.doc.deprecated">
+                    <div class="amxx-docBlock amxx-docBlock--deprecated">
+                        <strong>{{ phrase('inc_parser_deprecated') }}:</strong>
+                        {$selectedItem.doc.deprecated}
+                    </div>
+                </xf:if>
+                <xf:if is="$selectedItem.doc.description">
+                    <div class="amxx-docBlock amxx-docBlock--description">
+                        <div class="amxx-docBlock-title">
+                            {{ phrase('inc_parser_description') }}
+                        </div>
+                        <p>{$selectedItem.doc.description}</p>
+                    </div>
+                </xf:if>
+                <xf:if is="$selectedItem.doc.notes|count">
+                    <div class="amxx-docBlock amxx-docBlock--notes">
+                        <div class="amxx-docBlock-title">
+                            {{ phrase('inc_parser_notes') }}
+                        </div>
+                        <ul>
+                            <xf:foreach loop="$selectedItem.doc.notes" value="$note">
+                                <li>{$note}</li>
+                            </xf:foreach>
+                        </ul>
+                    </div>
+                </xf:if>
+                <xf:if is="$selectedItem.doc.params|count">
+                    <div class="amxx-docBlock amxx-docBlock--params">
+                        <div class="amxx-docBlock-title">
+                            {{ phrase('inc_parser_parameters') }}
+                        </div>
+                        <ul>
+                            <xf:foreach loop="$selectedItem.doc.params" value="$p">
+                                <li>
+                                    <strong>{$p.name}</strong>
+                                    <span class="amxx-docBlock-sep">—</span>
+                                    {$p.desc}
+                                </li>
+                            </xf:foreach>
+                        </ul>
+                    </div>
+                </xf:if>
+                <xf:if is="$selectedItem.doc.return">
+                    <div class="amxx-docBlock amxx-docBlock--return">
+                        <div class="amxx-docBlock-title">
+                            {{ phrase('inc_parser_return') }}
+                        </div>
+                        <p>{$selectedItem.doc.return|nl2br}</p>
+                    </div>
+                </xf:if>
+                <xf:if is="$selectedItem.doc.noreturn">
+                    <div class="amxx-docBlock amxx-docBlock--noreturn">
+                        {{ phrase('inc_parser_no_return') }}
+                    </div>
+                </xf:if>
+                <xf:if is="$selectedItem.doc.errors|count">
+                    <div class="amxx-docBlock amxx-docBlock--errors">
+                        <div class="amxx-docBlock-title">
+                            {{ phrase('inc_parser_errors') }}
+                        </div>
+                        <ul>
+                            <xf:foreach loop="$selectedItem.doc.errors" value="$err">
+                                <li>{$err}</li>
+                            </xf:foreach>
+                        </ul>
+                    </div>
+                </xf:if>
+            </div>
+        </xf:if>
+    </main>
+</div>
+<xf:page option="section" value="amxx" />
+<xf:if is="$xf.visitor.style_variation == 'default'">
+	<xf:css src="inc_parser_light.less" />
+<xf:else />
+	<xf:css src="inc_parser_dark.less" />
+</xf:if>]]></template>
+    <template type="public" title="inc_parser_light.less" version_id="1000070" version_string="1.0.0"><![CDATA[/* =================================================
+ * Pawn code blocks (LIGHT THEME)
+ * ================================================= */
+
+.pawn-code,
+.pawn-code--block {
+    background: #f5f6f7;
+    border: 1px solid #d0d4d9;
+    border-radius: 4px;
+    font-family: @xf-fontFamilyCode;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #1f2328;
+}
+
+.pawn-code {
+    padding: 8px 10px;
+    margin: 4px 0;
+}
+
+.pawn-code code {
+    background: none;
+    padding: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: hidden;
+}
+
+.pawn-code--block {
+    display: block;
+    padding: 8px 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+/* Single code line */
+.pawn-line {
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: hidden;
+}
+
+/* =================================================
+ * Pawn syntax highlighting (LIGHT)
+ * ================================================= */
+
+.pawn-keyword   { color: #6f42c1; }
+.pawn-function  { color: #0550ae; }
+.pawn-type      { color: #0a7a7a; }
+.pawn-param     { color: #24292f; }
+.pawn-define    { color: #0550ae; }
+.pawn-enum-item { color: #0550ae; }
+
+.pawn-number    { color: #22863a; }
+.pawn-default   { color: #22863a; }
+.pawn-boolean   { color: #005cc5; }
+
+.pawn-string    { color: #a31515; }
+
+.pawn-operator  { color: #444; }
+
+.pawn-comment {
+    color: #6a737d;
+    font-style: italic;
+}
+
+/* =================================================
+ * AMXX documentation blocks (LIGHT)
+ * ================================================= */
+
+.amxx-docBlock {
+    background: #f9fafb;
+    border: 1px solid #d0d4d9;
+    border-left-width: 4px;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin: 8px 0;
+    font-size: 13px;
+    color: #24292f;
+}
+
+.amxx-docBlock-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.amxx-docBlock--notes       { border-left-color: #d29922; }
+.amxx-docBlock--errors      { border-left-color: #cf222e; }
+
+.amxx-docBlock--noreturn {
+    font-style: italic;
+    color: #57606a;
+}
+
+.amxx-docBlock--deprecated  {
+    position: relative;
+    padding-left: 36px;
+    border-left-color: #cf222e;
+}
+
+.amxx-docBlock--deprecated::before {
+    .m-faIcon(@fa-var-duotone-triangle-exclamation);
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    font-size: 18px;
+    color: @xf-errorText;
+}
+
+/* Lists */
+.amxx-docBlock ul {
+    margin: 4px 0 0;
+}
+
+.amxx-docBlock li {
+    margin: 2px 0;
+}
+
+.amxx-docBlock-sep {
+    margin: 0 4px;
+    color: @xf-textColorMuted;
+}
+
+/* =================================================
+ * Layout
+ * ================================================= */
+
+.amxx-layout {
+    display: flex;
+    gap: 16px;
+}
+
+.amxx-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* =================================================
+ * Sidebar (LIGHT)
+ * ================================================= */
+
+.amxx-sidebar {
+    width: 280px;
+    min-width: 260px;
+    max-width: 320px;
+    background: #f3f4f6;
+    border: 1px solid #d0d4d9;
+    border-radius: 8px;
+    overflow-y: auto;
+}
+
+/* File block */
+.amxx-file {
+    margin: 0;
+    border: 0;
+}
+
+.amxx-file > summary {
+    cursor: pointer;
+    padding: 8px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #24292f;
+    background: #eaecef;
+    border-bottom: 1px solid #d0d4d9;
+    border-radius: 10px;
+    list-style: none;
+}
+
+.amxx-file > summary::-webkit-details-marker {
+    display: none;
+}
+
+.amxx-file[open] > summary {
+    background: #dde1e6;
+}
+
+/* =================================================
+ * Sidebar item list
+ * ================================================= */
+
+.amxx-itemList {
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+}
+
+.amxx-itemLink a {
+    display: block;
+    padding: 5px 18px 5px 28px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #24292f;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+}
+
+.amxx-itemLink a:hover {
+    background: #eaecef;
+}
+
+.amxx-itemLink.is-active a {
+    background: #dde1e6;
+    border-left-color: #0969da;
+    font-weight: 600;
+}
+
+/* Item type colors */
+.amxx-itemLink--function a { color: #0550ae; }
+.amxx-itemLink--define a,
+.amxx-itemLink--const a   { color: #0a7a7a; }
+.amxx-itemLink--enum a    { color: #6f42c1; }
+.amxx-itemLink--section a {
+    color: #a31515;
+    font-weight: 600;
+}
+
+/* =================================================
+ * Section wrapper (LIGHT)
+ * ================================================= */
+
+.amxx-section {
+    border: 1px solid #d0d4d9;
+    border-radius: 8px;
+    padding: 14px 14px 16px;
+    margin: 6px 0;
+    background: #f9fafb;
+}
+
+.amxx-section-header {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #24292f;
+}
+
+.amxx-section-items {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =================================================
+ * Item view
+ * ================================================= */
+
+.amxx-item-view {
+    margin-top: 10px;
+}
+
+/* =================================================
+ * Responsive
+ * ================================================= */
+
+@media (max-width: 900px) {
+    .amxx-layout {
+        flex-direction: column;
+    }
+
+    .amxx-sidebar {
+        width: auto;
+        max-width: none;
+    }
+}]]></template>
+    <template type="public" title="inc_parser_dark.less" version_id="1000070" version_string="1.0.0"><![CDATA[/* =================================================
+ * Pawn code blocks (DARK THEME)
+ * ================================================= */
+
+ .pawn-code,
+.pawn-code--block {
+    background: @xf-contentAltBg;
+    border: 1px solid @xf-borderColor;
+    border-radius: 4px;
+    font-family: @xf-fontFamilyCode;
+    font-size: 12px;
+    line-height: 1.4;
+    color: @xf-textColor;
+}
+
+.pawn-code {
+    padding: 8px 10px;
+    margin: 4px 0;
+}
+
+.pawn-code code {
+    background: none;
+    padding: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: hidden;
+}
+
+.pawn-code--block {
+    display: block;
+    padding: 8px 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+/* Одна строка кода (define, enum body) */
+.pawn-line {
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: hidden;
+}
+
+/* =================================================
+ * Pawn syntax highlighting
+ * ================================================= */
+
+.pawn-keyword   { color: #c586c0; }
+.pawn-function  { color: #4fc1ff; }
+.pawn-type      { color: #9cdcfe; }
+.pawn-param     { color: #dcdcaa; }
+.pawn-define    { color: #4fc1ff; }
+.pawn-enum-item { color: #4fc1ff; }
+
+.pawn-number    { color: #b5cea8; }
+.pawn-default   { color: #b5cea8; }
+
+.pawn-operator  { color: #d4d4d4; }
+
+.pawn-comment {
+    color: #808080;
+    font-style: italic;
+}
+
+/* =================================================
+ * AMXX documentation blocks (base)
+ * ================================================= */
+
+.amxx-docBlock {
+    background: var(--xf-contentBg);
+    border: 1px solid @xf-borderColor;
+    border-left-width: 4px;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin: 8px 0;
+    font-size: 13px;
+    color: @xf-textColor;
+}
+
+.amxx-docBlock-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* Variants */
+.amxx-docBlock--description { border-left-color: @xf-borderColor; }
+.amxx-docBlock--params      { border-left-color: @xf-borderColor; }
+.amxx-docBlock--return      { border-left-color: @xf-borderColor; }
+
+.amxx-docBlock--notes       { border-left-color: @xf-warningBorder; }
+.amxx-docBlock--errors      { border-left-color: @xf-warningBorder; }
+
+.amxx-docBlock--noreturn {
+    font-style: italic;
+    color: @xf-textColorMuted;
+    border-left-color: @xf-borderColor;
+}
+
+/* Deprecated */
+.amxx-docBlock--deprecated {
+    border-left-color: #cf222e;
+    position: relative;
+    padding-left: 36px;
+}
+
+.amxx-docBlock--deprecated::before {
+    .m-faIcon(@fa-var-duotone-triangle-exclamation);
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    font-size: 18px;
+    color: @xf-errorText;
+}
+
+/* Lists */
+.amxx-docBlock ul {
+    margin: 4px 0 0;
+}
+
+.amxx-docBlock li {
+    margin: 2px 0;
+}
+
+.amxx-docBlock-sep {
+    margin: 0 4px;
+    color: @xf-textColorMuted;
+}
+
+/* =================================================
+ * details / summary styling
+ * ================================================= */
+
+details > summary {
+    cursor: pointer;
+    list-style: none;
+    outline: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+/* File block header */
+details.block > summary.block-header {
+    padding: 8px 10px;
+    font-weight: 600;
+    background: @xf-contentBg;
+    border-bottom: 1px solid @xf-borderColor;
+    border-radius: 10px;
+}
+
+/* Item (function / enum / define) header */
+details.block--minor > summary.block-header {
+    padding: 6px 10px;
+    background: @xf-contentAltBg;
+    border-bottom: 1px solid @xf-borderColor;
+    border-radius: 10px;
+}
+
+details.block--minor {
+    margin: 6px 0;
+}
+
+/* No-doc items */
+.amxx-item--no-doc > summary {
+    cursor: default;
+}
+
+/* =================================================
+ * AMXX layout
+ * ================================================= */
+
+.amxx-layout {
+    display: flex;
+    gap: 16px;
+}
+
+/* Sidebar */
+.amxx-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+}
+
+/* Sidebar block header */
+.amxx-sidebar .block-header {
+    border-radius: 10px;
+}
+
+/* Content */
+.amxx-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* =================================================
+ * Sidebar file list (tiles)
+ * ================================================= */
+
+.amxx-fileList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.amxx-fileList li + li .amxx-fileLink {
+    border-top: 1px solid @xf-borderColor;
+}
+
+.amxx-fileList li {
+    margin: 4px 0;
+}
+
+.amxx-fileList a {
+    color: @xf-linkColor;
+    text-decoration: none;
+}
+
+.amxx-fileLink {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.3;
+    color: @xf-textColor;
+    text-decoration: none;
+    transition: background-color .15s ease;
+}
+
+.amxx-fileLink:hover {
+    background: @xf-contentHighlightBg;
+    text-decoration: none;
+}
+
+.amxx-fileLink.is-active {
+    font-weight: 600;
+    background: @xf-contentAltBg;
+    text-decoration: underline;
+}
+
+/* =================================================
+ * Content area tweaks
+ * ================================================= */
+
+/* Hide file header on the right side */
+.amxx-content .amxx-file > summary.block-header {
+    display: none;
+}
+
+/* =================================================
+ * Search
+ * ================================================= */
+
+#amxxSearch {
+    margin-bottom: 10px;
+}
+
+/* =================================================
+ * Responsive
+ * ================================================= */
+
+@media (max-width: 900px) {
+    .amxx-layout {
+        flex-direction: column;
+    }
+
+    .amxx-sidebar {
+        width: auto;
+    }
+}
+
+/* =========================
+ * SECTION
+ * ========================= */
+
+.amxx-section {
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 14px 14px 16px;
+    margin: 6px 0;
+}
+
+/* Section title */
+.amxx-section-header {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+/* ==============================
+ * SECTION ITEMS WRAPPER
+ * ============================== */
+
+.amxx-section-items {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==============================
+ * ITEM BLOCK
+ * ============================== */
+
+.amxx-item {
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* Item header */
+.amxx-item > summary,
+.amxx-item > .block-header {
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.amxx-item-view {
+	margin-top: 10px;
+}
+
+/* ===============================
+   SIDEBAR LAYOUT
+   =============================== */
+
+.amxx-sidebar {
+    width: 280px;
+    min-width: 260px;
+    max-width: 320px;
+    background: @xf-contentAltBg;
+	border-radius: 8px;
+    overflow-y: auto;
+}
+
+/* ===============================
+   FILE BLOCK
+   =============================== */
+
+.amxx-file {
+    margin: 0;
+    border: 0;
+}
+
+.amxx-file > summary {
+    cursor: pointer;
+    padding: 8px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #e6e6e6;
+    background: @xf-contentAltBg;
+    border-bottom: 1px solid #2b2d31;
+	border-radius: 10px;
+    list-style: none;
+}
+
+.amxx-file > summary::-webkit-details-marker {
+    display: none;
+}
+
+.amxx-file[open] > summary {
+    background: #2a2c31;
+}
+
+/* ===============================
+   ITEM LIST
+   =============================== */
+
+.amxx-itemList {
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+}
+
+/* ===============================
+   ITEM LINK
+   =============================== */
+
+.amxx-itemLink {
+    margin: 0;
+    padding: 0;
+}
+
+.amxx-itemLink a {
+    display: block;
+    padding: 5px 18px 5px 28px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #cfd2d8;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+}
+
+.amxx-itemLink a:hover {
+    background: #2a2c31;
+    color: #ffffff;
+}
+
+.amxx-itemLink.is-active a {
+    background: #31343a;
+    border-left-color: #4ea1ff;
+    color: #ffffff;
+}
+
+/* ===============================
+   ITEM TYPE COLORS
+   =============================== */
+
+.amxx-itemLink--function a {
+    color: #a6e3a1;
+}
+
+.amxx-itemLink--define a,
+.amxx-itemLink--const a {
+    color: #f9c97c;
+}
+
+.amxx-itemLink--enum a {
+    color: #89b4fa;
+}
+
+.amxx-itemLink--section a {
+    color: #f38ba8;
+    font-weight: 600;
+}
+
+/* ===============================
+   SCROLLBAR (optional, nice)
+   =============================== */
+
+.amxx-sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.amxx-sidebar::-webkit-scrollbar-thumb {
+    background: #3a3d45;
+    border-radius: 4px;
+}
+
+.amxx-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}]]></template>
+</templates>

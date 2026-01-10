@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+    <phrase title="inc_parser_deprecated"><![CDATA[Deprecated]]></phrase>
+    <phrase title="inc_parser_description"><![CDATA[Description]]></phrase>
+    <phrase title="inc_parser_errors"><![CDATA[Errors]]></phrase>
+    <phrase title="inc_parser_include"><![CDATA[Header Files]]></phrase>
+    <phrase title="inc_parser_no_return"><![CDATA[No return value]]></phrase>
+    <phrase title="inc_parser_notes"><![CDATA[Notes]]></phrase>
+    <phrase title="inc_parser_parameters"><![CDATA[Parameters]]></phrase>
+    <phrase title="inc_parser_return"><![CDATA[Return]]></phrase>
+    <phrase title="inc_parser_search_placeholder"><![CDATA[Search…]]></phrase>
+    <phrase title="inc_parser_title"><![CDATA[AMX X Documentation]]></phrase>
+</phrases>
