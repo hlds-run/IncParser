@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
-    <template type="public" title="inc_parser_viewer" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('inc_parser_title') }}</xf:title>
+    <template type="public" title="inc_parser_viewer" version_id="2000070" version_string="2.0.0"><![CDATA[<xf:title>{{ phrase('inc_parser_title') }}</xf:title>
 <div class="amxx-layout">
     <aside class="amxx-sidebar">
         <div class="block-header">
@@ -52,14 +52,7 @@
                                         <code>{$item.highlighted|default($item.signature)|raw}</code>
                                     </div>
                                 </xf:if>
-                                <xf:if is="$item.doc.description">
-                                    <div class="amxx-docBlock amxx-docBlock--description">
-                                        <div class="amxx-docBlock-title">
-                                            {{ phrase('inc_parser_description') }}
-                                        </div>
-                                        <p>{$item.doc.description}</p>
-                                    </div>
-                                </xf:if>
+                                <xf:macro id="inc_parser_docblock_macros::render" arg-doc="{$item.doc}" />
                             </xf:foreach>
                         </div>
                     </div>
@@ -72,361 +65,127 @@
                         </div>
                     </xf:if>
                 </xf:if>
-                <xf:if is="$selectedItem.doc.deprecated">
-                    <div class="amxx-docBlock amxx-docBlock--deprecated">
-                        <strong>{{ phrase('inc_parser_deprecated') }}:</strong>
-                        {$selectedItem.doc.deprecated}
-                    </div>
-                </xf:if>
-                <xf:if is="$selectedItem.doc.description">
-                    <div class="amxx-docBlock amxx-docBlock--description">
-                        <div class="amxx-docBlock-title">
-                            {{ phrase('inc_parser_description') }}
-                        </div>
-                        <p>{$selectedItem.doc.description}</p>
-                    </div>
-                </xf:if>
-                <xf:if is="$selectedItem.doc.notes|count">
-                    <div class="amxx-docBlock amxx-docBlock--notes">
-                        <div class="amxx-docBlock-title">
-                            {{ phrase('inc_parser_notes') }}
-                        </div>
-                        <ul>
-                            <xf:foreach loop="$selectedItem.doc.notes" value="$note">
-                                <li>{$note}</li>
-                            </xf:foreach>
-                        </ul>
-                    </div>
-                </xf:if>
-                <xf:if is="$selectedItem.doc.params|count">
-                    <div class="amxx-docBlock amxx-docBlock--params">
-                        <div class="amxx-docBlock-title">
-                            {{ phrase('inc_parser_parameters') }}
-                        </div>
-                        <ul>
-                            <xf:foreach loop="$selectedItem.doc.params" value="$p">
-                                <li>
-                                    <strong>{$p.name}</strong>
-                                    <span class="amxx-docBlock-sep">—</span>
-                                    {$p.desc}
-                                </li>
-                            </xf:foreach>
-                        </ul>
-                    </div>
-                </xf:if>
-                <xf:if is="$selectedItem.doc.return">
-                    <div class="amxx-docBlock amxx-docBlock--return">
-                        <div class="amxx-docBlock-title">
-                            {{ phrase('inc_parser_return') }}
-                        </div>
-                        <p>{$selectedItem.doc.return|nl2br}</p>
-                    </div>
-                </xf:if>
-                <xf:if is="$selectedItem.doc.noreturn">
-                    <div class="amxx-docBlock amxx-docBlock--noreturn">
-                        {{ phrase('inc_parser_no_return') }}
-                    </div>
-                </xf:if>
-                <xf:if is="$selectedItem.doc.errors|count">
-                    <div class="amxx-docBlock amxx-docBlock--errors">
-                        <div class="amxx-docBlock-title">
-                            {{ phrase('inc_parser_errors') }}
-                        </div>
-                        <ul>
-                            <xf:foreach loop="$selectedItem.doc.errors" value="$err">
-                                <li>{$err}</li>
-                            </xf:foreach>
-                        </ul>
-                    </div>
-                </xf:if>
+                <xf:macro id="inc_parser_docblock_macros::render" arg-doc="{$selectedItem.doc}" />
             </div>
         </xf:if>
     </main>
 </div>
 <xf:page option="section" value="amxx" />
-<xf:if is="$xf.visitor.style_variation == 'default'">
-	<xf:css src="inc_parser_light.less" />
-<xf:else />
-	<xf:css src="inc_parser_dark.less" />
-</xf:if>]]></template>
-    <template type="public" title="inc_parser_light.less" version_id="1000070" version_string="1.0.0"><![CDATA[/* =================================================
- * Pawn code blocks (LIGHT THEME)
- * ================================================= */
-
-.pawn-code,
+<xf:css src="inc_parser.less" />]]></template>
+    <template type="public" title="inc_parser_docblock_macros" version_id="2000070" version_string="2.0.0"><![CDATA[<xf:macro name="render" arg-doc="!" arg-prefix="">
+    <xf:if is="$doc.description|count">
+        <div class="amxx-docBlock amxx-docBlock--description">
+            <div class="amxx-docBlock-title">
+                {{ phrase('inc_parser_description') }}
+            </div>
+            <xf:foreach loop="$doc.description" value="$line">
+                <p>{$line|nl2br}</p>
+            </xf:foreach>
+        </div>
+    </xf:if>
+    <xf:if is="$doc.deprecated|count">
+        <div class="amxx-docBlock amxx-docBlock--deprecated">
+            <strong>{{ phrase('inc_parser_deprecated') }}</strong>
+            <xf:foreach loop="$doc.deprecated" value="$line">
+                <p>{$line|nl2br}</p>
+            </xf:foreach>
+        </div>
+    </xf:if>
+    <xf:if is="$doc.notes|count">
+        <div class="amxx-docBlock amxx-docBlock--notes">
+            <div class="amxx-docBlock-title">
+                {{ phrase('inc_parser_notes') }}
+            </div>
+            <ul>
+                <xf:foreach loop="$doc.notes" value="$noteLines">
+                    <li>
+                        <xf:foreach loop="$noteLines" value="$line" i="$i">
+                            <xf:if is="$i > 1">
+                                <p>{$line|nl2br}</p>
+                            <xf:else />
+                                {$line|nl2br}
+                            </xf:if>
+                        </xf:foreach>
+                    </li>
+                </xf:foreach>
+            </ul>
+        </div>
+    </xf:if>
+    <xf:if is="$doc.params|count">
+        <div class="amxx-docBlock amxx-docBlock--params">
+            <div class="amxx-docBlock-title">
+                {{ phrase('inc_parser_parameters') }}
+            </div>
+            <ul>
+                <xf:foreach loop="$doc.params" value="$param">
+                    <li>
+                        <strong>{$param.name}</strong>
+                        <span class="amxx-docBlock-sep">—</span>
+                        <xf:foreach loop="$param.desc" value="$line" i="$i">
+                            <xf:if is="$i > 1">
+                                <p>{$line|nl2br}</p>
+                            <xf:else />
+                                {$line|nl2br}
+                            </xf:if>
+                        </xf:foreach>
+                    </li>
+                </xf:foreach>
+            </ul>
+        </div>
+    </xf:if>
+    <xf:if is="$doc.return|count">
+        <div class="amxx-docBlock amxx-docBlock--return">
+            <div class="amxx-docBlock-title">
+                {{ phrase('inc_parser_return') }}
+            </div>
+            <xf:foreach loop="$doc.return" value="$line">
+                <p>{$line|nl2br}</p>
+            </xf:foreach>
+        </div>
+    </xf:if>
+    <xf:if is="$doc.noreturn">
+        <div class="amxx-docBlock amxx-docBlock--noreturn">
+            {{ phrase('inc_parser_no_return') }}
+        </div>
+    </xf:if>
+    <xf:if is="$doc.errors|count">
+        <div class="amxx-docBlock amxx-docBlock--errors">
+            <div class="amxx-docBlock-title">
+                {{ phrase('inc_parser_errors') }}
+            </div>
+            <ul>
+                <xf:foreach loop="$doc.errors" value="$errorLines">
+                    <li>
+                        <xf:foreach loop="$errorLines" value="$line" i="$i">
+                            <xf:if is="$i > 1">
+                                <p>{$line|nl2br}</p>
+                            <xf:else />
+                                {$line|nl2br}
+                            </xf:if>
+                        </xf:foreach>
+                    </li>
+                </xf:foreach>
+            </ul>
+        </div>
+    </xf:if>
+</xf:macro>]]></template>
+    <template type="public" title="inc_parser.less" version_id="2000070" version_string="2.0.0"><![CDATA[.pawn-code,
 .pawn-code--block {
     background: #f5f6f7;
     border: 1px solid #d0d4d9;
-    border-radius: 4px;
-    font-family: @xf-fontFamilyCode;
-    font-size: 12px;
-    line-height: 1.4;
     color: #1f2328;
-}
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        background: @xf-contentAltBg;
+        border: 1px solid @xf-borderColor;
+        color: @xf-textColor;
+    });
 
-.pawn-code {
-    padding: 8px 10px;
-    margin: 4px 0;
-}
-
-.pawn-code code {
-    background: none;
-    padding: 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-x: hidden;
-}
-
-.pawn-code--block {
-    display: block;
-    padding: 8px 12px;
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow: hidden;
-}
-
-/* Single code line */
-.pawn-line {
-    display: block;
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-x: hidden;
-}
-
-/* =================================================
- * Pawn syntax highlighting (LIGHT)
- * ================================================= */
-
-.pawn-keyword   { color: #6f42c1; }
-.pawn-function  { color: #0550ae; }
-.pawn-type      { color: #0a7a7a; }
-.pawn-param     { color: #24292f; }
-.pawn-define    { color: #0550ae; }
-.pawn-enum-item { color: #0550ae; }
-
-.pawn-number    { color: #22863a; }
-.pawn-default   { color: #22863a; }
-.pawn-boolean   { color: #005cc5; }
-
-.pawn-string    { color: #a31515; }
-
-.pawn-operator  { color: #444; }
-
-.pawn-comment {
-    color: #6a737d;
-    font-style: italic;
-}
-
-/* =================================================
- * AMXX documentation blocks (LIGHT)
- * ================================================= */
-
-.amxx-docBlock {
-    background: #f9fafb;
-    border: 1px solid #d0d4d9;
-    border-left-width: 4px;
-    border-radius: 4px;
-    padding: 8px 10px;
-    margin: 8px 0;
-    font-size: 13px;
-    color: #24292f;
-}
-
-.amxx-docBlock-title {
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-
-.amxx-docBlock--notes       { border-left-color: #d29922; }
-.amxx-docBlock--errors      { border-left-color: #cf222e; }
-
-.amxx-docBlock--noreturn {
-    font-style: italic;
-    color: #57606a;
-}
-
-.amxx-docBlock--deprecated  {
-    position: relative;
-    padding-left: 36px;
-    border-left-color: #cf222e;
-}
-
-.amxx-docBlock--deprecated::before {
-    .m-faIcon(@fa-var-duotone-triangle-exclamation);
-    position: absolute;
-    left: 10px;
-    top: 8px;
-    font-size: 18px;
-    color: @xf-errorText;
-}
-
-/* Lists */
-.amxx-docBlock ul {
-    margin: 4px 0 0;
-}
-
-.amxx-docBlock li {
-    margin: 2px 0;
-}
-
-.amxx-docBlock-sep {
-    margin: 0 4px;
-    color: @xf-textColorMuted;
-}
-
-/* =================================================
- * Layout
- * ================================================= */
-
-.amxx-layout {
-    display: flex;
-    gap: 16px;
-}
-
-.amxx-content {
-    flex: 1;
-    min-width: 0;
-}
-
-/* =================================================
- * Sidebar (LIGHT)
- * ================================================= */
-
-.amxx-sidebar {
-    width: 280px;
-    min-width: 260px;
-    max-width: 320px;
-    background: #f3f4f6;
-    border: 1px solid #d0d4d9;
-    border-radius: 8px;
-    overflow-y: auto;
-}
-
-/* File block */
-.amxx-file {
-    margin: 0;
-    border: 0;
-}
-
-.amxx-file > summary {
-    cursor: pointer;
-    padding: 8px 14px;
-    font-weight: 600;
-    font-size: 13px;
-    color: #24292f;
-    background: #eaecef;
-    border-bottom: 1px solid #d0d4d9;
-    border-radius: 10px;
-    list-style: none;
-}
-
-.amxx-file > summary::-webkit-details-marker {
-    display: none;
-}
-
-.amxx-file[open] > summary {
-    background: #dde1e6;
-}
-
-/* =================================================
- * Sidebar item list
- * ================================================= */
-
-.amxx-itemList {
-    list-style: none;
-    margin: 0;
-    padding: 6px 0;
-}
-
-.amxx-itemLink a {
-    display: block;
-    padding: 5px 18px 5px 28px;
-    font-size: 13px;
-    line-height: 1.4;
-    color: #24292f;
-    text-decoration: none;
-    border-left: 3px solid transparent;
-}
-
-.amxx-itemLink a:hover {
-    background: #eaecef;
-}
-
-.amxx-itemLink.is-active a {
-    background: #dde1e6;
-    border-left-color: #0969da;
-    font-weight: 600;
-}
-
-/* Item type colors */
-.amxx-itemLink--function a { color: #0550ae; }
-.amxx-itemLink--define a,
-.amxx-itemLink--const a   { color: #0a7a7a; }
-.amxx-itemLink--enum a    { color: #6f42c1; }
-.amxx-itemLink--section a {
-    color: #a31515;
-    font-weight: 600;
-}
-
-/* =================================================
- * Section wrapper (LIGHT)
- * ================================================= */
-
-.amxx-section {
-    border: 1px solid #d0d4d9;
-    border-radius: 8px;
-    padding: 14px 14px 16px;
-    margin: 6px 0;
-    background: #f9fafb;
-}
-
-.amxx-section-header {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 14px;
-    color: #24292f;
-}
-
-.amxx-section-items {
-    display: flex;
-    flex-direction: column;
-}
-
-/* =================================================
- * Item view
- * ================================================= */
-
-.amxx-item-view {
-    margin-top: 10px;
-}
-
-/* =================================================
- * Responsive
- * ================================================= */
-
-@media (max-width: 900px) {
-    .amxx-layout {
-        flex-direction: column;
-    }
-
-    .amxx-sidebar {
-        width: auto;
-        max-width: none;
-    }
-}]]></template>
-    <template type="public" title="inc_parser_dark.less" version_id="1000070" version_string="1.0.0"><![CDATA[/* =================================================
- * Pawn code blocks (DARK THEME)
- * ================================================= */
-
- .pawn-code,
-.pawn-code--block {
-    background: @xf-contentAltBg;
-    border: 1px solid @xf-borderColor;
     border-radius: 4px;
     font-family: @xf-fontFamilyCode;
     font-size: 12px;
     line-height: 1.4;
-    color: @xf-textColor;
 }
 
 .pawn-code {
@@ -462,21 +221,86 @@
  * Pawn syntax highlighting
  * ================================================= */
 
-.pawn-keyword   { color: #c586c0; }
-.pawn-function  { color: #4fc1ff; }
-.pawn-type      { color: #9cdcfe; }
-.pawn-param     { color: #dcdcaa; }
-.pawn-define    { color: #4fc1ff; }
-.pawn-enum-item { color: #4fc1ff; }
+.pawn-keyword {
+    color: #6f42c1;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #c586c0;
+    });
+}
+.pawn-function {
+    color: #0550ae;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #4fc1ff;
+    });
+}
+.pawn-type {
+    color: #0a7a7a;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #9cdcfe;
+    });
+}
+.pawn-param {
+    color: #24292f;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #dcdcaa;
+    });
+}
+.pawn-define {
+    color: #0550ae;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #4fc1ff;
+    });
+}
+.pawn-enum-item {
+    color: #0550ae;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #4fc1ff;
+    });
+}
+.pawn-number {
+    color: #22863a;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #b5cea8;
+    });
+}
+.pawn-default {
+    color: #22863a;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #b5cea8;
+    });
+}
+.pawn-operator  {
+    color: #444;
 
-.pawn-number    { color: #b5cea8; }
-.pawn-default   { color: #b5cea8; }
-
-.pawn-operator  { color: #d4d4d4; }
-
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #d4d4d4;
+    });
+}
 .pawn-comment {
-    color: #808080;
+    color: #6a737d;
     font-style: italic;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #808080;
+    });
 }
 
 /* =================================================
@@ -484,14 +308,23 @@
  * ================================================= */
 
 .amxx-docBlock {
-    background: var(--xf-contentBg);
-    border: 1px solid @xf-borderColor;
+    background: #f9fafb;
+    border: 1px solid #d0d4d9;
+    color: #24292f;
     border-left-width: 4px;
     border-radius: 4px;
     padding: 8px 10px;
     margin: 8px 0;
     font-size: 13px;
-    color: @xf-textColor;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        background: @xf-contentBg;
+        border: 1px solid #24292f;
+        border-left-width: 4px;
+        border-radius: 4px;
+        color: @xf-textColor;
+    });
 }
 
 .amxx-docBlock-title {
@@ -500,28 +333,48 @@
 }
 
 /* Variants */
-.amxx-docBlock--description { border-left-color: @xf-borderColor; }
-.amxx-docBlock--params      { border-left-color: @xf-borderColor; }
-.amxx-docBlock--return      { border-left-color: @xf-borderColor; }
 
-.amxx-docBlock--notes       { border-left-color: @xf-warningBorder; }
-.amxx-docBlock--errors      { border-left-color: @xf-warningBorder; }
+.amxx-docBlock--notes {
+    color: #d29922;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #d29922;
+    });
+}
+.amxx-docBlock--errors {
+    color: #cf222e;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #cf222e;
+    });
+}
 
 .amxx-docBlock--noreturn {
     font-style: italic;
     color: @xf-textColorMuted;
-    border-left-color: @xf-borderColor;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: @xf-textColorMuted;
+    });
 }
 
 /* Deprecated */
 .amxx-docBlock--deprecated {
+    color: #cf222e;
     border-left-color: #cf222e;
     position: relative;
-    padding-left: 36px;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #cf222e;
+        border-left-color: #cf222e;
+    });
 }
 
 .amxx-docBlock--deprecated::before {
-    .m-faIcon(@fa-var-duotone-triangle-exclamation);
     position: absolute;
     left: 10px;
     top: 8px;
@@ -536,6 +389,12 @@
 
 .amxx-docBlock li {
     margin: 2px 0;
+}
+
+.amxx-docBlock p {
+	margin: 0;
+	margin-left: 10px;
+	padding-top: 0;
 }
 
 .amxx-docBlock-sep {
@@ -740,9 +599,15 @@ details.block--minor {
     width: 280px;
     min-width: 260px;
     max-width: 320px;
-    background: @xf-contentAltBg;
 	border-radius: 8px;
     overflow-y: auto;
+
+    background: #f3f4f6;
+    
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        background: @xf-contentAltBg;
+    });
 }
 
 /* ===============================
@@ -759,11 +624,19 @@ details.block--minor {
     padding: 8px 14px;
     font-weight: 600;
     font-size: 13px;
-    color: #e6e6e6;
-    background: @xf-contentAltBg;
-    border-bottom: 1px solid #2b2d31;
 	border-radius: 10px;
     list-style: none;
+
+    color: #24292f;
+    background: #eaecef;
+    border-bottom: 1px solid #d0d4d9;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #e6e6e6;
+        background: @xf-contentAltBg;
+        border-bottom: 1px solid #2b2d31;
+    });
 }
 
 .amxx-file > summary::-webkit-details-marker {
@@ -771,7 +644,12 @@ details.block--minor {
 }
 
 .amxx-file[open] > summary {
-    background: #2a2c31;
+    background: #dde1e6;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        background: #2a2c31;
+    });
 }
 
 /* ===============================
@@ -798,20 +676,36 @@ details.block--minor {
     padding: 5px 18px 5px 28px;
     font-size: 13px;
     line-height: 1.4;
-    color: #cfd2d8;
     text-decoration: none;
     border-left: 3px solid transparent;
+
+    color: #24292f;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #cfd2d8;
+    });
 }
 
 .amxx-itemLink a:hover {
-    background: #2a2c31;
+    background: #eaecef;
     color: #ffffff;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        background: #2a2c31;
+    });
 }
 
 .amxx-itemLink.is-active a {
-    background: #31343a;
-    border-left-color: #4ea1ff;
-    color: #ffffff;
+    background: #dde1e6;
+    border-left-color: #0969da;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        background: #31343a;
+        border-left-color: #4ea1ff;
+    });
 }
 
 /* ===============================
@@ -819,21 +713,41 @@ details.block--minor {
    =============================== */
 
 .amxx-itemLink--function a {
-    color: #a6e3a1;
+    color: #0550ae;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #a6e3a1;
+    });
 }
 
 .amxx-itemLink--define a,
 .amxx-itemLink--const a {
-    color: #f9c97c;
+    color: #0a7a7a;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #f9c97c;
+    });
 }
 
 .amxx-itemLink--enum a {
-    color: #89b4fa;
+    color: #6f42c1;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #89b4fa;
+    });
 }
 
 .amxx-itemLink--section a {
-    color: #f38ba8;
+    color: #a31515;
     font-weight: 600;
+
+    .m-colorScheme({{ $xf.style.getAlternateStyleType() }},
+    {
+        color: #f38ba8;
+    });
 }
 
 /* ===============================

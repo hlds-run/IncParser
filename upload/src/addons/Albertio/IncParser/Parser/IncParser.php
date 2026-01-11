@@ -274,11 +274,11 @@ class IncParser
     protected function parseDocBlock(string $raw): array
     {
         $doc = [
-            "description" => "",
+            "description" => [],
             "notes" => [],
             "params" => [],
-            "return" => null,
-            "deprecated" => null,
+            "return" => [],
+            "deprecated" => [],
             "errors" => [],
             "noreturn" => false,
 
@@ -311,24 +311,24 @@ class IncParser
                     $doc["endsection"] = true;
                 } elseif (str_starts_with($line, "@note")) {
                     $current = "note";
-                    $doc["notes"][] = trim(substr($line, 5));
+                    $doc["notes"][] = [ trim(substr($line, 5)) ];
                 } elseif (str_starts_with($line, "@param")) {
                     $current = "param";
                     if (preg_match("/@param\s+([^\s]+)\s*(.*)/", $line, $m)) {
                         $doc["params"][] = [
                             "name" => $m[1],
-                            "desc" => trim($m[2] ?? ""),
+                            "desc" => [$m[2] ?? ""],
                         ];
                     }
                 } elseif (str_starts_with($line, "@return")) {
                     $current = "return";
-                    $doc["return"] = trim(substr($line, 7));
+                    $doc["return"][] = trim(substr($line, 7));
                 } elseif (str_starts_with($line, "@deprecated")) {
                     $current = "deprecated";
-                    $doc["deprecated"] = trim(substr($line, 11));
+                    $doc["deprecated"][] = trim(substr($line, 11));
                 } elseif (str_starts_with($line, "@error")) {
                     $current = "error";
-                    $doc["errors"][] = trim(substr($line, 6));
+                    $doc["errors"][] = [ trim(substr($line, 6)) ];
                 } elseif (str_starts_with($line, "@noreturn")) {
                     $doc["noreturn"] = true;
                     $current = null;
@@ -338,30 +338,27 @@ class IncParser
 
             switch ($current) {
                 case "description":
-                    $doc["description"] .=
-                        ($doc["description"] ? " " : "") . $line;
+                    $doc["description"][] = $line;
                     break;
 
                 case "note":
-                    $doc["notes"][array_key_last($doc["notes"])] .= " " . $line;
+                    $doc["notes"][array_key_last($doc["notes"])][] = $line;
                     break;
 
                 case "param":
-                    $doc["params"][array_key_last($doc["params"])]["desc"] .=
-                        " " . $line;
+                    $doc["params"][array_key_last($doc["params"])]["desc"][] = $line;
                     break;
 
                 case "return":
-                    $doc["return"] .= " " . $line;
+                    $doc["return"][] = $line;
                     break;
 
                 case "deprecated":
-                    $doc["deprecated"] .= " " . $line;
+                    $doc["deprecated"][] = $line;
                     break;
 
                 case "error":
-                    $doc["errors"][array_key_last($doc["errors"])] .=
-                        " " . $line;
+                    $doc["errors"][array_key_last($doc["errors"])][] = $line;
                     break;
             }
         }

@@ -9,20 +9,19 @@ use XF\AddOn\StepRunnerUninstallTrait;
 
 class Setup extends AbstractSetup
 {
-    use StepRunnerInstallTrait,
-        StepRunnerUpgradeTrait,
-        StepRunnerUninstallTrait;
-        
-    public function installStep1()
+    use StepRunnerInstallTrait;
+    use StepRunnerUpgradeTrait;
+    use StepRunnerUninstallTrait;
+
+    public function installStep1(): void
     {
     }
 
-    public function upgrade(array $stepParams = [])
+    public function upgrade(array $stepParams = []): void
     {
-        return [];
     }
 
-    public function uninstallStep1()
+    public function uninstallStep1(): void
     {
     }
 }
