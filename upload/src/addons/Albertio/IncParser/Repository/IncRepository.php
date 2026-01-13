@@ -10,14 +10,14 @@ class IncRepository extends Repository
 {
     protected function path(): string
     {
-        return __DIR__ . "/../include/";
+        return __DIR__ . '/../include/';
     }
 
     public function getFileList(): array
     {
         $files = [];
 
-        foreach (glob($this->path() . "*.inc") as $file) {
+        foreach (glob($this->path() . '*.inc') as $file) {
             $files[] = basename($file, ".inc");
         }
 
@@ -27,7 +27,7 @@ class IncRepository extends Repository
 
     public function getFileItems(string $name): array
     {
-        $path = $this->path() . $name . ".inc";
+        $path = $this->path() . $name . '.inc';
 
         if (!is_file($path)) {
             return [];
@@ -63,10 +63,10 @@ class IncRepository extends Repository
                 $item["highlighted"] = null;
             }
 
-            if (!empty($item['body'])) {
-                $item['highlightedBody'] = array_map(
+            if (!empty($item["body"])) {
+                $item["highlightedBody"] = array_map(
                     fn($line) => $hl->highlight($line),
-                    preg_split("/\R/", $item['body'])
+                    preg_split("/\R/", $item["body"])
                 );
             }
         }
@@ -89,10 +89,11 @@ class IncRepository extends Repository
                             ? $item["title"]
                             : $item["id"],
                     "kind" => $item["kind"],
+                    "signature" => $item["signature"] ?? null,
                 ];
             }
 
-            //usort($names, fn($a, $b) => strcasecmp($a['name'], $b['name']));
+            usort($names, fn($a, $b) => strcasecmp($a["name"], $b["name"]));
 
             $out[] = [
                 "file" => $file,
@@ -107,34 +108,92 @@ class IncRepository extends Repository
     {
         $query = mb_strtolower(trim($query));
 
-        if ($query === '') {
+        if ($query === "") {
             return $items;
         }
 
         $result = [];
 
         foreach ($items as $file) {
-            if (empty($file['items']) || !is_array($file['items'])) {
+            if (empty($file["items"]) || !is_array($file["items"])) {
                 continue;
             }
 
             $matchedItems = [];
 
-            foreach ($file['items'] as $item) {
-                if (
-                    isset($item['id']) &&
-                    mb_stripos(mb_strtolower($item['id']), $query) !== false
-                ) {
+            foreach ($file["items"] as $item) {
+                $haystack = $this->buildSearchHaystack($item);
+
+                if (mb_stripos($haystack, $query) !== false) {
                     $matchedItems[] = $item;
                 }
             }
 
             if (!empty($matchedItems)) {
-                $file['items'] = $matchedItems;
+                $file["items"] = $matchedItems;
                 $result[] = $file;
             }
         }
 
         return $result;
+    }
+
+    protected function buildSearchHaystack(array $item): string
+    {
+        $parts = [];
+
+        if (!empty($item["id"])) {
+            $parts[] = $item["id"];
+        }
+
+        if (!empty($item["signature"])) {
+            if (is_array($item["signature"])) {
+                $parts[] = implode(" ", $item["signature"]);
+            } else {
+                $parts[] = $item["signature"];
+            }
+        }
+
+        if (!empty($item["body"])) {
+            if (is_array($item["body"])) {
+                $parts[] = implode(" ", $item["body"]);
+            } else {
+                $parts[] = $item["body"];
+            }
+        }
+
+        if (!empty($item["doc"]) && is_array($item["doc"])) {
+            foreach ($item["doc"] as $key => $value) {
+
+                if (is_string($value)) {
+                    $parts[] = $value;
+                    continue;
+                }
+
+                if (is_array($value)) {
+                    foreach ($value as $entry) {
+                        if (is_string($entry)) {
+                            $parts[] = $entry;
+                            continue;
+                        }
+
+                        if (is_array($entry)) {
+                            if (isset($entry["name"])) {
+                                $parts[] = $entry["name"];
+                            }
+                            if (isset($entry["desc"])) {
+                                if (is_array($entry["desc"])) {
+                                    $parts[] = implode(" ", $entry["desc"]);
+                                } else {
+                                    $parts[] = $entry["desc"];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return mb_strtolower(implode(" ", $parts));
     }
 }
