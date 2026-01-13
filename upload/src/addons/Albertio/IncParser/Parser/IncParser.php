@@ -88,10 +88,8 @@ class IncParser
                 }
                 $i--;
 
-                $str = $group[0];
-                $sub = substr($str, 8);
-                $pos = strpos($sub, " ");
-                $result = $pos !== false ? substr($sub, 0, $pos) : $sub;
+                preg_match('/^#define\s+(\S+).*$/', $group[0], $matches);
+                $result = $matches[1];
 
                 $this->addItem([
                     "kind" => "define",
@@ -136,16 +134,15 @@ class IncParser
                         substr_count($line, "{") - substr_count($line, "}");
                 }
 
-                if ($enumLines[0] === "enum") {
-                    $str = $enumLines[2];
-                    $sub = substr($str, 4);
-                    $pos = strpos($sub, " ");
-                    $result = $pos !== false ? substr($sub, 0, $pos) : $sub;
+                if (preg_match('/\s+([A-Za-z_][A-Za-z0-9_]*)/', $enumLines[0], $matches)) {
+                    $result = $matches[1];
                 } else {
-                    $str = $enumLines[0];
-                    $sub = substr($str, 5);
-                    $pos = strpos($sub, " ");
-                    $result = $pos !== false ? substr($sub, 0, $pos) : $sub;
+                    for ($lineNum = 1; $lineNum < count($enumLines); $lineNum++) {
+                        if (preg_match('/^\s*([A-Za-z_][A-Za-z0-9_]*)/', $enumLines[$lineNum], $matches)) {
+                            $result = $matches[1];
+                            break;
+                        }
+                    }
                 }
 
                 $this->addItem([
