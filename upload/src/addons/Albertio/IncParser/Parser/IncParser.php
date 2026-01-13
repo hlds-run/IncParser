@@ -88,7 +88,7 @@ class IncParser
                 }
                 $i--;
 
-                preg_match('/^#define\s+(\S+).*$/', $group[0], $matches);
+                preg_match("/^#define\s+(\S+).*$/", $group[0], $matches);
                 $result = $matches[1];
 
                 $this->addItem([
@@ -125,7 +125,7 @@ class IncParser
                     $trim = ltrim($line);
 
                     if ($trim !== "{" && $trim !== "}" && $trim !== "};") {
-                        $line = "    " . $trim;
+                        $line = '    ' . $trim;
                     }
 
                     $enumLines[] = $line;
@@ -134,11 +134,11 @@ class IncParser
                         substr_count($line, "{") - substr_count($line, "}");
                 }
 
-                if (preg_match('/\s+([A-Za-z_][A-Za-z0-9_]*)/', $enumLines[0], $matches)) {
+                if (preg_match("/enum\s+([A-Za-z_][A-Za-z0-9_]*)/", $enumLines[0], $matches)) {
                     $result = $matches[1];
                 } else {
                     for ($lineNum = 1; $lineNum < count($enumLines); $lineNum++) {
-                        if (preg_match('/^\s*([A-Za-z_][A-Za-z0-9_]*)/', $enumLines[$lineNum], $matches)) {
+                        if (preg_match("/^\s*([A-Za-z_][A-Za-z0-9_]*)/", $enumLines[$lineNum], $matches)) {
                             $result = $matches[1];
                             break;
                         }
@@ -215,13 +215,13 @@ class IncParser
                 if (preg_match("/\b([A-Za-z_]\w*)\s*\(/", $signature, $m)) {
                     $name = $m[1];
                 } else {
-                    $name = "fn_" . count($this->items);
+                    $name = 'fn_' . count($this->items);
                 }
 
                 $this->addItem([
                     "kind" => "function",
                     "id" => $name,
-                    "signature" => rtrim($signature, ";") . ";",
+                    "signature" => rtrim($signature, ";") . ';',
                     "body" => $body,
                     "doc" => $this->pendingDoc ?? [],
                 ]);
