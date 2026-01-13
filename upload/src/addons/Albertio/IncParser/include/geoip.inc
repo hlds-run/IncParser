@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// GeoIP Module Functions
-//
-
 #if defined geoip_included
 	#endinput
 #endif
@@ -20,10 +7,6 @@
 #if !defined AMXMODX_NOAUTOLOAD
 	#pragma loadlib geoip
 #endif
-
-/**
- * @global  IP addresses passed to these natives can contain ports, the ports will be ignored.
- */
 
 /**
  * Look up the two character country code for a given IP address.
@@ -217,6 +200,18 @@ native Float:geoip_longitude(const ip[]);
 
 native Float:geoip_distance(Float:lat1, Float:lon1, Float:lat2, Float:lon2, system = SYSTEM_METRIC);
 
+enum Continent
+{
+	CONTINENT_UNKNOWN = 0,
+	CONTINENT_AFRICA,
+	CONTINENT_ANTARCTICA,
+	CONTINENT_ASIA,
+	CONTINENT_EUROPE,
+	CONTINENT_NORTH_AMERICA,
+	CONTINENT_OCEANIA,
+	CONTINENT_SOUTH_AMERICA
+};
+
 /**
  * Look up the continent code for a given IP address.
  *
@@ -231,17 +226,6 @@ native Float:geoip_distance(Float:lat1, Float:lon1, Float:lat2, Float:lon2, syst
  *
  * @return          The continent id on successful lookup, 0 otherwise.
  */
-enum Continent
-{
-	CONTINENT_UNKNOWN = 0,
-	CONTINENT_AFRICA,
-	CONTINENT_ANTARCTICA,
-	CONTINENT_ASIA,
-	CONTINENT_EUROPE,
-	CONTINENT_NORTH_AMERICA,
-	CONTINENT_OCEANIA,
-	CONTINENT_SOUTH_AMERICA,
-};
 native Continent:geoip_continent_code(const ip[], result[3]);
 
 /**

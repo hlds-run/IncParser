@@ -1,4 +1,3 @@
-
 #if defined _amxmodx_version_included
   #endinput
 #endif
@@ -17,4 +16,3 @@
 #define AMXX_VERSION_NUM            190
 
 stock const AMXX_VERSION_STR[] = "1.9.0.5294";
-    

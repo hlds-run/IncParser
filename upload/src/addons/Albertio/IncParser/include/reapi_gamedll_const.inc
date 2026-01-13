@@ -1,19 +1,18 @@
 #if defined _reapi_gamedll_const_included
 	#endinput
 #endif
-
 #define _reapi_gamedll_const_included
 
 /**
-* Returns true if round has ended by expired time
-*
-* @note Use this for hookchain RG_RoundEnd with the parameter ScenarioEventEndRound:event
-*/
+ * Returns true if round has ended by expired time
+ *
+ * @note Use this for hookchain RG_RoundEnd with the parameter ScenarioEventEndRound:event
+ */
 #define IsRoundExpireEvent(%0) (((1 << _:(%0) + _:ScenarioEventEndRound:0) & ((1 << _:ROUND_TARGET_SAVED) | (1 << _:ROUND_HOSTAGE_NOT_RESCUED) | (1 << _:ROUND_TERRORISTS_NOT_ESCAPED) | (1 << _:ROUND_VIP_NOT_ESCAPED) | (1 << _:ROUND_GAME_OVER))) != 0)
 
 /**
-* suppress warning: 200 on amxmodx 1.8.2
-*/
+ * suppress warning: 200 on amxmodx 1.8.2
+ */
 #if AMXX_VERSION_NUM < 183
 	#define RG_CBaseAnimating_ResetSequenceInfo RG_CBaseAnimating_ResetSequence
 	#define RG_CBasePlayer_Observer_IsValidTarget RG_CBasePlayer_Observer_IsValid
@@ -42,8 +41,8 @@
 #endif
 
 /**
-* enum UnifiedSignals
-*/
+ * enum UnifiedSignals
+ */
 enum UnifiedSignals
 {
 	US_Signal,
@@ -51,8 +50,8 @@ enum UnifiedSignals
 };
 
 /**
-* enum AccountSet
-*/
+ * enum AccountSet
+ */
 enum AccountSet
 {
 	AS_SET, // Setts the value of the account
@@ -60,8 +59,8 @@ enum AccountSet
 };
 
 /**
-* Weapon info types for use with rg_set_weapon_info/rg_get_weapon_info()
-*/
+ * Weapon info types for use with rg_set_weapon_info/rg_get_weapon_info()
+ */
 enum WpnInfo
 {
 	/*
@@ -142,12 +141,12 @@ enum WpnInfo
 	* Get params:       rg_get_weapon_info(const weapon_id, WI_SLOT);
 	* Set params:       rg_set_weapon_info(const weapon_id, WI_SLOT, const value);
 	*/
-	WI_SLOT,
+	WI_SLOT
 };
 
 /**
-* Item's info types for use with rg_set_[global_]iteminfo/rg_get_[global_]iteminfo()
-*/
+ * Item's info types for use with rg_set_[global_]iteminfo/rg_get_[global_]iteminfo()
+ */
 enum ItemInfo
 {
 	/*
@@ -240,8 +239,8 @@ enum ItemInfo
 };
 
 /**
-* Use with rg_give_item
-*/
+ * Use with rg_give_item
+ */
 enum GiveType
 {
 	GT_APPEND,          // Just give item
@@ -250,8 +249,8 @@ enum GiveType
 };
 
 /**
-* MenuChooseTeam
-*/
+ * MenuChooseTeam
+ */
 enum MenuChooseTeam
 {
 	MenuChoose_T = 1,
@@ -259,12 +258,12 @@ enum MenuChooseTeam
 	MenuChoose_VIP,
 
 	MenuChoose_AutoSelect = 5,
-	MenuChoose_Spec,
+	MenuChoose_Spec
 };
 
 /**
-* VGUIMenu
-*/
+ * VGUIMenu
+ */
 enum VGUIMenu
 {
 	VGUI_Menu_Team = 2,
@@ -278,12 +277,12 @@ enum VGUIMenu
 	VGUI_Menu_Buy_Rifle,
 	VGUI_Menu_Buy_SubMachineGun,
 	VGUI_Menu_Buy_MachineGun,
-	VGUI_Menu_Buy_Item,
+	VGUI_Menu_Buy_Item
 };
 
 /**
-* GamedllFunc
-*/
+ * GamedllFunc
+ */
 enum GamedllFunc
 {
 	/*
@@ -486,12 +485,12 @@ enum GamedllFunc
 	* Description:      Called when player buys an item from buy menu (Nightvision, Kevlar, etc.)
 	* Params:           (const pPlayer, iSlot)
 	*/
-	RG_BuyItem,
+	RG_BuyItem
 };
 
 /**
-* GamedllFunc CBaseAnimating
-*/
+ * GamedllFunc CBaseAnimating
+ */
 enum GamedllFunc_CBaseAnimating
 {
 	/*
@@ -502,8 +501,8 @@ enum GamedllFunc_CBaseAnimating
 };
 
 /**
-* GamedllFunc CGrenade
-*/
+ * GamedllFunc CGrenade
+ */
 enum GamedllFunc_CGrenade
 {
 	/*
@@ -540,24 +539,24 @@ enum GamedllFunc_CGrenade
 	* Description:      Called when a C4 goes to explodes.
 	* Params:           (const this, tracehandle, const bitsDamageType)
 	*/
-	RG_CGrenade_ExplodeBomb,
+	RG_CGrenade_ExplodeBomb
 };
 
 /**
-* GamedllFunc CWeaponBox
-*/
+ * GamedllFunc CWeaponBox
+ */
 enum GamedllFunc_CWeaponBox
 {
 	/*
 	* Description:      Called when a player dies to pack up the appropriate weapons and ammo items, and creates a weaponbox that falls to floor with sets specify the model or when a player drop the item.
 	* Params:           (const this, const szModelName[])
 	*/
-	RG_CWeaponBox_SetModel = BEGIN_FUNC_REGION(weaponbox),
+	RG_CWeaponBox_SetModel = BEGIN_FUNC_REGION(weaponbox)
 };
 
 /**
-* GamedllFunc CBasePlayer
-*/
+ * GamedllFunc CBasePlayer
+ */
 enum GamedllFunc_CBasePlayer
 {
 	/*
@@ -939,12 +938,12 @@ enum GamedllFunc_CBasePlayer
 	* Description:      -
 	* Params:           (const this, bool:removeSuit)
 	*/
-	RG_CBasePlayer_RemoveAllItems,
+	RG_CBasePlayer_RemoveAllItems
 };
 
 /**
-* GamedllFunc CBasePlayer
-*/
+ * GamedllFunc CBasePlayer
+ */
 enum GamedllFunc_CBasePlayerWeapon
 {
 	/*
@@ -996,12 +995,12 @@ enum GamedllFunc_CBasePlayerWeapon
 	* Return type:      void
 	* Params:           (const this, iAnim, skiplocal)
 	*/
-	RG_CBasePlayerWeapon_SendWeaponAnim,
+	RG_CBasePlayerWeapon_SendWeaponAnim
 };
 
 /**
-* GamedllFunc CGib
-*/
+ * GamedllFunc CGib
+ */
 enum GamedllFunc_CGib
 {
 	/*
@@ -1020,12 +1019,12 @@ enum GamedllFunc_CGib
 	* Description:      -
 	* Params:           (const this)
 	*/
-	RG_CGib_WaitTillLand,
+	RG_CGib_WaitTillLand
 };
 
 /**
-* GamedllFunc CBaseEntity
-*/
+ * GamedllFunc CBaseEntity
+ */
 enum GamedllFunc_CBaseEntity
 {
 	/*
@@ -1048,12 +1047,12 @@ enum GamedllFunc_CBaseEntity
 	* Return type:      Vector [3]
 	* Params:           (pEntity, Float:vecSrc[3], Float:vecDirShooting[3], Float:vecSpread, Float:flDistance, iPenetration, iBulletType, iDamage, Float:flRangeModifier, pevAttacker, bool:bPistol, shared_rand)
 	*/
-	RG_CBaseEntity_FireBullets3,
+	RG_CBaseEntity_FireBullets3
 };
 
 /**
-* GamedllFunc CBotManager
-*/
+ * GamedllFunc CBotManager
+ */
 enum GamedllFunc_CBotManager
 {
 	/*
@@ -1062,13 +1061,13 @@ enum GamedllFunc_CBotManager
 	* Params:           (GameEventType:event, const pEntity, const pOther)
 
 	*/
-	RG_CBotManager_OnEvent = BEGIN_FUNC_REGION(botmanager),
-}
+	RG_CBotManager_OnEvent = BEGIN_FUNC_REGION(botmanager)
+};
 
 
 /**
-* GamedllFunc CSGameRules
-*/
+ * GamedllFunc CSGameRules
+ */
 enum GamedllFunc_CSGameRules
 {
 	/*
@@ -1259,12 +1258,12 @@ enum GamedllFunc_CSGameRules
 	* Return type:      void
 	* Params:           (const pKiller, const pVictim, const pAssister, const pevInflictor, const killerWeaponName[], const DeathMessageFlags:iDeathMessageFlags, const KillRarity:iRarityOfKill)
 	*/
-	RG_CSGameRules_SendDeathMessage,
+	RG_CSGameRules_SendDeathMessage
 };
 
 /**
-* CSGameRules Members
-*/
+ * CSGameRules Members
+ */
 enum CSGameRules_Members
 {
 	/*
@@ -1963,12 +1962,12 @@ enum CSGameRules_Members
 	* Get params:       get_member_game(member);
 	* Set params:       set_member_game(member, bool:value);
 	*/
-	m_bTeamBalanced,
+	m_bTeamBalanced
 };
 
 /**
-* CBaseEntity Members
-*/
+ * CBaseEntity Members
+ */
 enum CBaseEntity_Members
 {
 	/*
@@ -2169,12 +2168,12 @@ enum CBaseEntity_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, bool:value);
 	*/
-	has_disconnected,
+	has_disconnected
 };
 
 /**
-* CBaseAnimating Members
-*/
+ * CBaseAnimating Members
+ */
 enum CBaseAnimating_Members
 {
 	/*
@@ -2215,12 +2214,12 @@ enum CBaseAnimating_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_fSequenceLoops,
+	m_fSequenceLoops
 };
 
 /**
-* CBaseMonster Members
-*/
+ * CBaseMonster Members
+ */
 enum CBaseMonster_Members
 {
 	/*
@@ -2349,12 +2348,12 @@ enum CBaseMonster_Members
 	* Get params:       get_member(index, member, Float:output[3]);
 	* Set params:       set_member(index, member, Float:dest[3]);
 	*/
-	m_vecEnemyLKP,
+	m_vecEnemyLKP
 };
 
 /**
-* CBasePlayer Members
-*/
+ * CBasePlayer Members
+ */
 enum CBasePlayer_Members
 {
 	/*
@@ -3876,12 +3875,12 @@ enum CBasePlayer_Members
 	* Get params:       Float:get_member(index, member);
 	* Set params:       set_member(index, member, Float:value);
 	*/
-	m_tmNextAccountHealthUpdate,
+	m_tmNextAccountHealthUpdate
 };
 
 /**
-* RebuyStruct
-*/
+ * RebuyStruct
+ */
 enum RebuyStruct
 {
 	/*
@@ -3962,12 +3961,12 @@ enum RebuyStruct
 	* Get params:       get_rebuy(RebuyHandle:handle, RebuyStruct:member);
 	* Set params:       set_rebuy(RebuyHandle:handle, RebuyStruct:member, value);
 	*/
-	m_armor,
+	m_armor
 };
 
 /**
-* PlayerMove
-*/
+ * PlayerMove
+ */
 enum PlayerMove
 {
 	/*
@@ -4448,12 +4447,12 @@ enum PlayerMove
 	* Get params:       get_pmove(const PlayerMove:var, Float:output[3], element);
 	* Set params:       set_pmove(const PlayerMove:var, Float:dest[3], element);
 	*/
-	pm_player_maxs,
+	pm_player_maxs
 };
 
 /**
-* MoveVars
-*/
+ * MoveVars
+ */
 enum MoveVars
 {
 	/*
@@ -4662,12 +4661,12 @@ enum MoveVars
 	* Get params:       Float:get_movevar(const MoveVars:var);
 	* Set params:       set_movevar(const MoveVars:var, Float:value);
 	*/
-	mv_skyvec_z,
+	mv_skyvec_z
 };
 
 /**
-* PMTrace
-*/
+ * PMTrace
+ */
 enum PMTrace
 {
 	/*
@@ -4744,8 +4743,8 @@ enum PMTrace
 };
 
 /**
-* CCSPlayer API Members
-*/
+ * CCSPlayer API Members
+ */
 enum CCSPlayer_Members
 {
 	/*
@@ -4898,12 +4897,12 @@ enum CCSPlayer_Members
 	* Get params:       get_member(index, member, element);
 	* Set params:       set_member(index, member, value, element);
 	*/
-	m_bPlayerDominated,
+	m_bPlayerDominated
 };
 
 /**
-* CBasePlayerItem Members
-*/
+ * CBasePlayerItem Members
+ */
 enum CBasePlayerItem_Members
 {
 	/*
@@ -4928,12 +4927,12 @@ enum CBasePlayerItem_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_iId,
+	m_iId
 };
 
 /**
-* CBasePlayerWeapon Members
-*/
+ * CBasePlayerWeapon Members
+ */
 enum CBasePlayerWeapon_Members
 {
 	/*
@@ -5198,12 +5197,12 @@ enum CBasePlayerWeapon_Members
 	* Get params:       Float:get_member(index, member);
 	* Set params:       set_member(index, member, Float:value);
 	*/
-	m_Weapon_flLastFireTime,
+	m_Weapon_flLastFireTime
 };
 
 /**
-* CWeaponBox Members
-*/
+ * CWeaponBox Members
+ */
 enum CWeaponBox_Members
 {
 	/*
@@ -5244,12 +5243,12 @@ enum CWeaponBox_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, bool:value);
 	*/
-	m_WeaponBox_bIsBomb,
+	m_WeaponBox_bIsBomb
 };
 
 /**
-* CArmoury Members
-*/
+ * CArmoury Members
+ */
 enum CArmoury_Members
 {
 	/*
@@ -5282,12 +5281,12 @@ enum CArmoury_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, bool:value);
 	*/
-	m_Armoury_bAlreadyCounted,
+	m_Armoury_bAlreadyCounted
 };
 
 /**
-* CGrenade Members
-*/
+ * CGrenade Members
+ */
 enum CGrenade_Members
 {
 	/*
@@ -5480,12 +5479,12 @@ enum CGrenade_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_Grenade_fRegisteredSound,
+	m_Grenade_fRegisteredSound
 };
 
 /**
-* CP228 Members
-*/
+ * CP228 Members
+ */
 enum CP228_Members
 {
 	/*
@@ -5502,12 +5501,12 @@ enum CP228_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_P228_usFire,
+	m_P228_usFire
 };
 
 /**
-* CSCOUT Members
-*/
+ * CSCOUT Members
+ */
 enum CSCOUT_Members
 {
 	/*
@@ -5524,12 +5523,12 @@ enum CSCOUT_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_SCOUT_usFire,
+	m_SCOUT_usFire
 };
 
 /**
-* CHEGrenade Members
-*/
+ * CHEGrenade Members
+ */
 enum CHEGrenade_Members
 {
 	/*
@@ -5538,12 +5537,12 @@ enum CHEGrenade_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_HEGrenade_usCreate = BEGIN_MEMBER_REGION(hegrenade),
+	m_HEGrenade_usCreate = BEGIN_MEMBER_REGION(hegrenade)
 };
 
 /**
-* CXM1014 Members
-*/
+ * CXM1014 Members
+ */
 enum CXM1014_Members
 {
 	/*
@@ -5568,12 +5567,12 @@ enum CXM1014_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_XM1014_usFire,
+	m_XM1014_usFire
 };
 
 /**
-* CC4 Members
-*/
+ * CC4 Members
+ */
 enum CC4_Members
 {
 	/*
@@ -5606,12 +5605,12 @@ enum CC4_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, bool:value);
 	*/
-	m_C4_bHasShield,
+	m_C4_bHasShield
 };
 
 /**
-* CMAC10 Members
-*/
+ * CMAC10 Members
+ */
 enum CMAC10_Members
 {
 	/*
@@ -5636,12 +5635,12 @@ enum CMAC10_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_MAC10_usFire,
+	m_MAC10_usFire
 };
 
 /**
-* CAUG Members
-*/
+ * CAUG Members
+ */
 enum CAUG_Members
 {
 	/*
@@ -5666,12 +5665,12 @@ enum CAUG_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_AUG_usFire,
+	m_AUG_usFire
 };
 
 /**
-* CSmokeGrenade Members
-*/
+ * CSmokeGrenade Members
+ */
 enum CSmokeGrenade_Members
 {
 	/*
@@ -5680,12 +5679,12 @@ enum CSmokeGrenade_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_SmokeGrenade_usCreate = BEGIN_MEMBER_REGION(smokegrenade),
+	m_SmokeGrenade_usCreate = BEGIN_MEMBER_REGION(smokegrenade)
 };
 
 /**
-* CELITE Members
-*/
+ * CELITE Members
+ */
 enum CELITE_Members
 {
 	/*
@@ -5710,12 +5709,12 @@ enum CELITE_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_ELITE_usFire_RIGHT,
+	m_ELITE_usFire_RIGHT
 };
 
 /**
-* CFiveSeven Members
-*/
+ * CFiveSeven Members
+ */
 enum CFiveSeven_Members
 {
 	/*
@@ -5732,12 +5731,12 @@ enum CFiveSeven_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_FiveSeven_usFire,
+	m_FiveSeven_usFire
 };
 
 /**
-* CUMP45 Members
-*/
+ * CUMP45 Members
+ */
 enum CUMP45_Members
 {
 	/*
@@ -5762,12 +5761,12 @@ enum CUMP45_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_UMP45_usFire,
+	m_UMP45_usFire
 };
 
 /**
-* CSG550 Members
-*/
+ * CSG550 Members
+ */
 enum CSG550_Members
 {
 	m_SG550_iShell = BEGIN_MEMBER_REGION(sg550),
@@ -5778,12 +5777,12 @@ enum CSG550_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_SG550_usFire,
+	m_SG550_usFire
 };
 
 /**
-* CGalil Members
-*/
+ * CGalil Members
+ */
 enum CGalil_Members
 {
 	/*
@@ -5808,12 +5807,12 @@ enum CGalil_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_Galil_usFire,
+	m_Galil_usFire
 };
 
 /**
-* CFamas Members
-*/
+ * CFamas Members
+ */
 enum CFamas_Members
 {
 	/*
@@ -5838,12 +5837,12 @@ enum CFamas_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_Famas_flBaseDamageBurst,
+	m_Famas_flBaseDamageBurst
 };
 
 /**
-* CUSP Members
-*/
+ * CUSP Members
+ */
 enum CUSP_Members
 {
 	/*
@@ -5868,12 +5867,12 @@ enum CUSP_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_USP_flBaseDamageSil,
+	m_USP_flBaseDamageSil
 };
 
 /**
-* CGLOCK18 Members
-*/
+ * CGLOCK18 Members
+ */
 enum CGLOCK18_Members
 {
 	/*
@@ -5890,12 +5889,12 @@ enum CGLOCK18_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, bool:value);
 	*/
-	m_GLOCK18_bBurstFire,
+	m_GLOCK18_bBurstFire
 };
 
 /**
-* CAWP Members
-*/
+ * CAWP Members
+ */
 enum CAWP_Members
 {
 	/*
@@ -5912,12 +5911,12 @@ enum CAWP_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_AWP_usFire,
+	m_AWP_usFire
 };
 
 /**
-* CMP5N Members
-*/
+ * CMP5N Members
+ */
 enum CMP5N_Members
 {
 	/*
@@ -5942,12 +5941,12 @@ enum CMP5N_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_MP5N_usFire,
+	m_MP5N_usFire
 };
 
 /**
-* CM249 Members
-*/
+ * CM249 Members
+ */
 enum CM249_Members
 {
 	/*
@@ -5972,12 +5971,12 @@ enum CM249_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_M249_usFire,
+	m_M249_usFire
 };
 
 /**
-* CM3 Members
-*/
+ * CM3 Members
+ */
 enum CM3_Members
 {
 	m_M3_iShell = BEGIN_MEMBER_REGION(m3),
@@ -5996,12 +5995,12 @@ enum CM3_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_M3_usFire,
+	m_M3_usFire
 };
 
 /**
-* CM4A1 Members
-*/
+ * CM4A1 Members
+ */
 enum CM4A1_Members
 {
 	/*
@@ -6034,12 +6033,12 @@ enum CM4A1_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_M4A1_flBaseDamageSil,
+	m_M4A1_flBaseDamageSil
 };
 
 /**
-* CTMP Members
-*/
+ * CTMP Members
+ */
 enum CTMP_Members
 {
 	/*
@@ -6064,12 +6063,12 @@ enum CTMP_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_TMP_usFire,
+	m_TMP_usFire
 };
 
 /**
-* CG3SG1 Members
-*/
+ * CG3SG1 Members
+ */
 enum CG3SG1_Members
 {
 	/*
@@ -6086,12 +6085,12 @@ enum CG3SG1_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_G3SG1_usFire,
+	m_G3SG1_usFire
 };
 
 /**
-* CDEAGLE Members
-*/
+ * CDEAGLE Members
+ */
 enum CDEAGLE_Members
 {
 	/*
@@ -6108,12 +6107,12 @@ enum CDEAGLE_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_DEAGLE_usFire,
+	m_DEAGLE_usFire
 };
 
 /**
-* CSG552 Members
-*/
+ * CSG552 Members
+ */
 enum CSG552_Members
 {
 	/*
@@ -6138,12 +6137,12 @@ enum CSG552_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_SG552_usFire,
+	m_SG552_usFire
 };
 
 /**
-* CAK47 Members
-*/
+ * CAK47 Members
+ */
 enum CAK47_Members
 {
 	/*
@@ -6168,12 +6167,12 @@ enum CAK47_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_AK47_usFire,
+	m_AK47_usFire
 };
 
 /**
-* CKnife Members
-*/
+ * CKnife Members
+ */
 enum CKnife_Members
 {
 	/*
@@ -6238,12 +6237,12 @@ enum CKnife_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_Knife_flBackStabMultiplier,
+	m_Knife_flBackStabMultiplier
 };
 
 /**
-* CP90 Members
-*/
+ * CP90 Members
+ */
 enum CP90_Members
 {
 	/*
@@ -6268,12 +6267,12 @@ enum CP90_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_P90_usFire,
+	m_P90_usFire
 };
 
 /**
-* CWShield Members
-*/
+ * CWShield Members
+ */
 enum CShield_Members
 {
 	/*
@@ -6290,12 +6289,12 @@ enum CShield_Members
 	* Get params:       Float:get_member(index, member);
 	* Set params:       set_member(index, member, Float:value);
 	*/
-	m_Shield_flTimeToIgnoreTouches,
+	m_Shield_flTimeToIgnoreTouches
 };
 
 /**
-* CMapInfo Members
-*/
+ * CMapInfo Members
+ */
 enum CMapInfo_Members
 {
 	/*
@@ -6312,12 +6311,12 @@ enum CMapInfo_Members
 	* Get params:       Float:get_member(index, member);
 	* Set params:       set_member(index, member, Float:value);
 	*/
-	m_MapInfo_flBombRadius,
+	m_MapInfo_flBombRadius
 };
 
 /**
-* CCSPlayerWeapon API Members
-*/
+ * CCSPlayerWeapon API Members
+ */
 enum CCSPlayerWeapon_Members
 {
 	/*
@@ -6334,15 +6333,17 @@ enum CCSPlayerWeapon_Members
 	* Get params:       Float:get_member(index, member);
 	* Set params:       set_member(index, member, Float:value);
 	*/
-	m_Weapon_flBaseDamage,
+	m_Weapon_flBaseDamage
 };
 
-// API compatibility
+/**
+ * API compatibility
+ */
 #define m_Weapon_bHasSecondaryAttack m_Weapon_iStateSecondaryAttack
 
 /**
-* CGib Members
-*/
+ * CGib Members
+ */
 enum CGib_Members
 {
 	/*
@@ -6375,12 +6376,12 @@ enum CGib_Members
 	* Get params:       Float:get_member(index, member);
 	* Set params:       set_member(index, member, Float:value);
 	*/
-	m_Gib_lifeTime,
+	m_Gib_lifeTime
 };
 
 /**
-* CCSEntity API Members
-*/
+ * CCSEntity API Members
+ */
 enum CCSEntity_Members
 {
 	/*
@@ -6397,5 +6398,5 @@ enum CCSEntity_Members
 	* Get params:       get_member(index, member);
 	* Set params:       set_member(index, member, value);
 	*/
-	m_pevLastInflictor,
+	m_pevLastInflictor
 };

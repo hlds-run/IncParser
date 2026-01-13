@@ -1,25 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Ham Sandwich Functions
-//
-
-/**
- * Ham Sandwich is a module that is used to hook and call virtual functions of 
- *  entities.
- * Virtual functions are mod-specific functions.  This means that in order
- *  for this to work on a mod, it needs to be configured with the hamdata.ini
- *  file.
- * Be very careful with parameter passing to these functions.
- */
-
 #if defined _hamsandwich_included
 	#endinput
 #endif
@@ -39,12 +17,13 @@
  *
  * @param function		The function to hook.
  * @param EntityClass	The entity classname to hook.
- * @param callback		The forward to call.
- * @param post			Whether or not to forward this in post.
+ * @param Callback		The forward to call.
+ * @param Post			Whether or not to forward this in post.
  * @param specialbot	Whether or not to enable support for bot without "player" classname.
+ *
  * @return 				Returns a handle to the forward.  Use EnableHamForward/DisableHamForward to toggle the forward on or off.
  */
-native HamHook:RegisterHam(Ham:function, const EntityClass[], const Callback[], Post=0, bool:specialbot = false);
+native HamHook:RegisterHam(Ham:function, const EntityClass[], const Callback[], Post = 0, bool:specialbot = false);
 
 /**
  * Hooks the virtual table for the player class.
@@ -52,11 +31,12 @@ native HamHook:RegisterHam(Ham:function, const EntityClass[], const Callback[], 
  * Look at the Ham enum for parameter lists.
  *
  * @param function		The function to hook.
- * @param callback		The forward to call.
- * @param post			Whether or not to forward this in post.
+ * @param Callback		The forward to call.
+ * @param Post			Whether or not to forward this in post.
+ *
  * @return 				Returns a handle to the forward.  Use EnableHamForward/DisableHamForward to toggle the forward on or off.
  */
-stock HamHook:RegisterHamPlayer(Ham:function, const Callback[], Post=0)
+stock HamHook:RegisterHamPlayer(Ham:function, const Callback[], Post = 0)
 {
 	return RegisterHam(function, "player", Callback, Post, true);
 }
@@ -65,17 +45,18 @@ stock HamHook:RegisterHamPlayer(Ham:function, const Callback[], Post=0)
  * Hooks the virtual table for the specified entity's class.
  * An example would be: RegisterHam(Ham_TakeDamage, id, "player_hurt");
  * Look at the Ham enum for parameter lists.
- * Note: This will cause hooks for the entire internal class that the entity is
+ *
+ * @note This will cause hooks for the entire internal class that the entity is
  *       not exclusively for the provided entity.
  *
  * @param function		The function to hook.
  * @param EntityId		The entity classname to hook.
- * @param callback		The forward to call.
- * @param post			Whether or not to forward this in post.
+ * @param Callback		The forward to call.
+ * @param Post			Whether or not to forward this in post.
+ *
  * @return 				Returns a handle to the forward.  Use EnableHamForward/DisableHamForward to toggle the forward on or off.
  */
-native HamHook:RegisterHamFromEntity(Ham:function, EntityId, const Callback[], Post=0);
-
+native HamHook:RegisterHamFromEntity(Ham:function, EntityId, const Callback[], Post = 0);
 
 /**
  * Stops a ham forward from triggering.
@@ -98,7 +79,8 @@ native EnableHamForward(HamHook:fwd);
  * Look at the Ham enum for parameter lists.
  *
  * @param function		The function to call.
- * @param id			The id of the entity to execute it on.
+ * @param this			The id of the entity to execute it on.
+ * @param ...			Variable number of formatting parameters
  */
 native ExecuteHam(Ham:function, this, any:...);
 
@@ -108,7 +90,8 @@ native ExecuteHam(Ham:function, this, any:...);
  * Look at the Ham enum for parameter lists.
  *
  * @param function		The function to call.
- * @param id			The id of the entity to execute it on.
+ * @param this			The id of the entity to execute it on.
+ * @param ...			Variable number of formatting parameters
  */
 native ExecuteHamB(Ham:function, this, any:...);
 
@@ -289,7 +272,7 @@ native SetHamParamEntity2(which, value);
  * Use this on parameters that are strings.
  *
  * @param which				Which parameter to change.  Starts at 1, and works up from the left to right.  1 is always "this".
- * @param ouput				The value to change it to.
+ * @param output			The value to change it to.
  */
 native SetHamParamString(which, const output[]);
 
@@ -318,6 +301,7 @@ native SetHamParamItemInfo(which, iteminfo_handle);
  *
  * @param iteminfo_handle	Item info handle.
  * @param type				Item info type. See HamItemInfo constants.
+ * @param ...				Variable number of formatting parameters
  */
 native GetHamItemInfo(iteminfo_handle, HamItemInfo:type, any:...);
 
@@ -327,6 +311,7 @@ native GetHamItemInfo(iteminfo_handle, HamItemInfo:type, any:...);
  *
  * @param iteminfo_handle	Item info handle.
  * @param type				Item info type. See HamItemInfo_ constants.
+ * @param ...				Variable number of formatting parameters
  */
 native SetHamItemInfo(iteminfo_handle, HamItemInfo:type, any:...);
 
@@ -334,7 +319,7 @@ native SetHamItemInfo(iteminfo_handle, HamItemInfo:type, any:...);
  * Creates an ItemInfo handle.  This value should never be altered.
  * The handle can be used in Get/SetHamItemInfo.
  *
- * NOTE: You must call FreeHamItemInfo() on every handle made with CreateHamItemInfo().
+ * @note You must call FreeHamItemInfo() on every handle made with CreateHamItemInfo().
  *
  * @return			A new ItemInfo handle.
  */
@@ -346,6 +331,7 @@ native CreateHamItemInfo();
  * CreateHamItemInfo().
  *
  * @param itemInfo_handle	ItemInfo handle created via CreateHamItemInfo().
+ *
  * @noreturn
  */
 native FreeHamItemInfo(itemInfo_handle);
@@ -354,10 +340,11 @@ native FreeHamItemInfo(itemInfo_handle);
 /**
  * Returns whether or not the function for the specified Ham is valid.
  * Things that would make it invalid would be bounds (an older module version
- *  may not have all of the functions), and the function not being found in
- *  the mod's hamdata.ini file.
+ * may not have all of the functions), and the function not being found in
+ * the mod's hamdata.ini file.
  *
  * @param function		The function to look up.
+ *
  * @return				true if the function is valid, false otherwise.
  */
 native bool:IsHamValid(Ham:function);
@@ -373,9 +360,10 @@ native bool:IsHamValid(Ham:function);
  * @param offset		The windows offset of the data.
  * @param linuxdiff		The linux difference of the data.
  * @param macdiff		The mac os x difference of the data.
+ *
  * @return				The index of the corresponding pdata field. -1 for none set.
  */
-native get_pdata_cbase(id, offset, linuxdiff=5, macdiff=5);
+native get_pdata_cbase(id, offset, linuxdiff = 5, macdiff = 5);
 
 /**
  * This is used to compliment fakemeta's {get,set}_pdata_{int,float,string}.
@@ -389,7 +377,7 @@ native get_pdata_cbase(id, offset, linuxdiff=5, macdiff=5);
  * @param linuxdiff		The linux difference of the data.
  * @param macdiff		The mac os x difference of the data.
  */
-native set_pdata_cbase(id, offset, value, linuxdiff=5, macdiff=5);
+native set_pdata_cbase(id, offset, value, linuxdiff = 5, macdiff = 5);
 
 /**
  * This is similar to the get_pdata_cbase, however it does not dereference memory.
@@ -402,19 +390,19 @@ native set_pdata_cbase(id, offset, value, linuxdiff=5, macdiff=5);
  * @param offset		The windows offset of the data.
  * @param linuxdiff		The linux difference of the data.
  * @param macdiff		The mac os x difference of the data.
+ *
  * @return				The index of the corresponding pdata field, -1 for null, -2 for invalid.
  */
-native get_pdata_cbase_safe(id, offset, linuxdiff=5, macdiff=5);
+native get_pdata_cbase_safe(id, offset, linuxdiff = 5, macdiff = 5);
 
-
-
-
-// This is the callback from the module, this handles any fatal errors.
-// This will in turn call the "HamFilter(Ham:id, HamError:err, const reason[])" public, if it exists.
-// Return PLUGIN_HANDLED from within the HamFilter to stop the plugin from failing.
-// Any other return value will fail the plugin.
-// You do not need to have a HamFilter, if there is none, all fatal errors will fail the plugin.
-// Do not modify this!
+/**
+ * This is the callback from the module, this handles any fatal errors.
+ * This will in turn call the "HamFilter(Ham:id, HamError:err, const reason[])" public, if it exists.
+ * Return PLUGIN_HANDLED from within the HamFilter to stop the plugin from failing.
+ * Any other return value will fail the plugin.
+ * You do not need to have a HamFilter, if there is none, all fatal errors will fail the plugin.
+ * Do not modify this!
+ */
 public __fatal_ham_error(Ham:id, HamError:err, const reason[])
 {
 	

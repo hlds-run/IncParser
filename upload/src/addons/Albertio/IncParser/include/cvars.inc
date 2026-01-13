@@ -1,12 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
 #if defined _cvars_included
 	#endinput
 #endif
@@ -203,7 +194,7 @@ native set_cvar_flags(const cvar[], flags);
  *
  * @return          1 on success, 0 if cvar does not exist or is not permitted
  */
-native remove_cvar_flags(const cvar[], flags=-1);
+native remove_cvar_flags(const cvar[], flags = -1);
 
 /**
  * Gets a string value from a cvar. The cvar is accessed by name.
@@ -212,7 +203,7 @@ native remove_cvar_flags(const cvar[], flags=-1);
  *       why the otherwise equivalent get_pcvar_string() function should be used
  *       instead.
  *
- * @param cvar      Cvar name to retrieve value from
+ * @param cvarname  Cvar name to retrieve value from
  * @param output    Buffer to copy cvar value to
  * @param iLen      Maximum size of the buffer
  *
@@ -281,7 +272,7 @@ native get_cvar_num(const cvarname[]);
  *       why the otherwise equivalent set_pcvar_num() function should be used
  *       instead.
  *
- * @param cvar      Cvar name to set value of
+ * @param cvarname  Cvar name to set value of
  * @param value     Value to set cvar to
  *
  * @noreturn

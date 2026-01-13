@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Language Functions
-//
-
 #if defined _lang_included
   #endinput
 #endif
@@ -37,8 +24,8 @@ native get_lang(id, name[3]);
  * Registers a dictionary file, making sure the words are in the dictionary.
  *
  * @note The file should be in "addons/amxmodx/data/lang", but only the name
- *		 needs to be given. For example, register_dictionary("file.txt") will
- *		 be "addons/amxmodx/data/lang/file.txt".
+ *		   needs to be given. For example, register_dictionary("file.txt") will
+ *		   be "addons/amxmodx/data/lang/file.txt".
  *
  * @param filename	Dictionary file name
  *
@@ -57,7 +44,7 @@ native lang_exists(const name[]);
 
 enum TransKey
 {
-	TransKey_Bad = -1,
+	TransKey_Bad = -1
 };
 
 /**
@@ -93,7 +80,7 @@ native AddTranslation(const lang[3], TransKey:key, const phrase[]);
  * Looks up the translation of the key for the given type.
  *
  * @note This does NOT format the output text! For example, if the key
- * 		 contains %s, the outputted text will also contain %s.
+ * 		   contains %s, the outputted text will also contain %s.
  * @note LANG_PLAYER is invalid in this, use a player index or LANG_SERVER.
  *
  * @param Output		Buffer to store the output in
@@ -114,6 +101,7 @@ native LookupLangKey(Output[], OutputSize, const Key[], const &id);
  *       not during this function call.
  *
  * @param client    Client index or LANG_SERVER
+ *
  * @noreturn
  */
 native SetGlobalTransTarget(client);

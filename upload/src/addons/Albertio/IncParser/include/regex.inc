@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Regular Expressions API
-//
-
 #if defined _regex_included
 	#endinput
 #endif
@@ -20,7 +7,6 @@
 #if !defined AMXMODX_NOAUTOLOAD
 	#pragma loadlib regex
 #endif
-
 
 enum Regex
 {
@@ -100,11 +86,9 @@ enum /*RegexError*/
  *
  * @note  Use this if you intend on using the same expression multiple times.
  *        Pass the regex handle returned here to regex_match_c to check for matches.
- *
  * @note  This handle is automatically freed on map change.  However,
  *        if you are completely done with it before then, you should
  *        call regex_free on this handle.
- *
  * @note  Consider using regex_compile_ex instead if you want to use PCRE_* flags.
  *
  * @param pattern       The regular expression pattern.
@@ -122,14 +106,13 @@ enum /*RegexError*/
  *
  * @return              -1 on error in the pattern, > valid regex handle (> 0) on success.
  */
-native Regex:regex_compile(const pattern[], &ret = 0, error[] = "", maxLen = 0, const flags[]="");
+native Regex:regex_compile(const pattern[], &ret = 0, error[] = "", maxLen = 0, const flags[] = "");
 
 /**
  * Matches a string against a pre-compiled regular expression pattern.
  *
  * @note  You should free the returned handle with regex_free()
  *        when you are done with this pattern.
- *
  * @note  Use the regex handle passed to this function to extract
  *        matches with regex_substr().
  *
@@ -149,9 +132,7 @@ native regex_match_c(const string[], Regex:pattern, &ret = 0);
  * @note  If you intend on using the same regular expression pattern
  *        multiple times, consider using regex_compile and regex_match_ex
  *        instead of making this function reparse the expression each time.
- *
  * @note  Flags only exist in amxmodx 1.8 and later.
- *
  * @note  You should free the returned handle with regex_free()
  *        when you are done extracting all of the substrings.
  *
@@ -196,28 +177,21 @@ native regex_substr(Regex:id, str_id, buffer[], maxLen);
  *
  * @note  This must be called on all results from regex_match() when you are done extracting
  *        the results with regex_substr().
- *
  * @note  The results of regex_compile() or regex_compile_ex() (and subsequently, regex_match_c())
  *        only need to be freed when you are done using the pattern.
- *
  * @note  Do not use the handle again after freeing it!
  *
  * @param id            The regex handle to free.
+ *
  * @noreturn
  */
 native regex_free(&Regex:id);
-
-
-/**
- * The following natives are only available in 1.8.3 and above.
- */
 
 /**
  * Precompile a regular expression.
  *
  * @note  Use this if you intend on using the same expression multiple times.
  *        Pass the regex handle returned here to regex_match_c() to check for matches.
- *
  * @note  Unlike regex_compile(), this allows you to use PCRE flags directly.
  *
  * @param pattern       The regular expression pattern.
@@ -228,7 +202,7 @@ native regex_free(&Regex:id);
  *
  * @return              Valid regex handle (> 0) on success, or -1 on failure.
  */
-native Regex:regex_compile_ex(const pattern[], flags = 0, error[]= "", maxLen = 0, &errcode = 0);
+native Regex:regex_compile_ex(const pattern[], flags = 0, error[] = "", maxLen = 0, &errcode = 0);
 
 /**
  * Matches a string against a pre-compiled regular expression pattern, matching all
@@ -237,7 +211,6 @@ native Regex:regex_compile_ex(const pattern[], flags = 0, error[]= "", maxLen = 
  *
  * @note  You should free the returned handle (with regex_free())
  *        when you are done with this pattern.
- *
  * @note  Use the regex handle passed to this function to extract
  *        matches with regex_substr().
  *
@@ -259,9 +232,7 @@ native regex_match_all_c(const string[], Regex:pattern, &ret = 0);
  * @note  If you intend on using the same regular expression pattern
  *        multiple times, consider using regex_compile and regex_match_ex
  *        instead of making this function reparse the expression each time.
- *
  * @note  Flags only exist in amxmodx 1.8 and later.
- *
  * @note  You should free the returned handle with regex_free()
  *        when you are done extracting all of the substrings.
  *
@@ -277,7 +248,7 @@ native regex_match_all_c(const string[], Regex:pattern, &ret = 0);
  *                       0 = No match.
  *                      >1 = Handle for getting more information (via regex_substr)
  */
-native Regex:regex_match_all(const string[], const pattern[], flags = 0, error[]= "", maxLen = 0, &errcode = 0);
+native Regex:regex_match_all(const string[], const pattern[], flags = 0, error[] = "", maxLen = 0, &errcode = 0);
 
 /**
  * Matches a string against a regular expression pattern.
@@ -298,7 +269,7 @@ native Regex:regex_match_all(const string[], const pattern[], flags = 0, error[]
  *                       0 = No match.
  *                      >1 = Number of results.
  */
-stock regex_match_simple(const str[], const pattern[], flags = 0, error[]= "", maxLen = 0, &errcode = 0)
+stock regex_match_simple(const str[], const pattern[], flags = 0, error[] = "", maxLen = 0, &errcode = 0)
 {
 	new Regex:regex = regex_compile_ex(pattern, flags, error, maxLen, errcode);
 	if (regex < REGEX_OK)
@@ -320,6 +291,7 @@ stock regex_match_simple(const str[], const pattern[], flags = 0, error[]= "", m
 /**
  * Perform a regular expression search and replace.
  *
+ * @note
  * An optional parameter, flags, allows you to specify options on how the replacement is performed.
  * Supported format specifiers for replace parameter:
  *   $number  : Substitutes the substring matched by group number.

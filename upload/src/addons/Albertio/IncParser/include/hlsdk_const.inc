@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Half-Life SDK Constants
-//
-
 #if defined _hlsdk_const_included
     #endinput
 #endif
@@ -210,8 +197,8 @@
 #define DMG_TIMEBASED                   (~(0x3fff)) // Mask for time-based damage
 
 /**
-* Gib values used on client kill based on instant damage values
-*/
+ * Gib values used on client kill based on instant damage values
+ */
 #define GIB_NORMAL                      0 // Gib if entity was overkilled
 #define GIB_NEVER                       1 // Never gib, no matter how much death damage is done ( freezing, etc )
 #define GIB_ALWAYS                      2 // Always gib ( Houndeye Shock, Barnacle Bite )
@@ -487,13 +474,13 @@
 #define SF_CORNER_FIREONCE              0x004
 
 /**
-* func_plat
-*/
+ * func_plat
+ */
 #define SF_PLAT_TOGGLE                  0x0001
 
 /**
-* path_track
-*/
+ * path_track
+ */
 #define SF_PATH_DISABLED                0x00000001
 #define SF_PATH_FIREONCE                0x00000002
 #define SF_PATH_ALTREVERSE              0x00000004
@@ -501,8 +488,8 @@
 #define SF_PATH_ALTERNATE               0x00008000
 
 /**
-* path_corner
-*/
+ * path_corner
+ */
 #define SF_CORNER_WAITFORTRIG           0x001
 #define SF_CORNER_TELEPORT              0x002
 #define SF_CORNER_FIREONCE              0x004
@@ -540,6 +527,7 @@
 
 /**
  * env_render
+ *
  * @note These are flags to indicate masking off various render parameters that
  *       are usually copied to the targets
  */
@@ -589,13 +577,13 @@
 #define SF_TRIG_PUSH_ONCE               1
 
 /**
-* trigger_multiple
-*/
+ * trigger_multiple
+ */
 #define SF_TRIGGER_MULTIPLE_NOTOUCH     0x0001
 
 /**
-* trigger_counter
-*/
+ * trigger_counter
+ */
 #define SF_TRIGGER_COUNTER_NOMESSAGE    0x0001
 
 /**
@@ -661,7 +649,6 @@
  */
 #define TRAIN_ACTIVE  0x80
 #define TRAIN_NEW     0xc0
-
 #define TRAIN_OFF     0x00
 #define TRAIN_NEUTRAL 0x01
 #define TRAIN_SLOW    0x02
@@ -677,6 +664,9 @@
 #define HLI_SECURITY        3
 #define HLI_BATTERY         4
 
+/**
+ * Valve Mod Weapon Constants
+ */
 #define HLW_NONE            0
 #define HLW_CROWBAR         1
 #define HLW_GLOCK           2
@@ -706,15 +696,18 @@
 #define ITEM_FLAG_EXHAUSTIBLE       (1<<4)
 
 /**
-* PlaybackEvent flags
-*/
+ * PlaybackEvent flags
+ *
+ * @note FEV_RELIABLE: Send the event reliably. You must specify the origin and angles
+ *                     for this to work correctly on the server for anything
+ *                     that depends on the event origin/angles.  I.e., the origin/angles are not
+ *                     taken from the invoking edict for reliable events.
+ * @note FEV_GLOBAL: Don't restrict to PAS/PVS, send this event to _everybody_ on the server ( useful for stopping CHAN_STATIC
+ *                   sounds started by client event when client is not in PVS anymore ( hwguy in TFC e.g. ).
+ */
 #define FEV_NOTHOST     (1<<0)  // Skip local host for event send.
-#define FEV_RELIABLE    (1<<1)  // Send the event reliably.  You must specify the origin and angles
-                                // for this to work correctly on the server for anything
-                                // that depends on the event origin/angles.  I.e., the origin/angles are not
-                                // taken from the invoking edict for reliable events.
-#define FEV_GLOBAL      (1<<2)  // Don't restrict to PAS/PVS, send this event to _everybody_ on the server ( useful for stopping CHAN_STATIC
-                                //  sounds started by client event when client is not in PVS anymore ( hwguy in TFC e.g. ).
+#define FEV_RELIABLE    (1<<1)  
+#define FEV_GLOBAL      (1<<2)  
 #define FEV_UPDATE      (1<<3)  // If this client already has one of these events in its queue, just update the event instead of sending it as a duplicate
 #define FEV_HOSTONLY    (1<<4)  // Only send to entity specified as the invoker
 #define FEV_SERVER      (1<<5)  // Only send if the event was created on the server.
@@ -737,12 +730,14 @@
 #define FCAP_MUST_RELEASE               0x00000200 // Should release on the new round
 #define FCAP_DONT_SAVE                  0x80000000 // Don't save this
 
-// UNDONE: This will ignore transition volumes (trigger_transition), but not the PVS!!!
+/**
+ * UNDONE: This will ignore transition volumes (trigger_transition), but not the PVS!!!
+ */
 #define FCAP_FORCE_TRANSITION           0x00000080 // ALWAYS goes across transitions
 
 /**
-* All monsters need this data
-*/
+ * All monsters need this data
+ */
 #define DONT_BLEED                      -1
 #define BLOOD_COLOR_RED                 247
 #define BLOOD_COLOR_YELLOW              195
@@ -760,8 +755,8 @@
 #define PFLAG_OBSERVER                  (1<<5) // Player is locked in stationary cam mode. Spectators can move, observers can't.
 
 /**
-* Player hide HUD values
-*/
+ * Player hide HUD values
+ */
 #define HIDEHUD_WEAPONS                 (1<<0)
 #define HIDEHUD_FLASHLIGHT              (1<<1)
 #define HIDEHUD_ALL                     (1<<2)
@@ -772,8 +767,8 @@
 #define HIDEHUD_OBSERVER_CROSSHAIR      (1<<7)
 
 /**
-* Entity classification
-*/
+ * Entity classification
+ */
 #define CLASS_NONE              0
 #define CLASS_MACHINE           1
 #define CLASS_PLAYER            2
@@ -792,16 +787,16 @@
 #define CLASS_BARNACLE          99 // special because no one pays attention to it, and it eats a wide cross-section of creatures.
 
 /**
-* Entities that toggle (buttons/triggers/doors) need this
-*/
+ * Entities that toggle (buttons/triggers/doors) need this
+ */
 #define TS_AT_TOP      0
 #define TS_AT_BOTTOM   1
 #define TS_GOING_UP    2
 #define TS_GOING_DOWN  3
 
 /**
-* Entity use states (buttons/triggers/platforms)
-*/
+ * Entity use states (buttons/triggers/platforms)
+ */
 #define USE_OFF     0
 #define USE_ON      1
 #define USE_SET     2

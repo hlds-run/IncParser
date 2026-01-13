@@ -5,8 +5,8 @@
 #define _reapi_engine_const_included
 
 /**
-* For native rh_get_mapname
-*/
+ * For native rh_get_mapname
+ */
 enum MapNameType
 {
 	MNT_TRUE,   // return the original map name independant of the name set with via rh_set_mapname
@@ -14,8 +14,8 @@ enum MapNameType
 };
 
 /**
-* For native CheckVisibilityInOrigin
-*/
+ * For native CheckVisibilityInOrigin
+ */
 enum CheckVisibilityType
 {
 	VisibilityInPVS = 0, // Check in Potentially Visible Set (PVS)
@@ -23,8 +23,8 @@ enum CheckVisibilityType
 };
 
 /**
-* For RH_SV_AddResource hook
-*/
+ * For RH_SV_AddResource hook
+ */
 enum ResourceType_t
 {
 	t_sound = 0,
@@ -40,14 +40,14 @@ enum ResourceType_t
 };
 
 /**
-* rh_emit_sound2 flags
-*/
+ * rh_emit_sound2 flags
+ */
 #define SND_EMIT2_NOPAS   BIT(0) // Never to check PAS
 #define SND_EMIT2_INVOKER BIT(1) // Do not send to the client invoker
 
 /**
-* enum EngineFunc
-*/
+ * enum EngineFunc
+ */
 enum EngineFunc
 {
 	/*
@@ -189,13 +189,13 @@ enum EngineFunc
 	* Description:  Called when server sends resources list and location.
 	* Params:       (const client)
 	*/
-	RH_SV_SendResources,
+	RH_SV_SendResources
 
 };
 
 /**
-* enum EntVars
-*/
+ * enum EntVars
+ */
 enum EntVars
 {
 	/*
@@ -1184,8 +1184,8 @@ enum EntVars
 };
 
 /**
-* enum UCmd
-*/
+ * enum UCmd
+ */
 enum UCmd
 {
 	/*
@@ -1292,7 +1292,7 @@ enum NetAdrType
 	NA_BROADCAST,
 	NA_IP,
 	NA_IPX,				// Deprecated: GoldSrc
-	NA_BROADCAST_IPX,	// Deprecated: GoldSrc
+	NA_BROADCAST_IPX	// Deprecated: GoldSrc
 };
 
 enum NetAdrVars
@@ -1323,8 +1323,8 @@ enum NetAdrVars
 };
 
 /**
-* enum NetSrc
-*/
+ * enum NetSrc
+ */
 enum NetSrc
 {
 	NS_CLIENT,
@@ -1333,8 +1333,8 @@ enum NetSrc
 };
 
 /**
-* enum NetChan
-*/
+ * enum NetChan
+ */
 enum NetChan
 {
 	/*
@@ -1451,8 +1451,8 @@ enum NetChan
 };
 
 /**
-* Message argument types used with GetMessageArgType()
-*/
+ * Message argument types used with GetMessageArgType()
+ */
 enum MsgArgType
 {
 	ArgByte,
@@ -1462,13 +1462,13 @@ enum MsgArgType
 	ArgAngle,
 	ArgCoord,
 	ArgString,
-	ArgEntity,
+	ArgEntity
 };
 
 /**
-* Message data types used with SetMessageData()/GetMessageData()
-*                              HasModifiedMessageData()/ResetModifiedMessageData()
-*/
+ * Message data types used with SetMessageData()/GetMessageData()
+ * HasModifiedMessageData()/ResetModifiedMessageData()
+ */
 enum MsgDataType
 {
 	/*
@@ -1527,9 +1527,9 @@ enum MsgDataType
 };
 
 /**
-* Blocking behavior types for messages
-* Flags for natives SetMessageBlock()/GetMessageBlock()
-*/
+ * Blocking behavior types for messages
+ * Flags for natives SetMessageBlock()/GetMessageBlock()
+ */
 enum MsgBlockType
 {
 	MSG_BLOCK_NOT,  // Not a block

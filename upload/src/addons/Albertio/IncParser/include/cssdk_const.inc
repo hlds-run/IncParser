@@ -4,8 +4,9 @@
 #define _cssdk_const_included
 
 /**
-* Basic constants
-*/
+ * @section Basic constants
+ */
+
 #define BIT(%0)                         (1<<(%0))
 
 #define NULLENT                         -1
@@ -18,8 +19,12 @@
 #define MAX_EDICTS                      (1<<MAX_EDICT_BITS) // Max # of edicts in a level (2048)
 
 /**
-* get_entvar(entity, var_button) or get_entvar(entity, var_oldbuttons) values
-*/
+ * @endsection
+ */
+
+/**
+ * get_entvar(entity, var_button) or get_entvar(entity, var_oldbuttons) values
+ */
 #define IN_ATTACK                       (1<<0)
 #define IN_JUMP                         (1<<1)
 #define IN_DUCK                         (1<<2)
@@ -38,8 +43,8 @@
 #define IN_SCORE                        (1<<15) // Used by client.dll for when scoreboard is held down
 
 /**
-* get_entvar(entity, var_flags) values
-*/
+ * get_entvar(entity, var_flags) values
+ */
 #define FL_FLY                          (1<<0)  // Changes the SV_Movestep() behavior to not need to be on ground
 #define FL_SWIM                         (1<<1)  // Changes the SV_Movestep() behavior to not need to be on ground (but stay in water)
 #define FL_CONVEYOR                     (1<<2)
@@ -72,16 +77,17 @@
 #define FL_DORMANT                      (1<<31) // Entity is dormant, no updates to client
 
 /**
-* global_get(glb_trace_flags) values
-* @note Custom flags that we can retrieve in pfnShouldCollide/TraceLine/TraceHull
-*/
+ * global_get(glb_trace_flags) values
+ *
+ * @note Custom flags that we can retrieve in pfnShouldCollide/TraceLine/TraceHull
+ */
 #define FTRACE_BULLET                   (1<<16)
 #define FTRACE_FLASH                    (1<<17)
 #define FTRACE_KNIFE                    (1<<18)
 
 /**
-* get_entvar(entity, var_movetype) values
-*/
+ * get_entvar(entity, var_movetype) values
+ */
 #define MOVETYPE_NONE                   0  // Never moves
 #define MOVETYPE_WALK                   3  // Player only - moving on the ground
 #define MOVETYPE_STEP                   4  // Gravity, special edge handling -- monsters use this
@@ -96,12 +102,12 @@
 #define MOVETYPE_PUSHSTEP               13 // BSP model that needs physics/world collisions (uses nearest hull for world collision)
 
 /**
-* get_entvar(entity, var_solid) values
-*
-* @note Some movetypes will cause collisions independent of SOLID_NOT and
-* SOLID_TRIGGER when the entity moves. SOLID only effects OTHER entities
-* colliding with this one when they move - UGH!
-*/
+ * get_entvar(entity, var_solid) values
+ *
+ * @note Some movetypes will cause collisions independent of SOLID_NOT and
+ * SOLID_TRIGGER when the entity moves. SOLID only effects OTHER entities
+ * colliding with this one when they move - UGH!
+ */
 #define SOLID_NOT                       0 // No interaction with other objects
 #define SOLID_TRIGGER                   1 // Touch on edge, but not blocking
 #define SOLID_BBOX                      2 // Touch on edge, block
@@ -109,8 +115,8 @@
 #define SOLID_BSP                       4 // BSP clip, touch on edge, block
 
 /**
-* get_entvar(entity, var_deadflag) values
-*/
+ * get_entvar(entity, var_deadflag) values
+ */
 #define DEAD_NO                         0 // Alive
 #define DEAD_DYING                      1 // Playing death animation or still falling off of a ledge waiting to hit ground
 #define DEAD_DEAD                       2 // Dead, lying still
@@ -118,18 +124,18 @@
 #define DEAD_DISCARDBODY                4
 
 /**
-* new Float:takedamage;
-* get_entvar(entity, var_takedamage, takedamage) values
-* or
-* new Float:takedamage = Float:get_entvar(entity, var_takedamage) values
-*/
+ * new Float:takedamage;
+ * get_entvar(entity, var_takedamage, takedamage) values
+ * or
+ * new Float:takedamage = Float:get_entvar(entity, var_takedamage) values
+ */
 #define DAMAGE_NO                       0.0
 #define DAMAGE_YES                      1.0
 #define DAMAGE_AIM                      2.0
 
 /**
-* get_entvar(entity, var_effects) values
-*/
+ * get_entvar(entity, var_effects) values
+ */
 #define EF_BRIGHTFIELD                  1    // Swirling cloud of particles
 #define EF_MUZZLEFLASH                  2    // Single frame ELIGHT on entity attachment 0
 #define EF_BRIGHTLIGHT                  4    // DLIGHT centered at entity origin
@@ -145,22 +151,21 @@
 #define EF_FOLLOWKEEPRENDER             32768 // the entity following will not copy the render (like it follows nothing)
 
 /**
-* Break Model Defines
-*/
+ * Break Model Defines
+ */
 #define BREAK_TYPEMASK                  0x4F
 #define BREAK_GLASS                     0x01
 #define BREAK_METAL                     0x02
 #define BREAK_FLESH                     0x04
 #define BREAK_WOOD                      0x08
-
 #define BREAK_SMOKE                     0x10
 #define BREAK_TRANS                     0x20
 #define BREAK_CONCRETE                  0x40
 #define BREAK_2                         0x80
 
 /**
-* Colliding temp entity sounds
-*/
+ * Colliding temp entity sounds
+ */
 #define BOUNCE_GLASS                    BREAK_GLASS
 #define BOUNCE_METAL                    BREAK_METAL
 #define BOUNCE_FLESH                    BREAK_FLESH
@@ -171,19 +176,19 @@
 #define BOUNCE_SHOTSHELL                0x80
 
 /**
-* Temp entity bounce sound types
-*/
+ * Temp entity bounce sound types
+ */
 #define TE_BOUNCE_NULL                  0
 #define TE_BOUNCE_SHELL                 1
 #define TE_BOUNCE_SHOTSHELL             2
 
 /**
-* Spectating camera mode constants
-*
-* @note These constants are linked to different camera modes available when you
-*   are spectating (either dead or when in spectator team). Usually this is
-*   stored in the var_iuser1 field in Counter-Strike game.
-*/
+ * Spectating camera mode constants
+ *
+ * @note These constants are linked to different camera modes available when you
+ *   are spectating (either dead or when in spectator team). Usually this is
+ *   stored in the var_iuser1 field in Counter-Strike game.
+ */
 #define OBS_NONE                        0
 #define OBS_CHASE_LOCKED                1 // Locked Chase Cam
 #define OBS_CHASE_FREE                  2 // Free Chase Cam
@@ -193,9 +198,8 @@
 #define OBS_MAP_CHASE                   6 // Chase Overview
 
 /**
-* Custom constants iuser3
-*
-*/
+ * Custom constants iuser3
+ */
 #define PLAYER_CAN_SHOOT                (1<<0)
 #define PLAYER_FREEZE_TIME_OVER         (1<<1)
 #define PLAYER_IN_BOMB_ZONE             (1<<2)
@@ -205,9 +209,9 @@
 #define PLAYER_PREVENT_JUMP             (1<<6)
 
 /**
-* Instant damage values for use with the 3rd parameter of the "Damage" client
-* message.
-*/
+ * Instant damage values for use with the 3rd parameter of the "Damage" client
+ * message.
+ */
 #define DMG_GENERIC                     0           // Generic damage was done
 #define DMG_CRUSH                       (1<<0)      // Crushed by falling or moving object
 #define DMG_BULLET                      (1<<1)      // Shot
@@ -235,24 +239,28 @@
 #define DMG_GRENADE                     (1<<24)     // Counter-Strike only - Hit by HE grenade
 #define DMG_TIMEBASED                   (~(0x3fff)) // Mask for time-based damage
 
-// These are the damage types that are allowed to gib corpses
+/**
+ * These are the damage types that are allowed to gib corpses
+ */
 #define DMG_GIB_CORPSE                  (DMG_CRUSH | DMG_FALL | DMG_BLAST | DMG_SONIC | DMG_CLUB)
 
-// These are the damage types that have client hud art
+/**
+ * These are the damage types that have client hud art
+ */
 #define DMG_SHOWNHUD                    (DMG_POISON | DMG_ACID | DMG_FREEZE | DMG_SLOWFREEZE | DMG_DROWN | DMG_BURN | DMG_SLOWBURN | DMG_NERVEGAS | DMG_RADIATION | DMG_SHOCK)
 
 /**
-* When calling KILLED(), a value that governs gib behavior is expected to be
-* one of these three values
-*/
+ * When calling KILLED(), a value that governs gib behavior is expected to be
+ * one of these three values
+ */
 #define GIB_NORMAL                      0 // Gib if entity was overkilled
 #define GIB_NEVER                       1 // Never gib, no matter how much death damage is done ( freezing, etc )
 #define GIB_ALWAYS                      2 // Always gib ( Houndeye Shock, Barnacle Bite )
 
 /**
-* Player physics flags bits
-* CBasePlayer::m_afPhysicsFlags
-*/
+ * Player physics flags bits
+ * CBasePlayer::m_afPhysicsFlags
+ */
 #define PFLAG_ONLADDER                  (1<<0)
 #define PFLAG_ONSWING                   (1<<0)
 #define PFLAG_ONTRAIN                   (1<<1)
@@ -262,9 +270,9 @@
 #define PFLAG_OBSERVER                  (1<<5) // Player is locked in stationary cam mode. Spectators can move, observers can't.
 
 /**
-* Player HUD
-* CBasePlayer::m_iHideHUD
-*/
+ * Player HUD
+ * CBasePlayer::m_iHideHUD
+ */
 #define HIDEHUD_WEAPONS                 (1<<0)
 #define HIDEHUD_FLASHLIGHT              (1<<1)
 #define HIDEHUD_ALL                     (1<<2)
@@ -275,8 +283,8 @@
 #define HIDEHUD_OBSERVER_CROSSHAIR      (1<<7)
 
 /**
-* Item's flags
-*/
+ * Item's flags
+ */
 #define ITEM_FLAG_SELECTONEMPTY         (1<<0)
 #define ITEM_FLAG_NOAUTORELOAD          (1<<1)
 #define ITEM_FLAG_NOAUTOSWITCHEMPTY     (1<<2)
@@ -285,70 +293,72 @@
 #define ITEM_FLAG_NOFIREUNDERWATER      (1<<5)
 
 /**
-* @section get_entvar(entity, var_spawnflags) values
-*/
+ * @section get_entvar(entity, var_spawnflags) values
+ */
 
 /**
-* func_train
-*/
+ * func_train
+ */
 #define SF_TRAIN_WAIT_RETRIGGER         1
 #define SF_TRAIN_START_ON               4 // Train is initially moving
 #define SF_TRAIN_PASSABLE               8 // Train is not solid -- used to make water trains
 
 /**
-* func_wall_toggle
-*/
+ * func_wall_toggle
+ */
 #define SF_WALL_TOOGLE_START_OFF        0x0001
 #define SF_WALL_TOOGLE_NOTSOLID         0x0008
 
 /**
-* func_conveyor
-*/
+ * func_conveyor
+ */
 #define SF_CONVEYOR_VISUAL              0x0001
 #define SF_CONVEYOR_NOTSOLID            0x0002
 
 /**
-* func_button
-*/
+ * func_button
+ */
 #define SF_BUTTON_DONTMOVE              1
 #define SF_BUTTON_TOGGLE                32  // Button stays pushed until reactivated
 #define SF_BUTTON_SPARK_IF_OFF          64  // Button sparks in OFF state
 #define SF_BUTTON_TOUCH_ONLY            256 // Button only fires as a result of USE key.
 
 /**
-* func_rot_button
-*/
+ * func_rot_button
+ */
 #define SF_ROTBUTTON_NOTSOLID           1
 #define SF_ROTBUTTON_BACKWARDS          2
 
 /**
-* env_global
-*/
+ * env_global
+ */
 #define SF_GLOBAL_SET                   1  // Set global state to initial state on spawn
 
 /**
-* multisource
-*/
+ * multisource
+ */
 #define MAX_MS_TARGETS                  32 // maximum number of targets a single multisource entity may be assigned.
 #define SF_MULTI_INIT                   1
 
 /**
-* momentary_rot_button
-*/
-#define SF_MOMENTARY_DOOR               0x0001 // Make this button behave like a door (HACKHACK)
-                                               // This will disable use and make the button solid
-                                               // rotating buttons were made SOLID_NOT by default since their were some
-                                               // collision problems with them...
+ * momentary_rot_button
+ *
+ * @note Make this button behave like a door (HACKHACK)
+ *       This will disable use and make the button solid
+ *       rotating buttons were made SOLID_NOT by default since their were some
+ *       collision problems with them...
+ */
+#define SF_MOMENTARY_DOOR               0x0001              
 
 /**
-* button_target
-*/
+ * button_target
+ */
 #define SF_BTARGET_USE                  0x0001
 #define SF_BTARGET_ON                   0x0002
 
 /**
-* func_door, func_water, func_door_rotating, momementary_door
-*/
+ * func_door, func_water, func_door_rotating, momementary_door
+ */
 #define SF_DOOR_START_OPEN              1
 #define SF_DOOR_PASSABLE                8
 #define SF_DOOR_NO_AUTO_RETURN          32
@@ -357,45 +367,45 @@
 #define SF_DOOR_ACTUALLY_WATER          0x80000000 // This bit marks that func_door are actually func_water
 
 /**
-* gibshooter
-*/
+ * gibshooter
+ */
 #define SF_GIBSHOOTER_REPEATABLE        1 // Allows a gibshooter to be refired
 
 /**
-* env_funnel
-*/
+ * env_funnel
+ */
 #define SF_FUNNEL_REVERSE               1 // Funnel effect repels particles instead of attracting them
 
 /**
-* env_bubbles
-*/
+ * env_bubbles
+ */
 #define SF_BUBBLES_STARTOFF             0x0001
 
 /**
-* env_blood
-*/
+ * env_blood
+ */
 #define SF_BLOOD_RANDOM                 0x0001
 #define SF_BLOOD_STREAM                 0x0002
 #define SF_BLOOD_PLAYER                 0x0004
 #define SF_BLOOD_DECAL                  0x0008
 
 /**
-* env_shake
-*/
+ * env_shake
+ */
 #define SF_SHAKE_EVERYONE               0x0001 // Don't check radius
 #define SF_SHAKE_DISRUPT                0x0002 // Disrupt controls
 #define SF_SHAKE_INAIR                  0x0004 // Shake players in air
 
 /**
-* env_fade
-*/
+ * env_fade
+ */
 #define SF_FADE_IN                      0x0001 // Fade in, not out
 #define SF_FADE_MODULATE                0x0002 // Modulate, don't blend
 #define SF_FADE_ONLYONE                 0x0004
 
 /**
-* env_beam, env_lightning
-*/
+ * env_beam, env_lightning
+ */
 #define SF_BEAM_STARTON                 0x0001
 #define SF_BEAM_TOGGLE                  0x0002
 #define SF_BEAM_RANDOM                  0x0004
@@ -408,21 +418,21 @@
 #define SF_BEAM_TEMPORARY               0x8000
 
 /**
-* env_sprite
-*/
+ * env_sprite
+ */
 #define SF_SPRITE_STARTON               0x0001
 #define SF_SPRITE_ONCE                  0x0002
 #define SF_SPRITE_TEMPORARY             0x8000
 
 /**
-* env_message
-*/
+ * env_message
+ */
 #define SF_MESSAGE_ONCE                 0x0001 // Fade in, not out
 #define SF_MESSAGE_ALL                  0x0002 // Send to all clients
 
 /**
-* env_explosion
-*/
+ * env_explosion
+ */
 #define SF_ENVEXPLOSION_NODAMAGE        (1<<0) // When set, ENV_EXPLOSION will not actually inflict damage
 #define SF_ENVEXPLOSION_REPEATABLE      (1<<1) // Can this entity be refired?
 #define SF_ENVEXPLOSION_NOFIREBALL      (1<<2) // Don't draw the fireball
@@ -431,8 +441,8 @@
 #define SF_ENVEXPLOSION_NOSPARKS        (1<<5) // Don't make a scorch mark
 
 /**
-* func_tank
-*/
+ * func_tank
+ */
 #define SF_TANK_ACTIVE                  0x0001
 #define SF_TANK_PLAYER                  0x0002
 #define SF_TANK_HUMANS                  0x0004
@@ -442,68 +452,70 @@
 #define SF_TANK_SOUNDON                 0x8000
 
 /**
-* grenade
-*/
+ * grenade
+ */
 #define SF_DETONATE                     0x0001 // Grenades flagged with this will be triggered when the owner calls detonateSatchelCharges
 
 /**
-* game_score
-*/
+ * game_score
+ */
 #define SF_SCORE_NEGATIVE               0x0001 // Allow negative scores
 #define SF_SCORE_TEAM                   0x0002 // Award points to team in teamplay
 
 /**
-* game_text
-*/
+ * game_text
+ */
 #define SF_ENVTEXT_ALLPLAYERS           0x0001 // Message will be displayed to all players instead of just the activator.
 
 /**
-* game_team_master
-*/
+ * game_team_master
+ */
 #define SF_TEAMMASTER_FIREONCE          0x0001 // Remove on Fire
 #define SF_TEAMMASTER_ANYTEAM           0x0002 // Any team until set? -- Any team can use this until the team is set (otherwise no teams can use it)
 
 /**
-* game_team_set
-*/
+ * game_team_set
+ */
 #define SF_TEAMSET_FIREONCE             0x0001 // Remove entity after firing.
 #define SF_TEAMSET_CLEARTEAM            0x0002 // Clear team -- Sets the team to "NONE" instead of activator
 
 /**
-* game_player_hurt
-*/
+ * game_player_hurt
+ */
 #define SF_PKILL_FIREONCE               0x0001 // Remove entity after firing.
 
 /**
-* game_counter
-*/
+ * game_counter
+ */
 #define SF_GAMECOUNT_FIREONCE           0x0001 // Remove entity after firing.
 #define SF_GAMECOUNT_RESET              0x0002 // Reset entity Initial value after fired.
 #define SF_GAMECOUNT_OVER_LIMIT         0x0004 // Fire a target when initial value is higher than limit value.
 
 /**
-* game_player_equip
-*/
+ * game_player_equip
+ */
 #define MAX_EQUIP                       32
 #define SF_PLAYEREQUIP_USEONLY          0x0001 // If set, the game_player_equip entity will not equip respawning players,
                                                // but only react to direct triggering, equipping its activator. This makes its master obsolete.
 
 /**
-* game_player_team
-*/
+ * game_player_team
+ */
 #define SF_PTEAM_FIREONCE               0x0001 // Remove entity after firing.
 #define SF_PTEAM_KILL                   0x0002 // Kill Player.
 #define SF_PTEAM_GIB                    0x0004 // Gib Player.
 
 /**
-* func_plat
-*/
-#define SF_PLAT_TOGGLE                  0x0001 // The lift is no more automatically called from top and activated by stepping on it.
-                                               // It required trigger to do so.
+ * func_plat
+ *
+ * @note The lift is no more automatically called from top and activated by stepping on it.
+ *       It required trigger to do so.
+ */
+#define SF_PLAT_TOGGLE                  0x0001
 
 /**
-* func_trackchange
-*/
+ * func_trackchange
+ */
 #define SF_TRACK_ACTIVATETRAIN          0x00000001
 #define SF_TRACK_RELINK                 0x00000002
 #define SF_TRACK_ROTMOVE                0x00000004
@@ -511,16 +523,16 @@
 #define SF_TRACK_DONT_MOVE              0x00000010
 
 /**
-* func_tracktrain
-*/
+ * func_tracktrain
+ */
 #define SF_TRACKTRAIN_NOPITCH           0x0001
 #define SF_TRACKTRAIN_NOCONTROL         0x0002
 #define SF_TRACKTRAIN_FORWARDONLY       0x0004
 #define SF_TRACKTRAIN_PASSABLE          0x0008
 
 /**
-* path_track
-*/
+ * path_track
+ */
 #define SF_PATH_DISABLED                0x00000001
 #define SF_PATH_FIREONCE                0x00000002
 #define SF_PATH_ALTREVERSE              0x00000004
@@ -528,21 +540,21 @@
 #define SF_PATH_ALTERNATE               0x00008000
 
 /**
-* path_corner
-*/
+ * path_corner
+ */
 #define SF_CORNER_WAITFORTRIG           0x001
 #define SF_CORNER_TELEPORT              0x002
 #define SF_CORNER_FIREONCE              0x004
 
 /**
-* trigger_push
-*/
+ * trigger_push
+ */
 #define SF_TRIGGER_PUSH_ONCE            1
 #define SF_TRIGGER_PUSH_START_OFF       2 // Spawnflag that makes trigger_push spawn turned OFF
 
 /**
-* trigger_hurt
-*/
+ * trigger_hurt
+ */
 #define SF_TRIGGER_HURT_TARGETONCE      1  // Only fire hurt target once
 #define SF_TRIGGER_HURT_START_OFF       2  // Spawnflag that makes trigger_push spawn turned OFF
 #define SF_TRIGGER_HURT_NO_CLIENTS      8  // Spawnflag that makes trigger_push spawn turned OFF
@@ -550,52 +562,53 @@
 #define SF_TRIGGER_HURT_CLIENTONLYTOUCH 32 // Only clients may touch this trigger.
 
 /**
-* trigger_auto
-*/
+ * trigger_auto
+ */
 #define SF_AUTO_FIREONCE                0x0001
 #define SF_AUTO_NORESET                 0x0002
 
 /**
-* trigger_relay
-*/
+ * trigger_relay
+ */
 #define SF_RELAY_FIREONCE               0x0001
 
 /**
-* multi_manager
-*/
+ * multi_manager
+ */
 #define SF_MULTIMAN_THREAD              0x00000001
 #define SF_MULTIMAN_CLONE               0x80000000
 
 /**
-* env_render
-* @note These are flags to indicate masking off various render parameters that
-* are usually copied to the targets
-*/
+ * env_render
+ *
+ * @note These are flags to indicate masking off various render parameters that
+ * are usually copied to the targets
+ */
 #define SF_RENDER_MASKFX                (1<<0)
 #define SF_RENDER_MASKAMT               (1<<1)
 #define SF_RENDER_MASKMODE              (1<<2)
 #define SF_RENDER_MASKCOLOR             (1<<3)
 
 /**
-* trigger_changelevel
-*/
+ * trigger_changelevel
+ */
 #define SF_CHANGELEVEL_USEONLY          0x0002
 
 /**
-* trigger_endsection
-*/
+ * trigger_endsection
+ */
 #define SF_ENDSECTION_USEONLY           0x0001
 
 /**
-* trigger_camera
-*/
+ * trigger_camera
+ */
 #define SF_CAMERA_PLAYER_POSITION       1
 #define SF_CAMERA_PLAYER_TARGET         2
 #define SF_CAMERA_PLAYER_TAKECONTROL    4
 
 /**
-* func_rotating
-*/
+ * func_rotating
+ */
 #define SF_BRUSH_ROTATE_START_ON        1
 #define SF_BRUSH_ROTATE_BACKWARDS       2
 #define SF_BRUSH_ROTATE_Z_AXIS          4
@@ -608,68 +621,67 @@
 #define SF_BRUSH_ROTATE_LARGERADIUS     512
 
 /**
-* triggers
-*/
+ * triggers
+ */
 #define SF_TRIGGER_ALLOWMONSTERS        1  // Monsters allowed to fire this trigger
 #define SF_TRIGGER_NOCLIENTS            2  // Players not allowed to fire this trigger
 #define SF_TRIGGER_PUSHABLES            4  // Only pushables can fire this trigger
 #define SF_TRIGGER_NORESET              64 // It is not allowed to be resetting on a new round
 
 /**
-* trigger_multiple
-*/
+ * trigger_multiple
+ */
 #define SF_TRIGGER_MULTIPLE_NOTOUCH     0x0001
 
 /**
-* trigger_counter
-*/
+ * trigger_counter
+ */
 #define SF_TRIGGER_COUNTER_NOMESSAGE    0x0001
 
 /**
-* func_breakable
-*/
+ * func_breakable
+ */
 #define SF_BREAK_TRIGGER_ONLY           1   // May only be broken by trigger
 #define SF_BREAK_TOUCH                  2   // Can be 'crashed through' by running player (plate glass)
 #define SF_BREAK_PRESSURE               4   // Can be broken by a player standing on it
 #define SF_BREAK_CROWBAR                256 // Instant break if hit with crowbar
 
 /**
-* func_pushable (also func_breakable, so don't collide with those flags)
-*/
+ * func_pushable (also func_breakable, so don't collide with those flags)
+ */
 #define SF_PUSH_BREAKABLE               128
 
 /**
-* light_spawn
-*/
+ * light_spawn
+ */
 #define SF_LIGHT_START_OFF              1
 
 /**
-* info_decal
-*/
+ * info_decal
+ */
 #define SF_DECAL_NOTINDEATHMATCH        2048
 
 /**
-* worldspawn
-*/
+ * worldspawn
+ */
 #define SF_WORLD_DARK                   0x0001 // Fade from black at startup
 #define SF_WORLD_TITLE                  0x0002 // Display game title at startup
 #define SF_WORLD_FORCETEAM              0x0004 // Force teams
 
 /**
-* Set this bit on guns and stuff that should never respawn
-*/
+ * Set this bit on guns and stuff that should never respawn
+ */
 #define SF_NORESPAWN                    (1<<30)
 
 /**
-* @endsection
-*/
+ * @endsection
+ */
 
 /**
-* Train status values
-*/
+ * Train status values
+ */
 #define TRAIN_ACTIVE                    0x80
 #define TRAIN_NEW                       0xc0
-
 #define TRAIN_OFF                       0x00
 #define TRAIN_NEUTRAL                   0x01
 #define TRAIN_SLOW                      0x02
@@ -678,26 +690,27 @@
 #define TRAIN_BACK                      0x05
 
 /**
-* PlaybackEvent flags
-*/
+ * PlaybackEvent flags
+ *
+ * @note FEV_RELIABLE: Send the event reliably. You must specify the origin and angles
+ *                     for this to work correctly on the server for anything
+ *                     that depends on the event origin/angles. I.e., the origin/angles are not
+ *                     taken from the invoking edict for reliable events.
+ * @note FEV_GLOBAL:   Don't restrict to PAS/PVS, send this event to _everybody_ on the server ( useful for stopping CHAN_STATIC
+ *                     sounds started by client event when client is not in PVS anymore ( hwguy in TFC e.g. ).
+ */
 #define FEV_NOTHOST                     (1<<0) // Skip local host for event send.
-#define FEV_RELIABLE                    (1<<1) // Send the event reliably. You must specify the origin and angles
-                                               // for this to work correctly on the server for anything
-                                               // that depends on the event origin/angles. I.e., the origin/angles are not
-                                               // taken from the invoking edict for reliable events.
-
-#define FEV_GLOBAL                      (1<<2) // Don't restrict to PAS/PVS, send this event to _everybody_ on the server ( useful for stopping CHAN_STATIC
-                                               // sounds started by client event when client is not in PVS anymore ( hwguy in TFC e.g. ).
-
+#define FEV_RELIABLE                    (1<<1)
+#define FEV_GLOBAL                      (1<<2)
 #define FEV_UPDATE                      (1<<3) // If this client already has one of these events in its queue, just update the event instead of sending it as a duplicate
 #define FEV_HOSTONLY                    (1<<4) // Only send to entity specified as the invoker
 #define FEV_SERVER                      (1<<5) // Only send if the event was created on the server.
 #define FEV_CLIENT                      (1<<6) // Only issue event client side ( from shared code )
 
 /**
-* Cap bits to indicate what an object's capabilities are, currently used for
-* save/restore and level transitions.
-*/
+ * Cap bits to indicate what an object's capabilities are, currently used for
+ * save/restore and level transitions.
+ */
 #define FCAP_CUSTOMSAVE                 0x00000001
 #define FCAP_ACROSS_TRANSITION          0x00000002 // Should transfer between transitions
 #define FCAP_MUST_SPAWN                 0x00000004 // Spawn after restore
@@ -710,30 +723,32 @@
 #define FCAP_MUST_RELEASE               0x00000200 // Should release on the new round
 #define FCAP_DONT_SAVE                  0x80000000 // Don't save this
 
-// UNDONE: This will ignore transition volumes (trigger_transition), but not the PVS!!!
+/**
+ * UNDONE: This will ignore transition volumes (trigger_transition), but not the PVS!!!
+ */
 #define FCAP_FORCE_TRANSITION           0x00000080 // ALWAYS goes across transitions
 
 /**
-* All monsters need this data
-*/
+ * All monsters need this data
+ */
 #define DONT_BLEED                      -1
 #define BLOOD_COLOR_RED                 247
 #define BLOOD_COLOR_YELLOW              195
 #define BLOOD_COLOR_GREEN               BLOOD_COLOR_YELLOW
 
 /**
-* CBasePlayer::m_iIgnoreGlobalChat
-*/
+ * CBasePlayer::m_iIgnoreGlobalChat
+ */
 enum
 {
 	IGNOREMSG_NONE,  // Nothing to do
 	IGNOREMSG_ENEMY, // To ignore any chat messages from the enemy
 	IGNOREMSG_TEAM   // Same as IGNOREMSG_ENEMY but ignore teammates
-}
+};
 
 /**
-* Hitgroups
-*/
+ * Hitgroups
+ */
 enum HitBoxGroup
 {
 	HITGROUP_GENERIC = 0,
@@ -748,18 +763,18 @@ enum HitBoxGroup
 };
 
 /**
-* Armor types for m_iKevlar
-*/
+ * Armor types for m_iKevlar
+ */
 enum ArmorType
 {
 	ARMOR_NONE,     // No armor
 	ARMOR_KEVLAR,   // Body vest only
-	ARMOR_VESTHELM, // Vest and helmet
+	ARMOR_VESTHELM  // Vest and helmet
 };
 
 /**
-* For CArmoury::m_Armoury_iItem
-*/
+ * For CArmoury::m_Armoury_iItem
+ */
 enum ArmouryItemPack
 {
 	ARMOURY_MP5NAVY,
@@ -791,12 +806,12 @@ enum ArmouryItemPack
 	ARMOURY_ELITE,
 	ARMOURY_FIVESEVEN,
 	ARMOURY_P228,
-	ARMOURY_DEAGLE,
+	ARMOURY_DEAGLE
 };
 
 /**
-* Reward types for RG_CBasePlayer_AddAccount
-*/
+ * Reward types for RG_CBasePlayer_AddAccount
+ */
 enum RewardType
 {
 	RT_NONE,
@@ -817,8 +832,8 @@ enum RewardType
 };
 
 /**
-* Team IDs for m_iTeam
-*/
+ * Team IDs for m_iTeam
+ */
 enum TeamName
 {
 	TEAM_UNASSIGNED,
@@ -828,8 +843,8 @@ enum TeamName
 };
 
 /**
-* For m_iModelName
-*/
+ * For m_iModelName
+ */
 enum ModelName
 {
 	MODEL_UNASSIGNED,
@@ -848,8 +863,8 @@ enum ModelName
 };
 
 /**
-* weapon respawning return codes
-*/
+ * weapon respawning return codes
+ */
 enum
 {
 	GR_NONE = 0,
@@ -868,8 +883,8 @@ enum
 };
 
 /**
-* Weapon IDs for rg_get_weaponbox_id, GetGrenadeType, rg_get_weapon_info(const weapon_name[], WI_ID)
-*/
+ * Weapon IDs for rg_get_weaponbox_id, GetGrenadeType, rg_get_weapon_info(const weapon_name[], WI_ID)
+ */
 enum WeaponIdType
 {
 	WEAPON_NONE,
@@ -907,9 +922,9 @@ enum WeaponIdType
 };
 
 /**
-* For CBaseMonster::m_rgbTimeBasedDamage
-* prefix should be ITBD_
-*/
+ * For CBaseMonster::m_rgbTimeBasedDamage
+ * prefix should be ITBD_
+ */
 enum TimeBasedDamage
 {
 	ITDB_PARALYZE,
@@ -923,8 +938,8 @@ enum TimeBasedDamage
 };
 
 /**
-* m_Activity
-*/
+ * m_Activity
+ */
 enum Activity
 {
 	ACT_INVALID = -1,
@@ -1032,25 +1047,27 @@ enum Activity
 };
 
 /**
-* WinStatus for RG_RoundEnd, rg_round_end
-*/
+ * WinStatus for RG_RoundEnd, rg_round_end
+ */
 enum WinStatus
 {
 	WINSTATUS_NONE = 0,
 	WINSTATUS_CTS,
 	WINSTATUS_TERRORISTS,
-	WINSTATUS_DRAW,
+	WINSTATUS_DRAW
 };
 
-// Bypass warning: 200 on amxmodx 1.8.2
+/**
+ * Bypass warning: 200 on amxmodx 1.8.2
+ */
 #if AMXX_VERSION_NUM < 183
 	#define ROUND_ESCAPING_TERRORISTS_NEUTRALIZED ROUND_ESCAPING_TERRORISTS_NEUTR
 	#define RR_ESCAPING_TERRORISTS_NEUTRALIZED RR_ESCAPING_TERRORISTS_NEUTR
 #endif
 
 /**
-* Used for EndRoundMessage() logged messages
-*/
+ * Used for EndRoundMessage() logged messages
+ */
 enum ScenarioEventEndRound
 {
 	ROUND_NONE,
@@ -1075,8 +1092,8 @@ enum ScenarioEventEndRound
 };
 
 /**
-* Animation IDs for RG_CBasePlayer_SetAnimation, rg_set_animation
-*/
+ * Animation IDs for RG_CBasePlayer_SetAnimation, rg_set_animation
+ */
 enum PLAYER_ANIM
 {
 	PLAYER_IDLE,
@@ -1093,8 +1110,8 @@ enum PLAYER_ANIM
 };
 
 /**
-* For CBasePlayer::m_iJoiningState
-*/
+ * For CBasePlayer::m_iJoiningState
+ */
 enum JoinState
 {
 	JOINED,
@@ -1106,8 +1123,8 @@ enum JoinState
 };
 
 /**
-* For CBasePlayer::m_iMenu
-*/
+ * For CBasePlayer::m_iMenu
+ */
 enum _Menu
 {
 	Menu_OFF,
@@ -1128,8 +1145,8 @@ enum _Menu
 };
 
 /**
-* For CBasePlayer::m_flLastCommandTime[8]
-*/
+ * For CBasePlayer::m_flLastCommandTime[8]
+ */
 enum TrackCommands
 {
 	CMD_SAY,
@@ -1140,12 +1157,12 @@ enum TrackCommands
 	CMD_LISTMAPS,
 	CMD_LISTPLAYERS,
 	CMD_NIGHTVISION,
-	COMMANDS_TO_TRACK,
+	COMMANDS_TO_TRACK
 };
 
 /**
-* For CBasePlayer::m_rgpPlayerItems[6]
-*/
+ * For CBasePlayer::m_rgpPlayerItems[6]
+ */
 enum InventorySlotType
 {
 	NONE_SLOT,
@@ -1153,12 +1170,12 @@ enum InventorySlotType
 	PISTOL_SLOT,
 	KNIFE_SLOT,
 	GRENADE_SLOT,
-	C4_SLOT,
+	C4_SLOT
 };
 
 /**
-* Sets animation for weapon_shield of SendWeaponAnim
-*/
+ * Sets animation for weapon_shield of SendWeaponAnim
+ */
 enum shieldgren_e
 {
 	SHIELDREN_IDLE = 4,
@@ -1176,24 +1193,24 @@ enum shieldgun_e
 	SHIELDGUN_DRAW,
 	SHIELDGUN_DRAWN_IDLE,
 	SHIELDGUN_UP,
-	SHIELDGUN_DOWN,
+	SHIELDGUN_DOWN
 };
 
 /**
-* Flags for CUnifiedSignals m_signals
-*/
+ * Flags for CUnifiedSignals m_signals
+ */
 enum SignalState
 {
 	SIGNAL_BUY       = BIT(0),
 	SIGNAL_BOMB      = BIT(1),
 	SIGNAL_RESCUE    = BIT(2),
 	SIGNAL_ESCAPE    = BIT(3),
-	SIGNAL_VIPSAFETY = BIT(4),
+	SIGNAL_VIPSAFETY = BIT(4)
 };
 
 /**
-* Weapon states of the following weapons: usp, elite, glock18, famas and m4a1.
-*/
+ * Weapon states of the following weapons: usp, elite, glock18, famas and m4a1.
+ */
 enum WeaponState
 {
 	WPNSTATE_USP_SILENCED       = BIT(0),
@@ -1201,12 +1218,12 @@ enum WeaponState
 	WPNSTATE_M4A1_SILENCED      = BIT(2),
 	WPNSTATE_ELITE_LEFT         = BIT(3),
 	WPNSTATE_FAMAS_BURST_MODE   = BIT(4),
-	WPNSTATE_SHIELD_DRAWN       = BIT(5),
+	WPNSTATE_SHIELD_DRAWN       = BIT(5)
 };
 
 /**
-* Bullet types for rg_fire_bullets, rg_fire_bullets3
-*/
+ * Bullet types for rg_fire_bullets, rg_fire_bullets3
+ */
 enum Bullet
 {
 	BULLET_NONE,
@@ -1224,12 +1241,12 @@ enum Bullet
 	BULLET_PLAYER_556MM,
 	BULLET_PLAYER_50AE,
 	BULLET_PLAYER_57MM,
-	BULLET_PLAYER_357SIG,
+	BULLET_PLAYER_357SIG
 };
 
 /**
-* Reward rules for rg_get_account_rules, rg_set_account_rules
-*/
+ * Reward rules for rg_get_account_rules, rg_set_account_rules
+ */
 enum RewardRules
 {
 	RR_CTS_WIN,
@@ -1258,8 +1275,8 @@ enum RewardRules
 };
 
 /**
-* For RG_CBasePlayer_HasRestrictItem
-*/
+ * For RG_CBasePlayer_HasRestrictItem
+ */
 enum ItemRestType
 {
 	ITEM_TYPE_BUYING,  // When a player is buying items
@@ -1268,8 +1285,8 @@ enum ItemRestType
 };
 
 /**
-* Constant items
-*/
+ * Constant items
+ */
 enum ItemID
 {
 	ITEM_NONE = -1,
@@ -1316,27 +1333,27 @@ enum ItemID
 };
 
 /**
-* For CMapInfo:m_iBuyingStatus
-*/
+ * For CMapInfo:m_iBuyingStatus
+ */
 enum InfoMapBuyParam
 {
 	BUYING_EVERYONE = 0,
 	BUYING_ONLY_CTS,
 	BUYING_ONLY_TERRORISTS,
-	BUYING_NO_ONE,
+	BUYING_NO_ONE
 };
 
 /**
-* For SetUse
-*/
+ * For SetUse
+ */
 #define USE_OFF                         0
 #define USE_ON                          1
 #define USE_SET                         2
 #define USE_TOGGLE                      3
 
 /**
-* For CBasePlayer:m_iWeaponVolume
-*/
+ * For CBasePlayer:m_iWeaponVolume
+ */
 #define LOUD_GUN_VOLUME                 1000
 #define NORMAL_GUN_VOLUME               600
 #define QUIET_GUN_VOLUME                200
@@ -1345,16 +1362,16 @@ enum InfoMapBuyParam
 #define SMALL_EXPLOSION_VOLUME          512
 
 /**
-* For CBasePlayer:m_iWeaponFlash
-*/
+ * For CBasePlayer:m_iWeaponFlash
+ */
 #define BRIGHT_GUN_FLASH                512
 #define NORMAL_GUN_FLASH                256
 #define DIM_GUN_FLASH                   128
 
 /**
-* Player zoom constants
-* For m_iFOV
-*/
+ * Player zoom constants
+ * For m_iFOV
+ */
 #define DEFAULT_LARGE_AWP_ZOOM            10
 #define DEFAULT_LARGE_OTHER_SNIPERS_ZOOM  15
 #define DEFAULT_SMALL_SNIPERS_ZOOM        40
@@ -1362,9 +1379,9 @@ enum InfoMapBuyParam
 #define DEFAULT_NO_ZOOM                   90
 
 /**
-* Scoreboard attribute constants
-* For "ScoreAttrib" game event
-*/
+ * Scoreboard attribute constants
+ * For "ScoreAttrib" game event
+ */
 #define SCORE_STATUS_NONE                 0
 #define SCORE_STATUS_DEAD                 (1<<0)
 #define SCORE_STATUS_BOMB                 (1<<1)
@@ -1372,8 +1389,8 @@ enum InfoMapBuyParam
 #define SCORE_STATUS_DEFKIT               (1<<3)
 
 /**
-* For RG_CBotManager_OnEvent
-*/
+ * For RG_CBotManager_OnEvent
+ */
 enum GameEventType
 {
 	EVENT_INVALID = 0,
@@ -1479,13 +1496,13 @@ enum GameEventType
 	EVENT_GAME_COMMENCE,                // tell bots the game is commencing (argumens: 1 = NULL, 2 = NULL)
 	EVENT_WEAPON_ZOOMED,                // tell bots the player is switch weapon zoom (argumens: 1 = zoom switcher, 2 = NULL)
 	EVENT_HOSTAGE_CALLED_FOR_HELP,      // tell bots the hostage is talking (argumens: 1 = listener, 2 = NULL)
-	NUM_GAME_EVENTS,
+	NUM_GAME_EVENTS
 };
 
 /**
-* Weapon secondary attack states
-* For CCSPlayerWeapon::m_iStateSecondaryAttack
-*/
+ * Weapon secondary attack states
+ * For CCSPlayerWeapon::m_iStateSecondaryAttack
+ */
 enum SecondaryAtkState
 {
 	WEAPON_SECONDARY_ATTACK_NONE = 0,
@@ -1494,8 +1511,8 @@ enum SecondaryAtkState
 };
 
 /**
-* Decal list for rg_decal_trace
-*/
+ * Decal list for rg_decal_trace
+ */
 enum Decal
 {
 	DECAL_GUNSHOT1 = 0,
@@ -1539,19 +1556,19 @@ enum Decal
 	DECAL_SMALLSCORCH2,      // Small scorch mark
 	DECAL_SMALLSCORCH3,      // Small scorch mark
 	DECAL_MOMMABIRTH,        // Big momma birth splatter
-	DECAL_MOMMASPLAT,
+	DECAL_MOMMASPLAT
 };
 
 /**
-* Player relationship return codes
-*/
+ * Player relationship return codes
+ */
 enum
 {
 	GR_NOTTEAMMATE = 0,
 	GR_TEAMMATE,
 	GR_ENEMY,
 	GR_ALLY,
-	GR_NEUTRAL,
+	GR_NEUTRAL
 };
 
 // Flags for specifying extra info about player death

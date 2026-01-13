@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Socket Functions
-//
-
 #if defined _socket_included
 	#endinput
 #endif
@@ -54,19 +41,14 @@
  *       https://www.gnu.org/software/libc/manual/html_node/Error-Codes.html
  *       https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/errno.h
  *       https://msdn.microsoft.com/en-us/library/ms740668.aspx
- *
  * @note The currently available bit flags are:
  *       - SOCK_NON_BLOCKING : if set, the socket will be on nonblocking mode
  *       - SOCK_LIBC_ERRORS : if set, the new libc errors will be seen on _error
- *
  * @note If no flags are set, the behaviour of the function will not be modified.
- *
  * @note Multiple flags may be set at the same time using the | operator. 
  *       For example, SOCK_NON_BLOCKING|SOCK_LIBC_ERRORS will create a nonblocking socket with libc error codes.
- *
  * @note If you're creating a new nonblocking socket, _hostname should be numeric to avoid calling the 
  *       name resolution server and potentially blocking the call.
- *
  * @note If the socket is a nonblocking one, the returned socket descriptor may be still connecting and 
  *       further checks should be done with socket_is_writable() before trying to send data.
  *
@@ -78,7 +60,7 @@
  *
  * @return             A socket descriptor (a positive integer) on success
  *                     -1 on failure
-*/
+ */
 native socket_open(const _hostname[], _port, _protocol = SOCKET_TCP, &_error, _flags = 0);
 
 /**
@@ -95,7 +77,6 @@ native socket_close(_socket);
  * Receives data.
  *
  * @note The amount of bytes than you end up receiving can be less than the one you expected.
- *
  * @note This function will completely block the server until some data arrives
  *       to the given socket. Use this only if you are sure there is some data
  *       to be retrieved. You can do that by polling with socket_is_readable().
@@ -130,7 +111,6 @@ native socket_send(_socket, const _data[], _length);
  *
  * @note The amount of bytes that end up being sent may be lower than the total length of the array,
  *       check the return value and send the rest if needed.
- *
  * @note strlen(_data) will return the wrong length if the array contains null bytes.
  *
  * @param _socket    Socket descriptor

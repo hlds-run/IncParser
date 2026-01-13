@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Natural Selection Module Constants
-//
-
 #if defined NS_CONST_INC
 	#endinput
 #endif
@@ -26,11 +13,13 @@ enum NSGameplay
 	NSGame_MarineVMarine,	/**< Marine vs Marine */
 	NSGame_AlienVAlien,		/**< Alien  vs Alien  */
 
-	NSGame_Unknown,			/**< Can find the gameplay entity, but can't 
+	NSGame_Unknown			/**< Can find the gameplay entity, but can't 
 								 determine gameplay type. */
 };
 
-// entity pev->iuser4 fields
+/**
+ * entity pev->iuser4 fields
+ */
 enum {
 	MASK_NONE = 0,
 	MASK_SIGHTED = 1,
@@ -151,8 +140,10 @@ enum NSPS_VelShape
 	NSPS_VS_BLOB
 };
 
-/* Genshape used in ns_set_ps_genshape
- * NOTE: The following are in the ns.ps file but
+/**
+ * Genshape used in ns_set_ps_genshape
+ *
+ * @note The following are in the ns.ps file but
  *       are not listed in the .fgd file.  Use
  *       at your own risk!
  *       Line, Triangle, Plane, Cylinder, 
@@ -172,6 +163,7 @@ enum NSPS_GenShape
 	NSPS_GS_RECTANGLE,
 	NSPS_GS_NONE
 };
+
 enum NSPS_RenderMode
 {
 	NSPS_R_NORMAL = 0,
@@ -181,6 +173,7 @@ enum NSPS_RenderMode
 	NSPS_R_TRANSALPHA,
 	NSPS_R_ADDITIVE
 };
+
 enum NSPS_Flags
 {
 	NSPS_FL_START_ON = 1,

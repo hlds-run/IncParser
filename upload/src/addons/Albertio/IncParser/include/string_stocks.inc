@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// String Manipulation Stocks
-//
-
 #if defined _string_stocks_included
   #endinput
 #endif
@@ -21,17 +8,11 @@
 #endif
 
 /**
- * @global  Unless otherwise noted, all string functions which take in a
- *          writable buffer and maximum length should NOT have the null terminator INCLUDED
- *          in the length.  This means that this is valid:
- *          copy(string, charsmax(string), ...)
- */
-
-/**
  * Returns whether a given string contains only digits.
  * This returns false for zero-length strings.
  *
  * @param sString       Character to test.
+ *
  * @return              True if string contains only digit, otherwise false.
  */
 stock bool:is_str_num(const sString[])
@@ -52,6 +33,7 @@ stock bool:is_str_num(const sString[])
  * @note Only available in 1.8.3 and above.
  *
  * @param chr           Characer to convert.
+ *
  * @return              Lowercase character on success,
  *                      no change on failure.
  */
@@ -71,6 +53,7 @@ stock char_to_upper(chr)
  * @note Only available in 1.8.3 and above.
  *
  * @param chr           Characer to convert.
+ *
  * @return              Uppercase character on success,
  *                      no change on failure.
  */
@@ -86,6 +69,7 @@ stock char_to_lower(chr)
 
 /**
  * Backwards compatibility stock - use argbreak or argparse.
+ *
  * @deprecated          this function does not work properly.
  */
 #pragma deprecated Use argbreak() instead
@@ -186,7 +170,6 @@ stock remove_filepath(const szFilePath[], szFile[], pMax)
  * Replaces a contained string iteratively.
  *
  * @note Consider using replace_string() instead.
- *
  * @note This ensures that no infinite replacements will take place by
  *       intelligently moving to the next string position each iteration.
  *
@@ -292,6 +275,7 @@ stock explode_string(const text[], const split[], buffers[][], maxStrings, maxSt
  * @param join          The join string to insert between each string.
  * @param buffer        Output buffer to write the joined string to.
  * @param maxLength     Maximum length of the output buffer.
+ *
  * @return              Number of bytes written to the output buffer.
  */
 stock implode_strings(const strings[][], numStrings, const join[], buffer[], maxLength)

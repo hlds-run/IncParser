@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Fun Functions
-//
-
 #if defined _fun_included
 	#endinput
 #endif
@@ -21,10 +8,10 @@
 	#pragma loadlib fun
 #endif
 
-
 /**
- * Parts of body for hits, for use with set_user_hitzones().
+ * @section Parts of body for hits, for use with set_user_hitzones().
  */
+
 const HITZONE_GENERIC  = (1 << HIT_GENERIC);   // 1
 const HITZONE_HEAD     = (1 << HIT_HEAD);      // 2
 const HITZONE_CHEST    = (1 << HIT_CHEST);     // 4
@@ -33,8 +20,11 @@ const HITZONE_LEFTARM  = (1 << HIT_LEFTARM);   // 16
 const HITZONE_RIGHTARM = (1 << HIT_RIGHTARM);  // 32
 const HITZONE_LEFTLEG  = (1 << HIT_LEFTLEG);   // 64
 const HITZONE_RIGHTLEG = (1 << HIT_RIGHTLEG);  // 128
-const HITZONES_DEFAULT = HITZONE_GENERIC | HITZONE_HEAD     | HITZONE_CHEST   | HITZONE_STOMACH | 
-                         HITZONE_LEFTARM | HITZONE_RIGHTARM | HITZONE_LEFTLEG | HITZONE_RIGHTLEG; // 255
+const HITZONES_DEFAULT = HITZONE_GENERIC | HITZONE_HEAD | HITZONE_CHEST | HITZONE_STOMACH | HITZONE_LEFTARM | HITZONE_RIGHTARM | HITZONE_LEFTLEG | HITZONE_RIGHTLEG; // 255
+
+/**
+ * @endsection
+ */
 
 /**
  * Tells whether receiver hears sender via voice communication.

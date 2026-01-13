@@ -1,17 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-// Special thanks to AssKicR, Freecode, and T(+)rget.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Engine Stocks
-//
-
 #if defined _engine_stocks_included
   #endinput
 #endif
@@ -25,7 +11,7 @@
   #include <engine>
 #endif
 
-stock fakedamage(idvictim,const szClassname[],Float:takedmgdamage,damagetype)
+stock fakedamage(idvictim, const szClassname[], Float:takedmgdamage, damagetype)
 {
 	new entity = create_entity("trigger_hurt");
 	if (entity)
@@ -48,36 +34,49 @@ stock fakedamage(idvictim,const szClassname[],Float:takedmgdamage,damagetype)
 	return 0;
 }
 
-//wrapper for find_ent_by_class
+/**
+ * wrapper for find_ent_by_class
+ */
 stock find_ent(iStart, const szClassname[])
 {
 	return find_ent_by_class(iStart, szClassname);
 }
 
-/* Get the Button(s) user is pressing */
+/**
+ * Get the Button(s) user is pressing
+ */
 stock get_user_button(id)
 {
 	return entity_get_int(id, EV_INT_button);
 }
 
+/**
+ * Get the Old Button(s) user is pressed
+ */
 stock get_user_oldbutton(id)
 {
 	return entity_get_int(id, EV_INT_oldbuttons);
 }
 
-/* Get flags an entity is flagged with */
+/**
+ * Get flags an entity is flagged with
+ */
 stock get_entity_flags(ent)
 {
 	return entity_get_int(ent, EV_INT_flags);
 }
 
-/* Get the distance between two entities */
+/**
+ * Get the distance between two entities
+ */
 stock get_entity_distance(ent1, ent2)
 {
 	return floatround(entity_range(ent1, ent2));
 }
 
-/* Get grenade thrown by this user */
+/**
+ * Get grenade thrown by this user
+ */
 stock get_grenade(id)
 {
 	new iGrenade = find_ent_by_class(-1, "grenade");
@@ -92,7 +91,9 @@ stock get_grenade(id)
 	return 0;
 }
 
-/* Get origin of a brush entity */
+/**
+ * Get origin of a brush entity
+ */
 stock get_brush_entity_origin(ent, Float:orig[3])
 {
 	new Float:Min[3], Float:Max[3];
@@ -108,7 +109,9 @@ stock get_brush_entity_origin(ent, Float:orig[3])
 	return 1;
 }
 
-/* Remove entity by name */
+/**
+ * Remove entity by name
+ */
 stock remove_entity_name(const eName[])
 {
 	new iEntity = find_ent_by_class(-1, eName);
@@ -121,7 +124,9 @@ stock remove_entity_name(const eName[])
 	return 1;
 }
 
-/* Get the contents of the point a user is aiming at */
+/**
+ * Get the contents of the point a user is aiming at
+ */
 stock ViewContents(id)
 {
 	new origin[3], Float:Orig[3];
@@ -133,6 +138,9 @@ stock ViewContents(id)
 	return point_contents(Orig);
 }
 
+/**
+ * Get entity speed
+ */
 stock get_speed(ent)
 {
 	new Float:Vel[3];
@@ -141,8 +149,10 @@ stock get_speed(ent)
 	return floatround(vector_length(Vel));
 }
 
-/*  Set rendering of an entity */
-stock set_rendering(index, fx=kRenderFxNone, r=255, g=255, b=255, render=kRenderNormal, amount=16)
+/**
+ * Set rendering of an entity
+ */
+stock set_rendering(index, fx = kRenderFxNone, r = 255, g = 255, b = 255, render = kRenderNormal, amount = 16)
 {
 	entity_set_int(index,EV_INT_renderfx,fx);
 	new Float:RenderColor[3];
@@ -156,8 +166,10 @@ stock set_rendering(index, fx=kRenderFxNone, r=255, g=255, b=255, render=kRender
 	return 1;
 }
 
-/* Set flags on an entity */
-stock set_entity_flags(ent,flag,onoff)
+/**
+ * Set flags on an entity
+ */
+stock set_entity_flags(ent, flag, onoff)
 {
 	new iFlags = entity_get_int(ent, EV_INT_flags);
 	if(iFlags & flag)
@@ -174,7 +186,9 @@ stock set_entity_flags(ent,flag,onoff)
 	return 1;
 }
 
-/* If visible = 1, entity will be set to be visible, else invisible. */
+/**
+ * If visible = 1, entity will be set to be visible, else invisible.
+ */
 stock set_entity_visibility(entity, visible = 1) 
 {
 	entity_set_int(entity, EV_INT_effects, visible == 1 ? entity_get_int(entity, EV_INT_effects) & ~EF_NODRAW : entity_get_int(entity, EV_INT_effects) | EF_NODRAW);
@@ -182,47 +196,66 @@ stock set_entity_visibility(entity, visible = 1)
 	return 1;
 }
 
-/* Returns 1 if entity is visible. */
+/**
+ * Returns 1 if entity is visible.
+ */
 stock get_entity_visibility(entity) 
 {
 	return !(entity_get_int(entity, EV_INT_effects) & EF_NODRAW);
 }
 
+/**
+ * Set user velocity
+ */
 stock set_user_velocity(entity, const Float:vec[3])
 {
 	return entity_set_vector(entity, EV_VEC_velocity, vec);
 }
 
+/**
+ * Get user velocity
+ */
 stock get_user_velocity(entity, Float:vec[3])
 {
 	return entity_get_vector(entity, EV_VEC_velocity, vec);
 }
 
-/* Backwards compatible */
-/* Hurts/Kills players in a sphere, like an explosion, Multiplier determines damage. */
+/**
+ * Hurts/Kills players in a sphere, like an explosion, Multiplier determines damage.
+ */
 stock RadiusDamage(const Float:fExplodeAt[3], iDamageMultiplier, iRadiusMultiplier) 
 {
 	return radius_damage(fExplodeAt, iDamageMultiplier, iRadiusMultiplier);
 }
-/* Gives you a velocity in the direction a player is looking, iVelocity is the multiplier. */
-stock VelocityByAim(iIndex,iVelocity, Float:vRetValue[3]) 
+
+/**
+ * Gives you a velocity in the direction a player is looking, iVelocity is the multiplier.
+ */
+stock VelocityByAim(iIndex, iVelocity, Float:vRetValue[3]) 
 {
 	return velocity_by_aim(iIndex,iVelocity,vRetValue);
 }
-/* Will return the contents of a point (inside map? in sky? outside map? etc.). */
+
+/**
+ * Will return the contents of a point (inside map? in sky? outside map? etc.).
+ */
 stock PointContents(const Float:fCheckAt[3]) 
 {
 	return point_contents(fCheckAt);
 }
 
+/**
+ * Set entity size
+ */
 stock set_size(index, const Float:mins[3], const Float:maxs[3]) 
 {
 	return entity_set_size(index,mins,maxs);
 }
 
-//by Twilight Suzuka, request addition at29428
-//"Lifted from HLSDK"
-stock IsInWorld( ent )
+/**
+ * Entity is world
+ */
+stock IsInWorld(ent)
 {
    new Float:origin[3];
    entity_get_vector(ent,EV_VEC_origin,origin);

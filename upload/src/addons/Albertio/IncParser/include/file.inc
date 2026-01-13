@@ -1,29 +1,8 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// File Functions
-//
-
 #if defined _file_included
 	#endinput
 #endif
 #define _file_included
 
-/**
- * @note All paths in AMX Mod X natives are relative to the mod folder
- * unless otherwise noted.
- *
- * Most functions in AMX Mod X (at least, ones that deal with direct 
- * file manipulation) will support an alternate path specification.
- */
- 
 /**
  * Maximum path length.
  */
@@ -36,7 +15,7 @@ enum FileType
 {
 	FileType_Unknown,       /* Unknown file type (device/socket) */
 	FileType_Directory,     /* File is a directory */
-	FileType_File,          /* File is a file */
+	FileType_File           /* File is a file */
 };
 
 /**
@@ -46,7 +25,7 @@ enum FileTimeType
 {
 	FileTime_LastAccess,    /* Last access (not available on FAT) */
 	FileTime_Created,       /* Creation (not available on FAT) */
-	FileTime_LastChange,    /* Last modification */
+	FileTime_LastChange     /* Last modification */
 };
 
 /**
@@ -78,19 +57,15 @@ enum FileTimeType
 #define FPERM_U_WRITE      0x0080   /* User can write.   */
 #define FPERM_U_EXEC       0x0040   /* User can exec.    */
 #define FPERM_U_RWX        FPERM_U_READ | FPERM_U_WRITE | FPERM_U_EXEC
-
 #define FPERM_G_READ       0x0020   /* Group can read.   */
 #define FPERM_G_WRITE      0x0010   /* Group can write.  */
 #define FPERM_G_EXEC       0x0008   /* Group can exec.   */
 #define FPERM_G_RWX        FPERM_G_READ | FPERM_G_WRITE | FPERM_G_EXEC
-
 #define FPERM_O_READ       0x0004   /* Anyone can read.  */
 #define FPERM_O_WRITE      0x0002   /* Anyone can write. */
 #define FPERM_O_EXEC       0x0001   /* Anyone can exec.  */
 #define FPERM_O_RWX        FPERM_O_READ | FPERM_O_WRITE | FPERM_O_EXEC
-
 #define FPERM_DIR_DEFAULT  FPERM_U_RWX | FPERM_G_RWX | FPERM_O_RWX /* rwx r-x r-x (0755) */
-
 
 /**
  * Reads content from directory
@@ -228,7 +203,6 @@ native file_size(const file[], flag = FSOPT_BYTES_COUNT, bool:use_valve_fs = fal
  *              and then open it for reading and writing.
  *        "a+": Create a file for both reading and writing, or open an existing file
  *              such that writes will be appended to the end.
- *
  * @note The open mode may also contain an additional character after "r", "w", or "a",
  *       but before any "+" sign. This character may be "b" (indicating binary mode) or
  *       "t" (indicating text mode). By default, "text" mode is implied. On Linux and
@@ -237,7 +211,6 @@ native file_size(const file[], flag = FSOPT_BYTES_COUNT, bool:use_valve_fs = fal
  *
  *       Example: "rb" opens a binary file for writing; "at" opens a text file for
  *       appending.
- *
  * @note Registered paths ID are (in priority order) :
  *         GAME           All paths related to current mod, including fallback
  *                        Depending settings, it includes: <gamedir>_lv/_addon/_<language>/_hd
@@ -247,10 +220,9 @@ native file_size(const file[], flag = FSOPT_BYTES_COUNT, bool:use_valve_fs = fal
  *         GAME_FALLBACK  All paths related to fallback game, same as GAME
  *         DEFAULTGAME    All paths related to the default game which is "valve", same as GAME
  *         BASE           The base path where server is installed
- *
- *         Note that some paths are non-writable. It includes all <gamedir>_* (expect _download)
- *         and DEFAULTGAME. Any file inside a non-writable path will be ignored if you try to open
- *         it in writing mode.
+ * @note Note that some paths are non-writable. It includes all <gamedir>_* (expect _download)
+ *       and DEFAULTGAME. Any file inside a non-writable path will be ignored if you try to open
+ *       it in writing mode.
  *
  * @param filename      File to open
  * @param mode          Open mode
@@ -546,14 +518,15 @@ native close_dir(dirh);
 /**
  * Loads a file using the LoadFileForMe engine function.
  *
- * The data is truncated if there is not enough space.  No null-terminator
- * is applied; the data is the raw contents of the file.
+ * @note The data is truncated if there is not enough space.  No null-terminator
+ *       is applied; the data is the raw contents of the file.
  *
  * @param file          File to load (may be a file from the GCF)
  * @param buffer        Buffer to store file contents
  * @param maxlength     Maximum size of the file buffer
  * @param length        Variable to store the file length.  This may return
  *                      a number larger than the buffer size
+ *
  * @return              -1 if the file could not be loaded.  Otherwise,
  *                      the number of cells actually written to the buffer
  *                      are returned.
@@ -663,4 +636,3 @@ native bool:FileWriteInt16(file, any:data);
  * @return              True on success, false on failure
  */
 native bool:FileWriteInt32(file, any:data);
-

@@ -1,12 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
 #if defined _amxmisc_included
 	#endinput
 #endif
@@ -384,7 +375,7 @@ stock show_activity_id(idtarget, idadmin, const name[], const fmt[], any:...)
  * @param KeyWithoutName   The language key that does not have the name field.
  * @param KeyWithName      The language key that does have the name field.
  * @param __AdminName      The name of the person doing the action.
- * @extra                  Pass any extra format arguments for the language key in the variable arguments list.
+ * @param ...              Pass any extra format arguments for the language key in the variable arguments list.
  *
  * @noreturn
  */

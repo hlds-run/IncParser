@@ -1,17 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-// Copyright (C) 2005 Suzuka.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// TSFUN Constants
-//
-
 #if defined _tsconst_included
   #endinput
 #endif
@@ -98,57 +84,5 @@ enum {
   TSW_KATANA,
   TSW_SKNIFE,
   TSW_KUNG_FU,
-  TSW_TKNIFE,
+  TSW_TKNIFE
 };
-
-/* 
-valid tsweaponid in TS_GiveWeapon
-
-1: "Glock 18"
-3: "Mini Uzi"
-4: "Benelli M3"
-5: "M4A1"
-6: "MP5SD"
-7: "MP5K"
-8: "Akimbo Berettas"
-9: "Socom Mk23"
-11: "Usas12"
-12: "Desert Eagle"
-13: "Ak47"
-14: "FiveSeven"
-15: "Steyr Aug"
-17: "Steyr Tmp"
-18: "Barrett M82"
-19: "HK Pdw"
-20: "Spas12"
-21: "Akimbo colts"
-22: "Glock 20"
-23: "Mac10"
-25: "Combat Knife"
-26: "Mossberg 500"
-27: "M16A4"
-28: "Ruger Mk1"
-24: "M61 Grenade"
-29: "C4"
-31: "Raging Bull"
-32: "M60"
-33: "Sawed off"
-34: "Katana"
-35: "Seal Knife"
-
-valid pwuptype in TS_GivePwUp
-
-0: "Random"
-1: "Slow Motion"
-2: "Infinite Clip"
-4: "Kung Fu"
-8: "Slow Pause"
-16: "Double Firerate"
-32: "Grenade"
-64: "Health"
-128: "Armor"
-256: "Superjump"
-
-*/
-
-

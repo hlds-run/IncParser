@@ -1,13 +1,3 @@
-/* Float arithmetic
-*
-* (c) Copyright 1999, Artran, Inc.
-*  Written by Greg Garner (gmg@artran.com)
-*  Modified in March 2001 to include user defined
-*  operators for the floating point functions.
-*
-* This file is provided as is (no warranties).
-*/
-
 #if defined _float_included
   #endinput
 #endif
@@ -72,7 +62,7 @@ native Float:floatfract(Float:value);
  *
  * @return              Converted value
  */
-native floatround(Float:value, floatround_method:method=floatround_round);
+native floatround(Float:value, floatround_method:method = floatround_round);
 
 /**
  * Compares two floating point values.
@@ -116,7 +106,7 @@ native Float:floatpower(Float:value, Float:exponent);
  *
  * @return              Square root of the input value
  */
-native Float:floatlog(Float:value, Float:base=10.0);
+native Float:floatlog(Float:value, Float:base = 10.0);
 
 /**
  * Returns the sine of a given angle
@@ -129,7 +119,7 @@ native Float:floatlog(Float:value, Float:base=10.0);
  *
  * @return              The sine of a given angle
  */
-native Float:floatsin(Float:value, anglemode:mode=radian);
+native Float:floatsin(Float:value, anglemode:mode = radian);
 
 /**
  * Returns the cosine of a given angle
@@ -142,7 +132,7 @@ native Float:floatsin(Float:value, anglemode:mode=radian);
  *
  * @return              The cosine of a given angle
  */
-native Float:floatcos(Float:value, anglemode:mode=radian);
+native Float:floatcos(Float:value, anglemode:mode = radian);
 
 /**
  * Returns the tangent of a given angle
@@ -155,7 +145,7 @@ native Float:floatcos(Float:value, anglemode:mode=radian);
  *
  * @return              The tangent of a given angle
  */
-native Float:floattan(Float:value, anglemode:mode=radian);
+native Float:floattan(Float:value, anglemode:mode = radian);
 
 /**
  * Returns the hyperbolic sine of a given angle
@@ -168,7 +158,7 @@ native Float:floattan(Float:value, anglemode:mode=radian);
  *
  * @return              The hyperbolic sine of a given angle
  */
-native Float:floatsinh(Float:angle, anglemode:mode=radian);
+native Float:floatsinh(Float:angle, anglemode:mode = radian);
 
 /**
  * Returns the hyperbolic cosine of a given angle
@@ -181,7 +171,7 @@ native Float:floatsinh(Float:angle, anglemode:mode=radian);
  *
  * @return              The hyperbolic cosine of a given angle
  */
-native Float:floatcosh(Float:angle, anglemode:mode=radian);
+native Float:floatcosh(Float:angle, anglemode:mode = radian);
 
 /**
  * Returns the hyperbolic tangent of a given angle
@@ -194,7 +184,7 @@ native Float:floatcosh(Float:angle, anglemode:mode=radian);
  *
  * @return              The hyperbolic tangent of a given angle
  */
-native Float:floattanh(Float:angle, anglemode:mode=radian);
+native Float:floattanh(Float:angle, anglemode:mode = radian);
 
 /**
  * Returns the absolute value of a floating point value
@@ -204,9 +194,6 @@ native Float:floattanh(Float:angle, anglemode:mode=radian);
  * @return              The absolute value
  */
 native Float:floatabs(Float:value);
-
-/* Return the angle of a sine, cosine or tangent.
- * The output angle may be in radians, degrees, or grades. */
 
 /**
  * Returns the angle of the given tangent
@@ -218,7 +205,7 @@ native Float:floatabs(Float:value);
  *
  * @return              The angle of a tangent
  */
-native Float:floatatan(Float:angle, {anglemode,_}:radix);
+native Float:floatatan(Float:angle, {anglemode, _}:radix);
 
 /**
  * Returns the angle of the given cosine
@@ -230,7 +217,7 @@ native Float:floatatan(Float:angle, {anglemode,_}:radix);
  *
  * @return              The angle of a cosine
  */
-native Float:floatacos(Float:angle, {anglemode,_}:radix);
+native Float:floatacos(Float:angle, {anglemode, _}:radix);
 
 /**
  * Returns the angle of the given sine
@@ -242,7 +229,7 @@ native Float:floatacos(Float:angle, {anglemode,_}:radix);
  *
  * @return              The angle of a sine
  */
-native Float:floatasin(Float:angle, {anglemode,_}:radix);
+native Float:floatasin(Float:angle, {anglemode, _}:radix);
 
 /**
  * Computes the principal value of arctangent of y/x
@@ -256,111 +243,189 @@ native Float:floatasin(Float:angle, {anglemode,_}:radix);
  *
  * @return              Arctangent of y/x
  */
-native Float:floatatan2(Float:x, Float:y, {anglemode,_}:radix);
+native Float:floatatan2(Float:x, Float:y, {anglemode, _}:radix);
 
-
-
-/* Multiply two floats together */
+/**
+ * Multiply two floats together
+ */
 native Float:floatmul(Float:oper1, Float:oper2);
 
-/* Divide the dividend float by the divisor float */
+/**
+ * Divide the dividend float by the divisor float
+ */
 native Float:floatdiv(Float:dividend, Float:divisor);
 
-/* Add two floats together */
+/**
+ * Add two floats together
+ */
 native Float:floatadd(Float:dividend, Float:divisor);
 
-/* Subtract oper2 float from oper1 float */
+/**
+ * Subtract oper2 float from oper1 float
+ */
 native Float:floatsub(Float:oper1, Float:oper2);
 
-/* user defined operators */
+/**
+ * @section user defined operators
+ */
+
 native Float:operator*(Float:oper1, Float:oper2) = floatmul;
+
 native Float:operator/(Float:oper1, Float:oper2) = floatdiv;
+
 native Float:operator+(Float:oper1, Float:oper2) = floatadd;
+
 native Float:operator-(Float:oper1, Float:oper2) = floatsub;
 
 stock Float:operator++(Float:oper)
+{
 	return oper+1.0;
+}
 
 stock Float:operator--(Float:oper)
+{
 	return oper-1.0;
+}
 
 stock Float:operator-(Float:oper)
+{
     return oper^Float:cellmin; /* IEEE values are sign/magnitude */
+}
 
 stock Float:operator*(Float:oper1, oper2)
+{
 	return floatmul(oper1, float(oper2)); /* "*" is commutative */
+}
 
 stock Float:operator/(Float:oper1, oper2)
+{
 	return floatdiv(oper1, float(oper2));
+}
 
 stock Float:operator/(oper1, Float:oper2)
+{
 	return floatdiv(float(oper1), oper2);
+}
 
 stock Float:operator+(Float:oper1, oper2)
+{
 	return floatadd(oper1, float(oper2)); /* "+" is commutative */
+}
 
 stock Float:operator-(Float:oper1, oper2)
+{
 	return floatsub(oper1, float(oper2));
+}
 
 stock Float:operator-(oper1, Float:oper2)
+{
 	return floatsub(float(oper1), oper2);
+}
 
 stock bool:operator==(Float:oper1, Float:oper2)
+{
 	return floatcmp(oper1, oper2) == 0;
+}
 
 stock bool:operator==(Float:oper1, oper2)
+{
 	return floatcmp(oper1, float(oper2)) == 0; /* "==" is commutative */
+}
 
 stock bool:operator!=(Float:oper1, Float:oper2)
+{
 	return floatcmp(oper1, oper2) != 0;
+}
 
 stock bool:operator!=(Float:oper1, oper2)
+{
 	return floatcmp(oper1, float(oper2)) != 0; /* "==" is commutative */
+}
 
 stock bool:operator>(Float:oper1, Float:oper2)
+{
 	return floatcmp(oper1, oper2) > 0;
+}
 
 stock bool:operator>(Float:oper1, oper2)
+{
 	return floatcmp(oper1, float(oper2)) > 0;
+}
 
 stock bool:operator>(oper1, Float:oper2)
+{
 	return floatcmp(float(oper1), oper2) > 0;
+}
 
 stock bool:operator>=(Float:oper1, Float:oper2)
+{
 	return floatcmp(oper1, oper2) >= 0;
+}
 
 stock bool:operator>=(Float:oper1, oper2)
+{
 	return floatcmp(oper1, float(oper2)) >= 0;
+}
 
 stock bool:operator>=(oper1, Float:oper2)
+{
 	return floatcmp(float(oper1), oper2) >= 0;
+}
 
 stock bool:operator<(Float:oper1, Float:oper2)
+{
 	return floatcmp(oper1, oper2) < 0;
+}
 
 stock bool:operator<(Float:oper1, oper2)
+{
 	return floatcmp(oper1, float(oper2)) < 0;
+}
 
 stock bool:operator<(oper1, Float:oper2)
+{
 	return floatcmp(float(oper1), oper2) < 0;
+}
 
 stock bool:operator<=(Float:oper1, Float:oper2)
+{
 	return floatcmp(oper1, oper2) <= 0;
+}
 
 stock bool:operator<=(Float:oper1, oper2)
+{
 	return floatcmp(oper1, float(oper2)) <= 0;
+}
 
 stock bool:operator<=(oper1, Float:oper2)
+{
 	return floatcmp(float(oper1), oper2) <= 0;
+}
 
 stock bool:operator!(Float:oper)
-	return (_:oper & ((-1)/2)) == 0;      /* -1 = all bits to 1; /2 = remove most significant bit (sign)
-                                          works on both 32bit and 64bit systems; no constant required */
-/* forbidden operations */
+{
+	return (_:oper & ((-1)/2)) == 0;
+    // -1 = all bits to 1; /2 = remove most significant bit (sign)
+	// works on both 32bit and 64bit systems; no constant required
+}
+
+/**
+ * @endsection
+ */
+
+/**
+ * @section forbidden operations
+ */
+
 forward operator%(Float:oper1, Float:oper2);
+
 forward operator%(Float:oper1, oper2);
+
 forward operator%(oper1, Float:oper2);
 
+/**
+ * @endsection
+ */
 
 /**
  * Returns whichever value is the smaller one

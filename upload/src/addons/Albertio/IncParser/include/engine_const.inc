@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Engine Constants
-//
-
 #if defined _engine_const_included
 	#endinput
 #endif
@@ -84,7 +71,7 @@ enum {
 	EV_INT_renderfx,
 	EV_INT_button,
 	EV_INT_impulse,
-	EV_INT_deadflag,
+	EV_INT_deadflag
 };
 
 /**
@@ -127,7 +114,7 @@ enum {
 	EV_FL_fuser1,
 	EV_FL_fuser2,
 	EV_FL_fuser3,
-	EV_FL_fuser4,
+	EV_FL_fuser4
 };
 
 /**
@@ -156,7 +143,7 @@ enum {
 	EV_VEC_vuser1,
 	EV_VEC_vuser2,
 	EV_VEC_vuser3,
-	EV_VEC_vuser4,
+	EV_VEC_vuser4
 };
 
 /**
@@ -173,7 +160,7 @@ enum {
 	EV_ENT_euser1,
 	EV_ENT_euser2,
 	EV_ENT_euser3,
-	EV_ENT_euser4,
+	EV_ENT_euser4
 };
 
 /**
@@ -192,7 +179,7 @@ enum {
 	EV_SZ_noise2,
 	EV_SZ_noise3,
 	EV_SZ_viewmodel,
-	EV_SZ_weaponmodel,
+	EV_SZ_weaponmodel
 };
 
 /**
@@ -204,7 +191,7 @@ enum {
 	EV_BYTE_controller3,
 	EV_BYTE_controller4,
 	EV_BYTE_blending1,
-	EV_BYTE_blending2,
+	EV_BYTE_blending2
 };
 
 /**
@@ -220,9 +207,7 @@ enum {
  * Used by get_global_[edict/float/int/string/vector]()
  */
 enum {
-
-	// Edict
-	GL_trace_ent = 0,
+	GL_trace_ent = 0, // Edict
 
 	// Float
 	GL_coop,
@@ -307,4 +292,3 @@ enum
 	TR_Hit,            // (entity) entity the surface is on
 	TR_Hitgroup        // (int) 0 == generic, non zero is specific body part
 };
-

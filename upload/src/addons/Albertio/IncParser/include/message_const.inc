@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Message Constants
-//
-
 #if defined _message_const_included
 	#endinput
 #endif
@@ -114,7 +101,7 @@ enum
 	ARG_ANGLE,          /* float */
 	ARG_COORD,          /* float */
 	ARG_STRING,         /* string */
-	ARG_ENTITY,         /* int */
+	ARG_ENTITY          /* int */
 };
 
 /**
@@ -1072,7 +1059,6 @@ enum
  */
 #define TE_MULTIGUNSHOT             126
 
-
 /**
  * Larger message than the standard tracer, but allows some customization.
  *
@@ -1111,7 +1097,6 @@ enum
 #define	DRC_CMD_FADE				10	// send screen fade command
 #define DRC_CMD_SHAKE				11	// send screen shake command
 #define DRC_CMD_STUFFTEXT			12	// like the normal svc_stufftext but as director command
-
 #define DRC_CMD_LAST				12
 
 /**

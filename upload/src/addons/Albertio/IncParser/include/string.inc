@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// String Manipulation
-//
-
 #if defined _string_included
   #endinput
 #endif
@@ -19,16 +6,10 @@
 #include <string_const>
 
 /**
- * @global 	Unless otherwise noted, all string functions which take in a 
- *			writable buffer and maximum length should NOT have the null terminator INCLUDED
- * 			in the length.  This means that this is valid: 
- * 			copy(string, charsmax(string), ...)
- */
-
-/**
  * Calculates the length of a string.
  *
  * @param string		String to check.
+ *
  * @return				Number of valid character bytes in the string.
  */
 native strlen(const string[]);
@@ -78,7 +59,6 @@ native replace(text[], len, const what[], const with[]);
  *       with different algorithm. This native doesn't error on bad 
  *       buffer size and will smartly cut off the string in a way 
  *       that pushes old data out.
- *	
  * @note Only available in 1.8.3 and above.
  * @note This supports multi-byte characters (UTF-8) on case insensitive comparison.
  *
@@ -100,7 +80,6 @@ native replace_string(text[], maxlength, const search[], const replace[], bool:c
  *       with different algorithm. This native doesn't error on bad 
  *       buffer size and will smartly cut off the string in a way 
  *       that pushes old data out.
- *	
  * @note Only available in 1.8.3 and above.
  * @note This supports multi-byte characters (UTF-8) on case insensitive comparison.
  *
@@ -130,7 +109,7 @@ native replace_stringex(text[], maxlength, const search[], const replace[], sear
  *
  * @return				Number of of all merged characters.
  */
-native add(dest[],len,const src[],max=0);
+native add(dest[], len, const src[], max = 0);
 
 /**
  * Formats a string according to the AMX Mod X format rules (see documentation).
@@ -194,7 +173,6 @@ native [MAX_FMT_LENGTH]fmt(const format[], any:...);
  * @note This is the same as format(), except it grabs parameters from a 
  *       parent parameter stack, rather than a local.  This is useful for 
  *       implementing your own variable argument functions.
- *
  * @note Replacement for format_args.  Much faster and %L compatible.
  *       This works exactly like vsnprintf() from C.
  *       You must pass in the output buffer and its size,
@@ -209,6 +187,7 @@ native [MAX_FMT_LENGTH]fmt(const format[], any:...);
  * @param fmt			Formatting rules.
  * @param vararg		Argument number which contains the '...' symbol.
  *						Note: Arguments start at 1.
+ *
  * @return 				Number of bytes written.
  */
 native vformat(buffer[], len, const fmt[], vararg);
@@ -227,6 +206,7 @@ native vformat(buffer[], len, const fmt[], vararg);
  * @param fmt_arg		Argument number which contains the format.
  * @param vararg		Argument number which contains the '...' symbol.
  *						Note: Arguments start at 1.
+ *
  * @return 				Number of bytes written.
  */
 native vdformat(buffer[], len, fmt_arg, vararg, ...);
@@ -251,12 +231,13 @@ native format_args(output[], len, pos = 0);
  *
  * @return				Number of cells written to buffer.
  */
-native num_to_str(num,string[],len);
+native num_to_str(num, string[], len);
 
 /**
  * Converts a string to an integer.
  *
  * @param string		String to convert.
+ *
  * @return				Integer conversion of string, or 0 on failure.
  */
 native str_to_num(const string[]);
@@ -266,25 +247,26 @@ native str_to_num(const string[]);
  * which is returned as integer value. The function also sets the value of 'endPos' to point 
  * to the position of the first character after the number.
  * 
+ * @note
  * This is the same as C++ strtol function with a difference on second param.
- * 
+ * @note
  * The function first discards as many whitespace characters as necessary until the first 
  * non-whitespace character is found. Then, starting from this character, takes as many 
  * characters as possible that are valid following a syntax that depends on the 'base' parameter,
  * and interprets them as a numerical value. Finally, a position of the first character following
  * the integer representation in 'string' is stored in 'endPos'.
- * 
+ * @note
  * If the value of 'base' is zero, the syntax expected is similar to that of integer constants, 
  * which is formed by a succession of :
  *    An optional sign character (+ or -)
  *    An optional prefix indicating octal or hexadecimal base ("0" or "0x"/"0X" respectively)
  *    A sequence of decimal digits (if no base prefix was specified) or either octal or hexadecimal digits if a specific prefix is present
- *
+ * @note
  * If the 'base' value is between 2 and 36, the format expected for the integral number is a succession 
  * of any of the valid digits and/or letters needed to represent integers of the specified radix 
  * (starting from '0' and up to 'z'/'Z' for radix 36). The sequence may optionally be preceded by 
  * a sign (either + or -) and, if base is 16, an optional "0x" or "0X" prefix.
- *
+ * @note
  * If the first sequence of non-whitespace characters in 'string' is not a valid integral number
  * as defined above, or if no such sequence exists because either 'string' is empty or it contains
  * only whitespace characters, no conversion is performed.
@@ -295,6 +277,7 @@ native str_to_num(const string[]);
  *                  On failure, position is sets always to 0.
  * @param base      The numerical base (radix) that determines the valid characters and their interpretation.
  *                  If this is 0, the base used is determined by the format in the sequence.
+ *
  * @return          On success, the function returns the converted integral number as integer value.
  *                  If no valid conversion could be performed, a zero value is returned.
  *                  If the value read is out of the range of representable values by a cell, 
@@ -306,14 +289,15 @@ native strtol(const string[], &endPos = 0, base = 0);
  * Parses the 'string' interpreting its content as an floating point number and returns its value as a float.
  * The function also sets the value of 'endPos' to point to the position of the first character after the number.
  * 
+ * @note
  * This is the same as C++ strtod function with a difference on second param.
- * 
+ * @note
  * The function first discards as many whitespace characters as necessary until the first 
  * non-whitespace character is found. Then, starting from this character, takes as many 
  * characters as possible that are valid and interprets them as a numerical value. 
  * Finally, a position of the first character following the float representation in 'string' 
  * is stored in 'endPos'.
- * 
+ * @note
  * If the first sequence of non-whitespace characters in 'string' is not a valid float number
  * as defined above, or if no such sequence exists because either 'string' is empty or it contains
  * only whitespace characters, no conversion is performed.
@@ -322,6 +306,7 @@ native strtol(const string[], &endPos = 0, base = 0);
  * @param endPos    The position of the first character following the number.
  *                  On success and when containing only numbers, position is at the end of string, meaning equal to 'string' length.
  *                  On failure, position is sets always to 0.
+ *
  * @return          On success, the function returns the converted floating point number as float value.
  *                  If no valid conversion could be performed, a zero value is returned.
  */
@@ -342,6 +327,7 @@ native float_to_str(Float:fl, string[], len);
  * Converts a string to a floating point number.
  *
  * @param string		String to convert to a foat.
+ *
  * @return				Floating point result, or 0.0 on error.
  */
 native Float:str_to_float(const string[]);
@@ -355,7 +341,7 @@ native Float:str_to_float(const string[]);
  *
  * @return				True if equal, false otherwise.
  */
-native equal(const a[],const b[],c=0);
+native equal(const a[], const b[], c = 0);
 
 /**
  * Returns whether two strings are equal with case ignoring.
@@ -382,7 +368,7 @@ native equali(const a[], const b[], c = 0);
  *
  * @return				Number of cells written.
  */
-native copy(dest[],len,const src[]);
+native copy(dest[], len, const src[]);
 
 /**
  * Copies one string to another string until ch is found.
@@ -394,7 +380,7 @@ native copy(dest[],len,const src[]);
  *
  * @return				Number of cells written.
  */
-native copyc(dest[],len,const src[],ch);
+native copyc(dest[], len, const src[], ch);
 
 /**
  * Sets string with given character.
@@ -405,7 +391,7 @@ native copyc(dest[],len,const src[],ch);
  *
  * @noreturn
  */
-native setc(src[],len,ch);
+native setc(src[], len, ch);
 
 /**
  * Gets parameters from text.
@@ -420,13 +406,12 @@ native setc(src[],len,ch);
  *
  * @return				Number of parsed parameters.
  */
-native parse(const text[], ... );
+native parse(const text[], ...);
 
 /**
  * Breaks a string in two by token.
  *
  * @note Trimming spaces is buggy. Consider strtok2 instead.
- *
  * @note See argbreak() for doing this with parameters.
  *       Example:
  *        str1[] = This *is*some text
@@ -445,7 +430,7 @@ native parse(const text[], ... );
  *
  * @noreturn
  */
-native strtok(const text[], Left[], leftLen, Right[], rightLen, token=' ', trimSpaces=0);
+native strtok(const text[], Left[], leftLen, Right[], rightLen, token = ' ', trimSpaces = 0);
 
 /**
  * Breaks a string in two by token.
@@ -469,6 +454,7 @@ native strtok2(const text[], left[], const llen, right[], const rlen, const toke
  * Removes whitespace characters from the beginning and end of a string.
  *
  * @param text			The string to trim.
+ *
  * @return				Number of bytes written.
  */
 native trim(text[]);
@@ -477,6 +463,7 @@ native trim(text[]);
  * Converts all chars in string to lower case.
  *
  * @param string		The string to convert.
+ *
  * @return				Number of bytes written.
  */
 native strtolower(string[]);
@@ -500,6 +487,7 @@ native mb_strtolower(string[], maxlength = 0);
  * Converts all chars in string to upper case.
  *
  * @param string		The string to convert.
+ *
  * @return				Number of bytes written.
  */
 native strtoupper(string[]);
@@ -523,6 +511,7 @@ native mb_strtoupper(string[], maxlength = 0);
  * Make a string's first character uppercase.
  *
  * @param string		The string to convert.
+ *
  * @return				1 on success, otherwise 0.
  */
 native ucfirst(string[]);
@@ -584,6 +573,7 @@ native mb_strtotitle(string[], maxlength = 0);
  * @param flags         Requested category, see UTF8C_* flags
  * @param output_size   Number of bytes in the input that conform to the specified
  *                      category flags
+ *
  * @return              True if the whole input of `input_size` conforms to the specified
  *                      category flags, false otherwise
  */
@@ -595,6 +585,7 @@ native bool:is_string_category(const input[], input_size, flags, &output_size = 
  * @note Multi-byte characters will always return false.
  *
  * @param ch			Character to test.
+ *
  * @return				True if character is numeric, otherwise false.
  */
 native isdigit(ch);
@@ -605,6 +596,7 @@ native isdigit(ch);
  * @note Multi-byte characters will always return false.
  *
  * @param ch			Character to test.
+ *
  * @return				True if character is alphabetical, otherwise false.
  */
 native isalpha(ch);
@@ -615,6 +607,7 @@ native isalpha(ch);
  * @note Multi-byte characters will always return false.
  *
  * @param ch			Character to test.
+ *
  * @return				True if character is whitespace, otherwise false.
  */
 native isspace(ch);
@@ -625,6 +618,7 @@ native isspace(ch);
  * @note Multi-byte characters will always return false.
  *
  * @param ch			Character to test.
+ *
  * @return				True if character is numeric, otherwise false.
  */
 native isalnum(ch);
@@ -635,6 +629,7 @@ native isalnum(ch);
  * @note Only available in 1.8.3 and above.
  *
  * @param ch			Character to test.
+ *
  * @return				0 for a normal 7-bit ASCII character,
  *						otherwise number of bytes in multi-byte character.
  */
@@ -647,6 +642,7 @@ native is_char_mb(ch);
  * @note Multi-byte characters will always return false.
  *
  * @param ch			Character to test.
+ *
  * @return				True if character is uppercase, otherwise false.
  */
 native bool:is_char_upper(ch);
@@ -658,6 +654,7 @@ native bool:is_char_upper(ch);
  * @note Multi-byte characters will always return false.
  *
  * @param ch			Character to test.
+ *
  * @return				True if character is lowercase, otherwise false.
  */
 native bool:is_char_lower(ch);
@@ -670,6 +667,7 @@ native bool:is_char_lower(ch);
  * @note Only available in 1.8.3 and above.
  *
  * @param source		Source input string.
+ *
  * @return				Number of bytes the current character uses.
  */
 native get_char_bytes(const source[]);
@@ -680,6 +678,7 @@ native get_char_bytes(const source[]);
  * @param dest			String to append to.
  * @param source		Source string to concatenate.
  * @param maxlength		Maximum length of entire buffer.
+ *
  * @return				Number of bytes written.
  */
 native strcat(dest[], const source[], maxlength);
@@ -694,6 +693,7 @@ native strcat(dest[], const source[], maxlength);
  * @param ignorecase	If true, search is case insensitive.
  *						If false (default), search is case sensitive.
  * @param pos			Start position to search from.
+ *
  * @return				-1 on failure (no match found). Any other value
  *						indicates a position in the string where the match starts.
  */
@@ -708,6 +708,7 @@ native strfind(const string[], const sub[], bool:ignorecase = false, pos = 0);
  * @param string2		Second string (right).
  * @param ignorecase	If true, comparison is case insensitive.
  *						If false (default), comparison is case sensitive.
+ *
  * @return				-1 if string1 < string2
  *						0 if string1 == string2
  *						1 if string1 > string2
@@ -725,6 +726,7 @@ native strcmp(const string1[], const string2[], bool:ignorecase = false);
  * @param num			Number of characters to compare.
  * @param ignorecase	If true, comparison is case insensitive.
  *						If false (default), comparison is case sensitive.
+ *
  * @return				-1 if string1 < string2
  *						0 if string1 == string2
  *						1 if string1 > string2
@@ -736,7 +738,6 @@ native strncmp(const string1[], const string2[], num, bool:ignorecase = false);
  * replace strbreak().
  *
  * @note Only available in 1.8.3 and above.
- *
  * @note You can use argparse() to break a string into all of its arguments:
  *       new arg[N], pos;
  *       while (true) {
@@ -744,7 +745,6 @@ native strncmp(const string1[], const string2[], num, bool:ignorecase = false);
  *         if (pos == -1)
  *           break;
  *       }
- *
  * @note All initial whitespace is removed. Remaining characters are read until an
  *       argument separator is encountered. A separator is any whitespace not inside
  *       a double-quotation pair (i.e. "x b" is one argument). If only one quotation
@@ -752,13 +752,13 @@ native strncmp(const string1[], const string2[], num, bool:ignorecase = false);
  *       Quotation marks are never written back, and do not act as separators. For
  *       example, "a""b""c" will return "abc". An empty quote pair ("") will count
  *       as an argument containing no characters.
- *
  * @note argparse() will write an empty string to argbuffer if no argument is found.
  *
  * @param text          String to tokenize.
  * @param pos           Position to start parsing from.
  * @param argbuffer     Buffer to store first argument.
  * @param maxlen        Size of the buffer.
+ *
  * @return              If no argument was found, -1 is returned. Otherwise,
  *                      the index to the next position to parse from is
  *                      returned. This might be the very end of the string.
@@ -780,7 +780,6 @@ native argparse(const text[], pos, argbuffer[], maxlen);
  *						index is always relative to the start of the input string.
  */
 native split_string(const source[], const split[], part[], partLen);
-
 
 // Always keep this at the bottom of this file.
 #include <string_stocks>

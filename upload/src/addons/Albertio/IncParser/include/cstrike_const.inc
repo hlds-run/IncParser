@@ -1,24 +1,12 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Counter-Strike Functions
-//
-
 #if defined _cstrike_const_included
 	#endinput
 #endif
 #define _cstrike_const_included
 
 /**
- * IDs of weapons in CS
+ * @section IDs of weapons in CS
  */
+
 #define CSW_NONE            0
 #define CSW_P228            1
 #define CSW_GLOCK           2  // Unused by game, See CSW_GLOCK18.
@@ -68,6 +56,10 @@ const CSW_ALL_ARMORS       = (1<<CSW_VEST | 1<<CSW_VESTHELM);
 const CSW_ALL_GUNS         = (CSW_ALL_PISTOLS | CSW_ALL_SHOTGUNS | CSW_ALL_SMGS | CSW_ALL_RIFLES | CSW_ALL_SNIPERRIFLES | CSW_ALL_MACHINEGUNS);
 
 /**
+ * @endsection
+ */
+
+/**
  * @section Team and team model constants, used by cs_[get|set]_user_team().
  */
 
@@ -91,7 +83,7 @@ enum CsInternalModel
 	CS_T_GUERILLA  = 8,
 	CS_CT_VIP      = 9,
 	CZ_T_MILITIA   = 10,
-	CZ_CT_SPETSNAZ = 11,
+	CZ_CT_SPETSNAZ = 11
 };
 
 /**
@@ -102,7 +94,7 @@ enum CsTeams
 	CS_TEAM_UNASSIGNED = 0,
 	CS_TEAM_T          = 1,
 	CS_TEAM_CT         = 2,
-	CS_TEAM_SPECTATOR  = 3,
+	CS_TEAM_SPECTATOR  = 3
 };
 
 /**
@@ -116,7 +108,7 @@ enum CsArmorType
 {
 	CS_ARMOR_NONE     = 0,  // no armor
 	CS_ARMOR_KEVLAR   = 1,  // body vest only
-	CS_ARMOR_VESTHELM = 2,  // vest and helmet
+	CS_ARMOR_VESTHELM = 2   // vest and helmet
 };
 
 /**
@@ -137,7 +129,7 @@ enum
 	CS_SET_NO_ZOOM,         // Disable any sort of zoom
 	CS_SET_FIRST_ZOOM,      // Set first zoom level (AWP style)
 	CS_SET_SECOND_ZOOM,     // Set second zoom level (AWP style)
-	CS_SET_AUGSG552_ZOOM,   // Set AUG/SG552 zoom style
+	CS_SET_AUGSG552_ZOOM    // Set AUG/SG552 zoom style
 };
 
 /**
@@ -188,7 +180,6 @@ enum
 #define CSI_SECAMMO             37              // Custom
 #define CSI_MAX_COUNT           38
 #define CSI_LAST_WEAPON         CSW_LAST_WEAPON
-
 #define CSI_ALL_WEAPONS         CSW_ALL_WEAPONS
 #define CSI_ALL_PISTOLS         CSW_ALL_PISTOLS
 #define CSI_ALL_SHOTGUNS        CSW_ALL_SHOTGUNS
@@ -255,7 +246,7 @@ enum CsPlayerAnim
 	CS_PLAYER_FLINCH        = 7,
 	CS_PLAYER_LARGE_FLINCH  = 8,
 	CS_PLAYER_RELOAD        = 9,
-	CS_PLAYER_HOLDBOMB      = 10,
+	CS_PLAYER_HOLDBOMB      = 10
 };
 
 /**
@@ -277,7 +268,7 @@ enum CsMenu
 	CS_Menu_Radio1           = 11,
 	CS_Menu_Radio2           = 12,
 	CS_Menu_Radio3           = 13,
-	CS_Menu_ClientBuy        = 14,
+	CS_Menu_ClientBuy        = 14
 };
 
 /**
@@ -290,7 +281,7 @@ enum CsJoinState
 	CS_STATE_READING_LTEXT    = 2,
 	CS_STATE_SHOW_TEAM_SELECT = 3,
 	CS_STATE_PICKING_TEAM     = 4,
-	CS_STATE_GET_INTO_GAME    = 5,
+	CS_STATE_GET_INTO_GAME    = 5
 };
 
 /**
@@ -304,7 +295,7 @@ enum CsThrowDirection
 	CS_THROW_HITVEL              = 3,
 	CS_THROW_BOMB                = 4,
 	CS_THROW_GRENADE             = 5,
-	CS_THROW_HITVEL_MINUS_AIRVEL = 6,
+	CS_THROW_HITVEL_MINUS_AIRVEL = 6
 };
 
 /**
@@ -343,7 +334,7 @@ enum CsStatusBar
 {
 	CS_SBAR_ID_TARGETTYPE   = 1,
 	CS_SBAR_ID_TARGETNAME   = 2,
-	CS_SBAR_ID_TARGETHEALTH = 3,
+	CS_SBAR_ID_TARGETHEALTH = 3
 };
 
 /**
@@ -372,7 +363,7 @@ enum CsWeaponClassType
 	CS_WEAPONCLASS_SHOTGUN       = 5,
 	CS_WEAPONCLASS_MACHINEGUN    = 6,
 	CS_WEAPONCLASS_RIFLE         = 7,
-	CS_WEAPONCLASS_SNIPERRIFLE   = 8,
+	CS_WEAPONCLASS_SNIPERRIFLE   = 8
 };
 
 /**
@@ -393,7 +384,7 @@ enum CsAutoBuyClassType
 	CS_AUTOBUYCLASS_MACHINEGUN  = (1<<10),
 	CS_AUTOBUYCLASS_GRENADE     = (1<<11),
 	CS_AUTOBUYCLASS_NIGHTVISION = (1<<12),
-	CS_AUTOBUYCLASS_SHIELD      = (1<<13),
+	CS_AUTOBUYCLASS_SHIELD      = (1<<13)
 };
 
 /**
@@ -410,7 +401,7 @@ enum CsAmmoType
 	CS_AMMO_50AE       = 6,
 	CS_AMMO_338MAGNUM  = 7,
 	CS_AMMO_57MM       = 8,
-	CS_AMMO_357SIG     = 9,
+	CS_AMMO_357SIG     = 9
 };
 
 /**
@@ -423,7 +414,7 @@ enum CsWeaponInfo
 	CS_WEAPONINFO_BUY_CLIP_SIZE = 2,
 	CS_WEAPONINFO_GUN_CLIP_SIZE = 3,
 	CS_WEAPONINFO_MAX_ROUNDS    = 4,
-	CS_WEAPONINFO_AMMO_TYPE     = 5,
+	CS_WEAPONINFO_AMMO_TYPE     = 5
 };
 
 /**

@@ -1,32 +1,23 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Time Specific Functions
-//
-
 #if defined _time_included
   #endinput
 #endif
 #define _time_included
 
-/* Time unit types for get_time_length() */
+/**
+ * Time unit types for get_time_length()
+ */
 enum 
 {
     timeunit_seconds = 0,
     timeunit_minutes,
     timeunit_hours,
     timeunit_days,
-    timeunit_weeks,
+    timeunit_weeks
 };
 
-/* Seconds in each time unit */
+/**
+ * Seconds in each time unit
+ */
 #define SECONDS_IN_MINUTE 60
 #define SECONDS_IN_HOUR   3600
 #define SECONDS_IN_DAY    86400

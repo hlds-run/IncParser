@@ -1,12 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
 #if defined _amxconst_included
 	#endinput
 #endif
@@ -281,7 +272,7 @@ enum
 	print_team_default = 0,
 	print_team_grey = -1,
 	print_team_red = -2,
-	print_team_blue = -3,
+	print_team_blue = -3
 };
 
 /**
@@ -291,7 +282,7 @@ enum
 {
 	engprint_console = 0,
 	engprint_center,
-	engprint_chat,
+	engprint_chat
 };
 
 /**
@@ -341,7 +332,7 @@ enum
 	kRenderFxExplode,           /* Scale up really big! */
 	kRenderFxGlowShell,         /* Glowing Shell */
 	kRenderFxClampMinScale,     /* Keep this sprite from getting very small (SPRITES only!) */
-	kRenderFxLightMultiplier,   /* CTM !!!CZERO added to tell the studiorender that the value in iuser2 is a lightmultiplier */
+	kRenderFxLightMultiplier   /* CTM !!!CZERO added to tell the studiorender that the value in iuser2 is a lightmultiplier */
 };
 
 /**
@@ -355,7 +346,7 @@ enum
 {
 	force_exactfile = 0,        /* File on client must exactly match server's file */
 	force_model_samebounds,     /* For model files only, the geometry must fit in the same bbox */
-	force_model_specifybounds,  /* For model files only, the geometry must fit in the specified bbox */
+	force_model_specifybounds  /* For model files only, the geometry must fit in the specified bbox */
 };
 
 /**
@@ -370,7 +361,7 @@ enum
 	module_noinfo,
 	module_noquery,
 	module_noattach,
-	module_old,
+	module_old
 };
 
 /**
@@ -551,7 +542,7 @@ enum FindPlayerFlags (<<= 1)
 	FindPlayer_MatchUserId,        // Match with userid
 	FindPlayer_CaseInsensitive,    // Match case insensitively
 	FindPlayer_IncludeConnecting   // Include connecting clients
-}
+};
 
 /**
  * Constants for client statistics
@@ -567,7 +558,7 @@ enum
 	STATSX_DAMAGE,
 	STATSX_RANK,
 	STATSX_MAX_STATS
-}
+};
 
 /**
  *  Constants for get_user_origin()
@@ -579,6 +570,6 @@ enum
 	Origin_AimEndClient,    // Aim End Origin from Client's Position
 	Origin_AimEndEyes,      // Aim End Origin from Eyes Position
 	Origin_CS_LastBullet    // Last Bullet's Origin (Counter-Strike)
-}
+};
 
 #include <cstrike_const> // To keep backward compatibility

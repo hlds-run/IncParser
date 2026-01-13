@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// NVault Functions
-//
-
 #if defined _nvault_included
 	#endinput
 #endif
@@ -20,10 +7,6 @@
 #if !defined AMXMODX_NOAUTOLOAD
 	#pragma loadlib nvault
 #endif
-
-/**
- * @global All timestamps are in UNIX epoch form.
- */
 
 /**
  * Opens a vault by name. Creates a vault if it doesn't exist yet.
@@ -151,4 +134,4 @@ native nvault_remove(vault, const key[]);
  * @noreturn
  * @error               On invalid vault handle.
  */
-native nvault_touch(vault, const key[], timestamp=-1);
+native nvault_touch(vault, const key[], timestamp = -1);

@@ -1,12 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
 #if defined _cellstack_included
 	#endinput
 #endif
@@ -85,7 +76,7 @@ native PushStackString(Stack:handle, const value[]);
  * @error           If an invalid handle is provided or the resizing
  *                  operation runs out of memory, an error will be thrown.
  */
-native PushStackArray(Stack:handle, const any:values[], size= -1);
+native PushStackArray(Stack:handle, const any:values[], size = -1);
 
 /**
  * Pops a cell value from a stack.

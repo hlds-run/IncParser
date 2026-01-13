@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Message Functions
-//
-
 #if defined _coremsg_included
   #endinput
 #endif
@@ -39,7 +26,7 @@
  * @error             If an invalid message id is specified or an invalid number
  *                    of parameters is passed, an error will be thrown.
  */
-native message_begin(dest, msg_type, const origin[3] = {0,0,0}, player = 0);
+native message_begin(dest, msg_type, const origin[3] = {0, 0, 0}, player = 0);
 
 /**
  * Marks the beginning of a client message.
@@ -64,7 +51,7 @@ native message_begin(dest, msg_type, const origin[3] = {0,0,0}, player = 0);
  * @error             If an invalid message id is specified or an invalid number
  *                    of parameters is passed, an error will be thrown.
  */
-native message_begin_f(dest, msg_type, const Float:origin[3] = {0.0,0.0,0.0}, player = 0);
+native message_begin_f(dest, msg_type, const Float:origin[3] = {0.0, 0.0, 0.0}, player = 0);
 
 /**
  * Ends a message that was started with message_begin() or message_begin_f().
@@ -233,7 +220,7 @@ native write_string(const x[]);
  * @error             If an invalid message id is specified or an invalid number
  *                    of parameters is passed, an error will be thrown.
  */
-native emessage_begin(dest, msg_type, const origin[3] = {0,0,0}, player = 0);
+native emessage_begin(dest, msg_type, const origin[3] = {0, 0, 0}, player = 0);
 
 /**
  * Marks the beginning of a client message.
@@ -264,7 +251,7 @@ native emessage_begin(dest, msg_type, const origin[3] = {0,0,0}, player = 0);
  * @error             If an invalid message id is specified or an invalid number
  *                    of parameters is passed, an error will be thrown.
  */
-native emessage_begin_f(dest, msg_type, const Float:origin[3] = {0.0,0.0,0.0}, player = 0);
+native emessage_begin_f(dest, msg_type, const Float:origin[3] = {0.0, 0.0, 0.0}, player = 0);
 
 /**
  * Ends a message that was started with emessage_begin() or emessage_begin_f().
@@ -439,7 +426,6 @@ native get_msg_block(iMessage);
  *   msg_id          - Message id
  *   msg_dest        - Destination type (see MSG_* constants in messages_const.inc)
  *   msg_entity      - Entity receiving the message
- *
  * @note You can overwrite the message before anything happens by using the
  *       set_msg_arg_* functions and either let the message continue by
  *       returning PLUGIN_CONTINUE or fully block it with PLUGIN_HANDLED.

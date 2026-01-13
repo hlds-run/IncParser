@@ -1,42 +1,36 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Fakemeta Constants
-//
-
 #if defined _fakemeta_const_included
   #endinput
 #endif
 #define _fakemeta_const_included
 
-// For forward_return
+/**
+ * For forward_return
+ */
 #define	FMV_STRING		1
 #define FMV_FLOAT		2
 #define FMV_CELL		3
 
 #include <hlsdk_const>
 
-/* The actual return value of the function, use these instead of PLUGIN_HANDLED etc when
- * returning from registered forwards.
+/**
+ * The actual return value of the function, use these instead of PLUGIN_HANDLED
+ * etc when returning from registered forwards.
+ *
+ * @note FMRES_OVERRIDE: Supposed to still call the target function but return your value instead
+ *                       however this does not work properly with metamod; use supercede instead.
  */
 #define FMRES_IGNORED	1	// Calls target function, returns normal value
 #define FMRES_HANDLED	2	// Tells metamod you did something, still calls target function and returns normal value
-#define FMRES_OVERRIDE	3	// Supposed to still call the target function but return your value instead
-							// however this does not work properly with metamod; use supercede instead.
+#define FMRES_OVERRIDE	3	
 #define FMRES_SUPERCEDE	4	// Block the target call, and use your return value (if applicable)
 
-// Use this with GetInfoKeyBuffer if you want the server's localinfo buffer
+/**
+ * Use this with GetInfoKeyBuffer if you want the server's localinfo buffer
+ */
 #define FM_NULLENT		-1
 
-
-/* Used with engfunc()
+/**
+ * Used with engfunc()
  */
 enum {
 	EngFunc_PrecacheModel,				// int  )			(char *s);
@@ -129,7 +123,8 @@ enum {
 	EngFunc_ServerPrint					// void )			(const char *szMsg);
 };
 
-/* Used with dllfunc()
+/**
+ * Used with dllfunc()
  */
 enum
 {
@@ -193,6 +188,9 @@ enum
 	DLLFunc_CreateBaseline				// void )			(int player, int eindex, struct entity_state_s *baseline, struct edict_s *entity, int playermodelindex, vec3_t player_mins, vec3_t player_maxs);
 };
 
+/**
+ * Used with [set_]pev()
+ */
 enum {
 	pev_string_start = 0,
 	pev_classname,
@@ -345,7 +343,8 @@ enum {
 	pev_absolute_end
 };
 
-/* Used with global_get()
+/**
+ * Used with global_get()
  */
 enum
 {
@@ -393,7 +392,8 @@ enum
 	glb_end_pchar
 };
 
-/* Used with register_forward()
+/**
+ * Used with register_forward()
  */
 enum {
 	FM_PrecacheModel = 1,
@@ -621,8 +621,7 @@ enum ClientData
 
 enum EntityState
 {
-	// Fields which are filled in by routines outside of delta compression
-	ES_EntityType,		// int
+	ES_EntityType,		// int // Fields which are filled in by routines outside of delta compression
 	// Index into cl_entities array for this entity
 	ES_Number,			// int
 	ES_MsgTime,			// float
@@ -716,8 +715,7 @@ enum EntityState
 
 enum UserCmd
 {
-	// Interpolation time on client
-	UC_LerpMsec,		// short
+	UC_LerpMsec,		// short // Interpolation time on client
 	// Duration in ms of command
 	UC_Msec,			// byte
 	// Command view angles
@@ -776,7 +774,7 @@ enum FieldType
 	FIELD_FUNCTION,     // Class function pointer (Think, Use, etc)
 	FIELD_BOOLEAN,      // Boolean
 	FIELD_SHORT,        // 2 bytes integer
-	FIELD_CHARACTER,    // 1 byte
+	FIELD_CHARACTER     // 1 byte
 };
 
 /**
@@ -789,5 +787,5 @@ enum BaseFieldType
 	BASEFIELD_FLOAT,
 	BASEFIELD_VECTOR,
 	BASEFIELD_ENTITY,
-	BASEFIELD_STRING,
+	BASEFIELD_STRING
 };

@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// JSON Natives
-//
-
 #if defined _json_included
 	#endinput
 #endif
@@ -21,7 +8,7 @@
 	#pragma loadlib json
 #endif
 
-/*
+/**
  * JSON types
  */
 enum JSONType
@@ -35,13 +22,13 @@ enum JSONType
 	JSONBoolean = 6
 };
 
-/*
+/**
  * JSON invalid handle
  */
 enum JSON
 {
 	Invalid_JSON = -1
-}
+};
 
 /**
  * Helper macros for checking type
@@ -86,10 +73,8 @@ native bool:json_equals(const JSON:value1, const JSON:value2);
  * @note                    Schema {"name":"", "age":0} will validate
  *                          {"name":"Joe", "age":25} and {"name":"Joe", "age":25, "gender":"m"},
  *                          but not {"name":"Joe"} or {"name":"Joe", "age":"Cucumber"}.
- *
  * @note                    In case of arrays, only first value in schema
  *                          is checked against all values in tested array.
- *
  * @note                    Empty objects ({}) validate all objects,
  *                          empty arrays ([]) validate all arrays,
  *                          null validates values of every type.

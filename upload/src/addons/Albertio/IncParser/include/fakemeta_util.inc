@@ -1,18 +1,3 @@
-/**
- * This file provides various utility functions that use the Fakemeta module.
- * This file is created and maintained by VEN.
- * For support and issues, see:
- * http://forums.alliedmods.net/showthread.php?t=28284
- */
- 
-
-/* Fakemeta Utilities
-*
-* by VEN
-*
-* This file is provided as is (no warranties).
-*/
-
 #if !defined _fakemeta_included
 	#include <fakemeta>
 #endif
@@ -24,33 +9,53 @@
 
 #include <xs>
 
-
-/* Engine functions */
-
+/**
+ * stock fm_precache_generic(const file[])
+ * {
+ *     return engfunc(EngFunc_PrecacheGeneric, file)
+ * }
+ */
 #define fm_precache_generic(%1) engfunc(EngFunc_PrecacheGeneric, %1)
-/* stock fm_precache_generic(const file[])
-	return engfunc(EngFunc_PrecacheGeneric, file) */
 
+/**
+ * stock fm_precache_event(type, const name[])
+ * {
+ *     return engfunc(EngFunc_PrecacheEvent, type, name)
+ * }
+ */
 #define fm_precache_event(%1,%2) engfunc(EngFunc_PrecacheEvent, %1, %2)
-/* stock fm_precache_event(type, const name[])
-	return engfunc(EngFunc_PrecacheEvent, type, name) */
 
-// ported by v3x
+/**
+ * stock fm_drop_to_floor(entity)
+ * {
+ *     return engfunc(EngFunc_DropToFloor, entity)
+ * }
+ */
 #define fm_drop_to_floor(%1) engfunc(EngFunc_DropToFloor, %1)
-/* stock fm_drop_to_floor(entity)
-	return engfunc(EngFunc_DropToFloor, entity) */
 
+/**
+ * stock fm_force_use(user, used)
+ * {
+ *     return dllfunc(DLLFunc_Use, used, user)
+ * }
+ */
 #define fm_force_use(%1,%2) dllfunc(DLLFunc_Use, %2, %1)
-/* stock fm_force_use(user, used)
-	return dllfunc(DLLFunc_Use, used, user) */
 
-#define fm_entity_set_size(%1,%2,%3) engfunc(EngFunc_SetSize, %1, %2, %3)
-/* stock fm_entity_set_size(index, const Float:mins[3], const Float:maxs[3])
-	return engfunc(EngFunc_SetSize, index, mins, maxs) */
+/**
+ * stock fm_entity_set_size(index, const Float:mins[3], const Float:maxs[3])
+ * {
+ *     return engfunc(EngFunc_SetSize, index, mins, maxs)
+ * }
+ */
+#define fm_entity_set_size(%1,%2,%3) engfunc(EngFunc_SetSize, %1, %2, %3)	
 
+/**
+ * stock fm_get_decal_index(const decalname[])
+ * {
+ *     return engfunc(EngFunc_DecalIndex, decalname)
+ * }
+ */
 #define fm_get_decal_index(%1) engfunc(EngFunc_DecalIndex, %1)
-/* stock fm_get_decal_index(const decalname[])
-	return engfunc(EngFunc_DecalIndex, decalname) */
 
 stock Float:fm_entity_range(ent1, ent2) {
 	new Float:origin1[3], Float:origin2[3];
@@ -60,14 +65,23 @@ stock Float:fm_entity_range(ent1, ent2) {
 	return get_distance_f(origin1, origin2);
 }
 
-// based on KoST's port, upgraded version fits into the macros
+/**
+ * stock fm_create_entity(const classname[])
+ * {
+ *     return engfunc(EngFunc_CreateNamedEntity, engfunc(EngFunc_AllocString, classname))
+ * }
+ *
+ * @note based on KoST's port, upgraded version fits into the macros
+ */
 #define fm_create_entity(%1) engfunc(EngFunc_CreateNamedEntity, engfunc(EngFunc_AllocString, %1))
-/* stock fm_create_entity(const classname[])
-	return engfunc(EngFunc_CreateNamedEntity, engfunc(EngFunc_AllocString, classname)) */
 
+/**
+ * stock fm_find_ent_by_class(index, const classname[])
+ * {
+ *     return engfunc(EngFunc_FindEntityByString, index, "classname", classname)
+ * }
+ */
 #define fm_find_ent_by_class(%1,%2) engfunc(EngFunc_FindEntityByString, %1, "classname", %2)
-/* stock fm_find_ent_by_class(index, const classname[])
-	return engfunc(EngFunc_FindEntityByString, index, "classname", classname) */
 
 stock fm_find_ent_by_owner(index, const classname[], owner, jghgtype = 0) {
 	new strtype[11] = "classname", ent = index;
@@ -81,13 +95,21 @@ stock fm_find_ent_by_owner(index, const classname[], owner, jghgtype = 0) {
 	return ent;
 }
 
+/**
+ * stock fm_find_ent_by_target(index, const target[])
+ * {
+ *     return engfunc(EngFunc_FindEntityByString, index, "target", target)
+ * }
+ */
 #define fm_find_ent_by_target(%1,%2) engfunc(EngFunc_FindEntityByString, %1, "target", %2)
-/* stock fm_find_ent_by_target(index, const target[])
-	return engfunc(EngFunc_FindEntityByString, index, "target", target) */
 
+/**
+ * stock fm_find_ent_by_tname(index, const targetname[])
+ * {
+ *     return engfunc(EngFunc_FindEntityByString, index, "targetname", targetname)
+ * }
+ */
 #define fm_find_ent_by_tname(%1,%2) engfunc(EngFunc_FindEntityByString, %1, "targetname", %2)
-/* stock fm_find_ent_by_tname(index, const targetname[])
-	return engfunc(EngFunc_FindEntityByString, index, "targetname", targetname) */
 
 stock fm_find_ent_by_model(index, const classname[], const model[]) {
 	new ent = index, mdl[72];
@@ -100,17 +122,29 @@ stock fm_find_ent_by_model(index, const classname[], const model[]) {
 	return 0;
 }
 
+/**
+ * stock fm_find_ent_in_sphere(index, const Float:origin[3], Float:radius)
+ * {
+ *     return engfunc(EngFunc_FindEntityInSphere, index, origin, radius)
+ * }
+ */
 #define fm_find_ent_in_sphere(%1,%2,%3) engfunc(EngFunc_FindEntityInSphere, %1, %2, %3)
-/* stock fm_find_ent_in_sphere(index, const Float:origin[3], Float:radius)
-	return engfunc(EngFunc_FindEntityInSphere, index, origin, radius) */
 
+/**
+ * stock fm_call_think(entity)
+ * {
+ *     return dllfunc(DLLFunc_Think, entity)
+ * }
+ */
 #define fm_call_think(%1) dllfunc(DLLFunc_Think, %1)
-/* stock fm_call_think(entity)
-	return dllfunc(DLLFunc_Think, entity) */
 
+/**
+ * stock fm_is_valid_ent(index)
+ * {
+ *     return pev_valid(index)
+ * }
+ */
 #define fm_is_valid_ent(%1) pev_valid(%1)
-/* stock fm_is_valid_ent(index)
-	return pev_valid(index) */
 
 stock fm_entity_set_origin(index, const Float:origin[3]) {
 	new Float:mins[3], Float:maxs[3];
@@ -121,31 +155,53 @@ stock fm_entity_set_origin(index, const Float:origin[3]) {
 	return engfunc(EngFunc_SetOrigin, index, origin);
 }
 
+/**
+ * stock fm_entity_set_model(index, const model[])
+ * {
+ *     return engfunc(EngFunc_SetModel, index, model)
+ * }
+ */
 #define fm_entity_set_model(%1,%2) engfunc(EngFunc_SetModel, %1, %2)
-/* stock fm_entity_set_model(index, const model[])
-	return engfunc(EngFunc_SetModel, index, model) */
 
-// ported by v3x
+/**
+ * stock fm_remove_entity(index)
+ * {
+ *     return engfunc(EngFunc_RemoveEntity, index)
+ * }
+ */
 #define fm_remove_entity(%1) engfunc(EngFunc_RemoveEntity, %1)
-/* stock fm_remove_entity(index)
-	return engfunc(EngFunc_RemoveEntity, index) */
 
+/**
+ * stock fm_entity_count()
+ * {
+ *     return engfunc(EngFunc_NumberOfEntities)
+ * }
+ */
 #define fm_entity_count() engfunc(EngFunc_NumberOfEntities)
-/* stock fm_entity_count()
-	return engfunc(EngFunc_NumberOfEntities) */
 
+/**
+ * stock fm_fake_touch(toucher, touched)
+ * {
+ *     return dllfunc(DLLFunc_Touch, toucher, touched)
+ * }
+ */
 #define fm_fake_touch(%1,%2) dllfunc(DLLFunc_Touch, %1, %2)
-/* stock fm_fake_touch(toucher, touched)
-	return dllfunc(DLLFunc_Touch, toucher, touched) */
 
+/**
+ * stock fm_DispatchSpawn(entity)
+ * {
+ *     return dllfunc(DLLFunc_Spawn, entity)
+ * }
+ */
 #define fm_DispatchSpawn(%1) dllfunc(DLLFunc_Spawn, %1)
-/* stock fm_DispatchSpawn(entity)
-	return dllfunc(DLLFunc_Spawn, entity) */
 
-// ported by v3x
+/**
+ * stock fm_point_contents(const Float:point[3])
+ * {
+ *     return engfunc(EngFunc_PointContents, point)
+ * }
+ */
 #define fm_point_contents(%1) engfunc(EngFunc_PointContents, %1)
-/* stock fm_point_contents(const Float:point[3])
-	return engfunc(EngFunc_PointContents, point) */
 
 stock fm_trace_line(ignoreent, const Float:start[3], const Float:end[3], Float:ret[3]) {
 	engfunc(EngFunc_TraceLine, start, end, ignoreent == -1 ? 1 : 0, ignoreent, 0);
@@ -182,7 +238,9 @@ stock fm_trace_normal(ignoreent, const Float:start[3], const Float:end[3], Float
 	return 1;
 }
 
-// note that for CS planted C4 has a "grenade" classname as well
+/**
+ * @note note that for CS planted C4 has a "grenade" classname as well
+ */
 stock fm_get_grenade_id(id, model[], len, grenadeid = 0) {
 	new ent = fm_find_ent_by_owner(grenadeid, "grenade", id);
 	if (ent && len > 0)
@@ -191,26 +249,37 @@ stock fm_get_grenade_id(id, model[], len, grenadeid = 0) {
 	return ent;
 }
 
+/**
+ * stock Float:fm_halflife_time()
+ * {
+ *     return get_gametime()
+ * }
+ */
 #define fm_halflife_time() get_gametime()
-/* stock Float:fm_halflife_time()
-	return get_gametime() */
 
+/**
+ * stock fm_attach_view(index, entity)
+ * {
+ *     return engfunc(EngFunc_SetView, index, entity)
+ * }
+ */
 #define fm_attach_view(%1,%2) engfunc(EngFunc_SetView, %1, %2)
-/* stock fm_attach_view(index, entity)
-	return engfunc(EngFunc_SetView, index, entity) */
 
 stock fm_playback_event(flags, invoker, eventindex, Float:delay, const Float:origin[3], const Float:angles[3], Float:fparam1, Float:fparam2, iparam1, iparam2, bparam1, bparam2) {
 	return engfunc(EngFunc_PlaybackEvent, flags, invoker, eventindex, delay, origin, angles, fparam1, fparam2, iparam1, iparam2, bparam1, bparam2);
 }
 
+/**
+ * stock fm_eng_get_string(istring, string[], len)
+ * {
+ *     return engfunc(EngFunc_SzFromIndex, istring, string, len)
+ * }
+ */
 #define fm_eng_get_string(%1,%2,%3) engfunc(EngFunc_SzFromIndex, %1, %2, %3)
-/* stock fm_eng_get_string(istring, string[], len)
-	return engfunc(EngFunc_SzFromIndex, istring, string, len) */
 
-
-/* HLSDK functions */
-
-// the dot product is performed in 2d, making the view cone infinitely tall
+/**
+ * @note the dot product is performed in 2d, making the view cone infinitely tall
+ */
 stock bool:fm_is_in_viewcone(index, const Float:point[3]) {
 	new Float:angles[3];
 	pev(index, pev_angles, angles);
@@ -249,9 +318,6 @@ stock bool:fm_is_visible(index, const Float:point[3], ignoremonsters = 0) {
 	return false;
 }
 
-
-/* Engine_stocks functions */
-
 stock fm_fakedamage(victim, const classname[], Float:takedmgdamage, damagetype) {
 	new class[] = "trigger_hurt";
 	new entity = fm_create_entity(class);
@@ -275,31 +341,54 @@ stock fm_fakedamage(victim, const classname[], Float:takedmgdamage, damagetype) 
 	return 1;
 }
 
+/**
+ * stock fm_find_ent(index, const classname[])
+ * {
+ *     return engfunc(EngFunc_FindEntityByString, index, "classname", classname)
+ * }
+ */
 #define fm_find_ent(%1,%2) engfunc(EngFunc_FindEntityByString, %1, "classname", %2)
-/* stock fm_find_ent(index, const classname[])
-	return engfunc(EngFunc_FindEntityByString, index, "classname", classname) */
 
+/**
+ * stock fm_get_user_button(index)
+ * {
+ *     return pev(index, pev_button)
+ * }
+ */
 #define fm_get_user_button(%1) pev(%1, pev_button)
-/* stock fm_get_user_button(index)
-	return pev(index, pev_button) */
 
+/**
+ * stock fm_get_user_oldbutton(index)
+ * {
+ *     return pev(index, pev_oldbuttons)
+ * }
+ */
 #define fm_get_user_oldbutton(%1) pev(%1, pev_oldbuttons)
-/* stock fm_get_user_oldbutton(index)
-	return pev(index, pev_oldbuttons) */
 
+/**
+ * stock fm_get_entity_flags(index)
+ * {
+ *     return pev(index, pev_flags)
+ * }
+ */
 #define fm_get_entity_flags(%1) pev(%1, pev_flags)
-/* stock fm_get_entity_flags(index)
-	return pev(index, pev_flags) */
 
+/**
+ * stock fm_get_entity_distance(ent1, ent2)
+ * {
+ *     return floatround(fm_entity_range(ent1, ent2))
+ * }
+ */
 #define fm_get_entity_distance(%1,%2) floatround(fm_entity_range(%1, %2))
-/* stock fm_get_entity_distance(ent1, ent2)
-	return floatround(fm_entity_range(ent1, ent2)) */
 
+/**
+ * stock fm_get_grenade(id)
+ * {
+ *     return fm_get_grenade_id(id, "", 0)
+ * }
+ */
 #define fm_get_grenade(%1) fm_get_grenade_id(%1, "", 0)
-/* stock fm_get_grenade(id)
-	return fm_get_grenade_id(id, "", 0) */
 
-// optimization idea by Orangutanz
 stock fm_get_brush_entity_origin(index, Float:origin[3]) {
 	new Float:mins[3], Float:maxs[3];
 
@@ -314,7 +403,9 @@ stock fm_get_brush_entity_origin(index, Float:origin[3]) {
 	return 1;
 }
 
-// based on v3x's port, upgraded version returns number of removed entities
+/**
+ * @note based on v3x's port, upgraded version returns number of removed entities
+ */
 stock fm_remove_entity_name(const classname[]) {
 	new ent = -1, num = 0;
 	while ((ent = fm_find_ent_by_class(ent, classname)))
@@ -368,9 +459,13 @@ stock fm_set_entity_visibility(index, visible = 1) {
 	return 1;
 }
 
+/**
+ * stock fm_get_entity_visibility(index)
+ * {
+ *     return !(pev(index, pev_effects) & EF_NODRAW)
+ * }
+ */
 #define fm_get_entity_visibility(%1) (!(pev(%1, pev_effects) & EF_NODRAW))
-/* stock fm_get_entity_visibility(index)
-	return !(pev(index, pev_effects) & EF_NODRAW) */
 
 stock fm_set_user_velocity(entity, const Float:vector[3]) {
 	set_pev(entity, pev_velocity, vector);
@@ -378,20 +473,29 @@ stock fm_set_user_velocity(entity, const Float:vector[3]) {
 	return 1;
 }
 
+/**
+ * stock fm_get_user_velocity(entity, Float:vector[3])
+ * {
+ *     return pev(entity, pev_velocity, vector)
+ * }
+ */
 #define fm_get_user_velocity(%1,%2) pev(%1, pev_velocity, %2)
-/* stock fm_get_user_velocity(entity, Float:vector[3])
-	return pev(entity, pev_velocity, vector) */
 
-
-/* Fun functions */
-
+/**
+ * stock fm_get_client_listen(receiver, sender)
+ * {
+ *     return engfunc(EngFunc_GetClientListening, receiver, sender)
+ * }
+ */
 #define fm_get_client_listen(%1,%2) engfunc(EngFunc_GetClientListening, %1, %2)
-/* stock fm_get_client_listen(receiver, sender)
-	return engfunc(EngFunc_GetClientListening, receiver, sender) */
 
+/**
+ * stock fm_set_client_listen(receiver, sender, listen)
+ * {
+ *     return engfunc(EngFunc_SetClientListening, receiver, sender, listen)
+ * }
+ */
 #define fm_set_client_listen(%1,%2,%3) engfunc(EngFunc_SetClientListening, %1, %2, %3)
-/* stock fm_set_client_listen(receiver, sender, listen)
-	return engfunc(EngFunc_SetClientListening, receiver, sender, listen) */
 
 stock fm_get_user_godmode(index) {
 	new Float:val;
@@ -480,23 +584,23 @@ stock Float:fm_get_user_gravity(index) {
 	return gravity;
 }
 
-/* interferes with FM_Spawn enum, just use fm_DispatchSpawn
-stock fm_spawn(entity) {
-	return dllfunc(DLLFunc_Spawn, entity)
-}
-*/
-
 stock fm_set_user_noclip(index, noclip = 0) {
 	set_pev(index, pev_movetype, noclip == 1 ? MOVETYPE_NOCLIP : MOVETYPE_WALK);
 
 	return 1;
 }
 
+/**
+ * stock fm_get_user_noclip(index)
+ * {
+ *     return (pev(index, pev_movetype) == MOVETYPE_NOCLIP)
+ * }
+ */
 #define fm_get_user_noclip(%1) (pev(%1, pev_movetype) == MOVETYPE_NOCLIP)
-/* stock fm_get_user_noclip(index)
-	return (pev(index, pev_movetype) == MOVETYPE_NOCLIP) */
 
-// note: get_user_weapon will still return former weapon index
+/**
+ * @note get_user_weapon will still return former weapon index
+ */
 stock fm_strip_user_weapons(index) {
 	new ent = fm_create_entity("player_weaponstrip");
 	if (!pev_valid(ent))
@@ -515,9 +619,6 @@ stock fm_set_user_frags(index, frags) {
 	return 1;
 }
 
-
-/* Cstrike functions */
-
 stock fm_cs_user_spawn(index) {
 	set_pev(index, pev_deadflag, DEAD_RESPAWNABLE);
 	dllfunc(DLLFunc_Spawn, index);
@@ -526,10 +627,10 @@ stock fm_cs_user_spawn(index) {
 	return 1;
 }
 
-
-/* Custom functions */
-
-// based on Basic-Master's set_keyvalue, upgraded version accepts an optional classname (a bit more efficient if it is passed)
+/**
+ * @note based on Basic-Master's set_keyvalue, upgraded version accepts
+ *       an optional classname (a bit more efficient if it is passed)
+ */
 stock fm_set_kvd(entity, const key[], const value[], const classname[] = "") {
 	if (classname[0])
 		set_kvd(0, KV_ClassName, classname);
@@ -619,7 +720,9 @@ stock Float:fm_boxents_distance(boxent1, boxent2) {
 	return fm_boxes_distance(mins1, maxs1, mins2, maxs2);
 }
 
-// projects a center of a player's feet base (originally by P34nut, improved)
+/**
+ * @note projects a center of a player's feet base (originally by P34nut, improved)
+ */
 stock Float:fm_distance_to_floor(index, ignoremonsters = 1) {
 	new Float:start[3], Float:dest[3], Float:end[3];
 	pev(index, pev_origin, start);
@@ -636,14 +739,18 @@ stock Float:fm_distance_to_floor(index, ignoremonsters = 1) {
 	return ret > 0 ? ret : 0.0;
 }
 
-// potential to crash (?) if used on weaponbox+weapon_* entity pair (use fm_remove_weaponbox instead)
+/**
+ * @note potential to crash (?) if used on weaponbox+weapon_* entity pair (use fm_remove_weaponbox instead)
+ */
 stock fm_kill_entity(index) {
 	set_pev(index, pev_flags, pev(index, pev_flags) | FL_KILLME);
 
 	return 1;
 }
 
-// if weapon index isn't passed then assuming that it's the current weapon
+/**
+ * @note if weapon index isn't passed then assuming that it's the current weapon
+ */
 stock fm_get_user_weapon_entity(id, wid = 0) {
 	new weap = wid, clip, ammo;
 	if (!weap && !(weap = get_user_weapon(id, clip, ammo)))
@@ -655,7 +762,10 @@ stock fm_get_user_weapon_entity(id, wid = 0) {
 	return fm_find_ent_by_owner(-1, class, id);
 }
 
-// only weapon index or its name can be passed, if neither is passed then the current gun will be stripped
+/**
+ * @note only weapon index or its name can be passed,
+ *       if neither is passed then the current gun will be stripped
+ */
 stock bool:fm_strip_user_gun(index, wid = 0, const wname[] = "") {
 	new ent_class[32];
 	if (!wid && wname[0])
@@ -683,7 +793,10 @@ stock bool:fm_strip_user_gun(index, wid = 0, const wname[] = "") {
 	return true;
 }
 
-// only weapon index or its name can be passed, if neither is passed then the current gun will be transferred
+/**
+ * @note only weapon index or its name can be passed,
+ *       if neither is passed then the current gun will be transferred
+ */
 stock bool:fm_transfer_user_gun(index1, index2, wid = 0, const wname[] = "") {
 	new ent_class[32];
 	if (!wid && wname[0])
@@ -731,7 +844,9 @@ stock bool:fm_is_ent_visible(index, entity, ignoremonsters = 0) {
 	return false;
 }
 
-// ported from AMXX's core get_user_origin(..., 3) (suggested by Greenberet)
+/**
+ * @note ported from AMXX's core get_user_origin(..., 3)
+ */
 stock fm_get_aim_origin(index, Float:origin[3]) {
 	new Float:start[3], Float:view_ofs[3];
 	pev(index, pev_origin, start);
@@ -801,8 +916,10 @@ stock fm_set_user_suit(index, bool:suit = true, bool:sound = true) {
 #define FEV_RELIABLE (1<<1)
 #define FEV_GLOBAL (1<<2)
 
-// removes all created decals and players' corpses from the world
-// set a specific index to remove decals only for the given client
+/**
+ * @note removes all created decals and players' corpses from the world
+ *       set a specific index to remove decals only for the given client
+ */
 stock fm_cs_remove_decals(index = 0) {
 	static eventindex_decal_reset;
 	if (!eventindex_decal_reset)
@@ -815,7 +932,9 @@ stock fm_cs_remove_decals(index = 0) {
 	engfunc(EngFunc_PlaybackEvent, flags, index, eventindex_decal_reset, 0.0, Float:{0.0, 0.0, 0.0}, Float:{0.0, 0.0, 0.0}, 0.0, 0.0, 0, 0, 0, 0);
 }
 
-// checks whether the entity's classname is equal to the passed classname
+/**
+ * @note checks whether the entity's classname is equal to the passed classname
+ */
 stock bool:fm_is_ent_classname(index, const classname[]) {
 	if (!pev_valid(index))
 		return false;
@@ -828,7 +947,10 @@ stock bool:fm_is_ent_classname(index, const classname[]) {
 	return false;
 }
 
-// the same as AMXX's core user_kill but fixes the issue when the scoreboard doesn't update immediately if flag is set to 1
+/**
+ * @note the same as AMXX's core user_kill but fixes the issue when
+ *       the scoreboard doesn't update immediately if flag is set to 1
+ */
 stock fm_user_kill(index, flag = 0) {
 	if (flag) {
 		new Float:frags;
@@ -841,7 +963,9 @@ stock fm_user_kill(index, flag = 0) {
 	return 1;
 }
 
-// returns a degree angle between player-to-point and player's view vectors
+/**
+ * @note returns a degree angle between player-to-point and player's view vectors
+ */
 stock Float:fm_get_view_angle_diff(index, const Float:point[3]) {
 	new Float:vec[3], Float:ofs[3], Float:aim[3];
 	pev(index, pev_origin, vec);
@@ -857,7 +981,9 @@ stock Float:fm_get_view_angle_diff(index, const Float:point[3]) {
 	return xs_vec_angle(vec, aim);
 }
 
-// gets a weapon type of the linked to weaponbox weapon_* entity
+/**
+ * @note gets a weapon type of the linked to weaponbox weapon_* entity
+ */
 stock fm_get_weaponbox_type(entity) {
 	static max_clients, max_entities;
 	if (!max_clients)
@@ -876,7 +1002,12 @@ stock fm_get_weaponbox_type(entity) {
 	return 0;
 }
 
-// safe removal of weaponbox+weapon_* entity pair (delay =~= 0.03 second)
+/**
+ * stock fm_remove_weaponbox(entity)
+ * {
+ *     return dllfunc(DLLFunc_Think, entity)
+ * }
+ *
+ * @note safe removal of weaponbox+weapon_* entity pair (delay =~= 0.03 second)
+ */
 #define fm_remove_weaponbox(%1) dllfunc(DLLFunc_Think, %1)
-/* stock fm_remove_weaponbox(entity)
-	return dllfunc(DLLFunc_Think, entity) */

@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// CSX Functions
-//
-
 #if defined _csx_included
 	#endinput
 #endif
@@ -31,7 +18,7 @@ enum MapObjective
 	MapObjective_Bomb    = (1<<0),
 	MapObjective_Hostage = (1<<1),
 	MapObjective_Vip     = (1<<2),
-	MapObjective_Escape  = (1<<3),
+	MapObjective_Escape  = (1<<3)
 };
 
 /**
@@ -47,7 +34,7 @@ enum MapObjective
  * @param damage    Damage dealt to victim
  * @param wpnindex  Weapon id
  * @param hitplace  Body hitplace
- * @param ta        If nonzero the attack was a team attack
+ * @param TA        If nonzero the attack was a team attack
  *
  * @noreturn
  */
@@ -61,11 +48,11 @@ forward client_damage(attacker, victim, damage, wpnindex, hitplace, TA);
  * @note For a list of possible body hitplaces see the HIT_* constants in
  *       amxconst.inc
  *
- * @param attacker  Attacker client index
+ * @param killer    Attacker client index
  * @param victim    Victim client index
  * @param wpnindex  Weapon id
  * @param hitplace  Body hitplace
- * @param tk        If nonzero the death was a teamkill
+ * @param TK        If nonzero the death was a teamkill
  *
  * @noreturn
  */

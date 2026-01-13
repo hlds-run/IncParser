@@ -1,22 +1,8 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// SQLX - Newer SQL Database API
-//
-
 #if defined _sqlx_included
 	#endinput
 #endif
 #define _sqlx_included
 
-//eh..
 #define SQL_NumRows SQL_NumResults
 
 #pragma reqclass sqlx
@@ -46,8 +32,7 @@ enum Handle
  * 	
  * @return              A newly created tuple handle to be used in connection routines.
  */
-native Handle:SQL_MakeDbTuple(const host[], const user[], const pass[], const db[], timeout=0);
-
+native Handle:SQL_MakeDbTuple(const host[], const user[], const pass[], const db[], timeout = 0);
 
 /**
  * Frees an SQL handle.
@@ -60,7 +45,6 @@ native Handle:SQL_MakeDbTuple(const host[], const user[], const pass[], const db
  * @noreturn
  */
 native SQL_FreeHandle(Handle:h);
-
 
 /**
  * Opens a database connection.
@@ -76,7 +60,6 @@ native SQL_FreeHandle(Handle:h);
  */
 native Handle:SQL_Connect(Handle:cn_tuple, &errcode, error[], maxlength);
 
-
 /**
  * Sets the character set of the current connection. 
  * Like SET NAMES .. in mysql, but stays after connection problems.
@@ -84,8 +67,7 @@ native Handle:SQL_Connect(Handle:cn_tuple, &errcode, error[], maxlength);
  * @note If a connection tuple is supplied, this should be called before SQL_Connect or SQL_ThreadQuery.
  * @note The change will remain until you call this function with another value.
  * @note This native does nothing in SQLite. 
- *
- * Example: "utf8", "latin1"
+ * @note Example: "utf8", "latin1"
  *
  * @param h             Database or connection tuple Handle.
  * @param charset       The character set string to change to.
@@ -93,7 +75,6 @@ native Handle:SQL_Connect(Handle:cn_tuple, &errcode, error[], maxlength);
  * @return              True, if character set was changed, false otherwise.
  */
 native bool:SQL_SetCharset(Handle:h, const charset[]);
-
 
 /**
  * Prepares a query.
@@ -108,7 +89,6 @@ native bool:SQL_SetCharset(Handle:h, const charset[]);
  *                      Returns Empty_Handle on failure.
  */
 native Handle:SQL_PrepareQuery(Handle:db, const fmt[], any:...);
-
 
 /**
  * Back-quotes characters in a string for database querying.
@@ -142,7 +122,6 @@ native SQL_QuoteString(Handle:db, buffer[], buflen, const string[]);
  */
 native SQL_QuoteStringFmt(Handle:db, buffer[], buflen, const fmt[], any:...);
 
-
 /**
  * Threaded query states. Used to check the state of a complete threaded query.
  */
@@ -152,6 +131,7 @@ native SQL_QuoteStringFmt(Handle:db, buffer[], buflen, const fmt[], any:...);
 
 /**
  * Prepares and executes a threaded query.
+ *
  * @note The handler should look like:
  *       public QueryHandler(failstate, Handle:query, error[], errnum, data[], size, Float:queuetime)
  *       failstate - One of the three TQUERY_ defines.
@@ -178,8 +158,7 @@ native SQL_QuoteStringFmt(Handle:db, buffer[], buflen, const fmt[], any:...);
  *                      Invalid info tuple handle.
  *                      Handler function not found.
  */
-native SQL_ThreadQuery(Handle:db_tuple, const handler[], const query[], const data[]="", dataSize=0);
-
+native SQL_ThreadQuery(Handle:db_tuple, const handler[], const query[], const data[] = "", dataSize = 0);
 
 /**
  * Executes an already prepared query.
@@ -194,7 +173,6 @@ native SQL_ThreadQuery(Handle:db_tuple, const handler[], const query[], const da
  */
 native SQL_Execute(Handle:query);
 
-
 /**
  * Gets information about a failed query error.
  *
@@ -206,7 +184,6 @@ native SQL_Execute(Handle:query);
  */
 native SQL_QueryError(Handle:query, error[], maxlength);
 
-
 /**
  * Checks whether there are more results to be read.
  *
@@ -216,7 +193,6 @@ native SQL_QueryError(Handle:query, error[], maxlength);
  * @error               Invalid query handle.
  */
 native SQL_MoreResults(Handle:query);
-
 
 /**
  * Tells whether a specific column in the current row is NULL or not.
@@ -231,13 +207,11 @@ native SQL_MoreResults(Handle:query);
  */
 native SQL_IsNull(Handle:query, column);
 
-
 /**
  * Retrieves the current result.
  * 
  * @note A successful query starts at the first result, so you should not call
  *       SQL_NextRow() first.
- * 
  * @note Example how to get different types of values:
  *         new num = SQL_ReadResult(query, 0)
  *         new Float:num2
@@ -257,7 +231,6 @@ native SQL_IsNull(Handle:query, column);
  */
 native SQL_ReadResult(Handle:query, column, any:...);
 
-
 /**
  * Advances to the next result (row).
  *
@@ -269,7 +242,6 @@ native SQL_ReadResult(Handle:query, column, any:...);
  */
 native SQL_NextRow(Handle:query);
 
-
 /**
  * Returns the number of affected rows by a query.
  *
@@ -279,7 +251,6 @@ native SQL_NextRow(Handle:query);
  * @error               Invalid query handle.
  */
 native SQL_AffectedRows(Handle:query);
-
 
 /**
  * The number of retrieved rows (results) after a query.
@@ -291,7 +262,6 @@ native SQL_AffectedRows(Handle:query);
  */
 native SQL_NumResults(Handle:query);
 
-
 /**
  * Returns the total number of columns.
  *
@@ -302,7 +272,6 @@ native SQL_NumResults(Handle:query);
  *                      No result set in this query.    
  */
 native SQL_NumColumns(Handle:query);
-
 
 /**
  * Retrieves the name of a column by its index.
@@ -319,7 +288,6 @@ native SQL_NumColumns(Handle:query);
  */
 native SQL_FieldNumToName(Handle:query, num, name[], maxlength);
 
-
 /**
  * Retrieves the number of a named column.
  *
@@ -332,7 +300,6 @@ native SQL_FieldNumToName(Handle:query, num, name[], maxlength);
  */
 native SQL_FieldNameToNum(Handle:query, const name[]);
 
-
 /**
  * Rewinds a result set to the first row.
  *
@@ -344,7 +311,6 @@ native SQL_FieldNameToNum(Handle:query, const name[]);
  */
 native SQL_Rewind(Handle:query);
 
-
 /**
  * Retrieves the instert ID of the latest INSERT query.
  *
@@ -355,7 +321,6 @@ native SQL_Rewind(Handle:query);
  */
 native SQL_GetInsertId(Handle:query);
 
-
 /**
  * Retrieves which driver is this plugin currently bound to.
  *
@@ -365,7 +330,6 @@ native SQL_GetInsertId(Handle:query);
  * @noreturn
  */
 native SQL_GetAffinity(driver[], maxlen);
-
 
 /**
  * Sets driver affinity. You can use this to force a particular driver implementation.
@@ -420,7 +384,6 @@ native SQL_GetQueryString(Handle:query, buffer[], maxlength);
  */
 native bool:SQL_NextResultSet(Handle:query);
 
-
 /**
  * This function can be used to find out if a table in a SQLite database exists.
  *
@@ -458,7 +421,7 @@ stock bool:sqlite_TableExists(Handle:db, const table[])
  * 
  * @return              1 on success, 0 on failure.
  */
-stock SQL_SimpleQuery(Handle:db, const query[], error[]="", maxlength=0, &rows=0)
+stock SQL_SimpleQuery(Handle:db, const query[], error[] = " ", maxlength = 0, &rows = 0)
 {
 	new Handle:hQuery = SQL_PrepareQuery(db, "%s", query);
 	
@@ -476,7 +439,6 @@ stock SQL_SimpleQuery(Handle:db, const query[], error[]="", maxlength=0, &rows=0
 	return 1;
 }
 
-
 /**
  * Use this for executing a query where you don't care about the result.
  * 
@@ -491,7 +453,7 @@ stock SQL_SimpleQuery(Handle:db, const query[], error[]="", maxlength=0, &rows=0
  * 
  * @return              1 on success, 0 on failure.
  */
-stock SQL_SimpleQueryFmt(Handle:db, error[]="", maxlength=0, &rows=0, const fmt[], any:...)
+stock SQL_SimpleQueryFmt(Handle:db, error[] = "", maxlength = 0, &rows = 0, const fmt[], any:...)
 {
 	static query_buf[2048];
 	vformat(query_buf, 2047, fmt, 6);
@@ -517,7 +479,7 @@ stock SQL_SimpleQueryFmt(Handle:db, error[]="", maxlength=0, &rows=0, const fmt[
  *
  * @param db            A connection handle returned from SQL_Connect().
  * @param queryfmt      The query string that can be formated with format specifiers.
- * @pram ...            Additional arguments for formating the query.
+ * @param ...            Additional arguments for formating the query.
  * 
  * @return              -1 on error.
  *                      >= 0 on success (with the number of affected rows).

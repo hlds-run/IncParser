@@ -1,12 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
 #if defined _celltrie_included
 	#endinput
 #endif
@@ -40,7 +31,7 @@ enum Trie
 enum TrieIter
 {
 	Invalid_TrieIter = 0
-}
+};
 
 /**
  * Hash map snapshot tag declaration
@@ -297,6 +288,8 @@ native TrieSnapshotDestroy(&Snapshot:handle);
  *       them is very cheap. Reading data from an iterator is just as fast as 
  *       reading directly from the map.
  * @note Just like in snapshots the keys are not sorted.
+ *
+ * @param handle        Iterator handle
  *
  * @return              New iterator handle, which must be freed via TrieIterDestroy().
  * @error               Invalid Handle

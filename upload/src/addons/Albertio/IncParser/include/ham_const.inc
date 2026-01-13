@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Ham Sandwich Constants
-//
-
 #if defined _ham_const_included
 	#endinput
 #endif
@@ -45,7 +32,6 @@
  *       to get the desired results because the mod will return the full integer
  *       value. E.g.: (ExecuteHam(Ham_TS_IsObjective, this) & 0x0000FFFF) != 0
  */
-
 enum Ham
 {
 	/**
@@ -4351,4 +4337,3 @@ enum HamItemInfo
 	Ham_ItemInfo_iFlags,
 	Ham_ItemInfo_iWeight
 };
-

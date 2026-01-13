@@ -1,16 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
-//
-// Message Stocks
-//
- 
 #if defined _message_stocks_included
 	#endinput
 #endif
@@ -102,11 +89,10 @@ stock make_deathmsg(killer, victim, headshot, const weapon[])
  * to player's game language, e.g. #Game_join_ct.
  *
  * @note Set index to 0 to send text globally.
- *
  * @note There does not necessarily have to be a total of 6 arguments.
  *       It will depend if message takes arguments, e.g.:
- *         client_printex(id, print_chat, "#Game_join_ct", "Pimp Daddy")
- *         client_printex(id, print_chat, "1", "#Game_radio", "Pimp Daddy", "Hello world!")
+ *       client_printex(id, print_chat, "#Game_join_ct", "Pimp Daddy")
+ *       client_printex(id, print_chat, "1", "#Game_radio", "Pimp Daddy", "Hello world!")
  *
  * @param index         Index of the player, use 0 to send to all players.
  * @param type          The message destination. See print_* constants.

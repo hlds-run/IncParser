@@ -1,13 +1,3 @@
-// vim: set ts=4 sw=4 tw=99 noet:
-//
-// AMX Mod X, based on AMX Mod by Aleksander Naszko ("OLO").
-// Copyright (C) The AMX Mod X Development Team.
-// Copyright (C) 2004 Pavol "PM" Marko
-//
-// This software is licensed under the GNU General Public License, version 3 or higher.
-// Additional exceptions apply. For full license details, see LICENSE.txt or visit:
-//     https://alliedmods.net/amxmodx-license
-
 #if defined _xs_included
   #endinput
 #endif
@@ -89,11 +79,10 @@ enum xs_logtypes
 	
 	// must come last
 	xs_logtypes_count
-}
+};
 
 stock const xs__logtypenames[xs_logtypes_count][] = {"DEBUG", "", "WARNING", "ERROR", "FATAL ERROR", "DEBUG ASSERTION FAILED"};
 
-// tested
 stock xs_log(xs_logtypes:logtype, any:...)
 {
 	// WARNING: Don't try to use assert in here; it uses this func
@@ -115,7 +104,6 @@ stock xs_log(xs_logtypes:logtype, any:...)
 }
 
 // Assertion
-// tested
 stock xs_assertfunc(any:exp, const desc[])
 {
 	// Check exp
@@ -129,18 +117,16 @@ stock xs_assertfunc(any:exp, const desc[])
 	
 	return 0;
 }
-#define xs_assert(%1,%2) if (!xs_assertfunc(%1,%2)) xs__global_null /= xs__global_null
 
+#define xs_assert(%1,%2) if (!xs_assertfunc(%1, %2)) xs__global_null /= xs__global_null
 
 // Assertion; only in debug mode
 // untested; logical flow says it should work
 #if XS_DEBUG
-	#define xs_assert_dbg(%1,%2) if (!xs_assertfunc(%1,%2)) xs__global_null /= xs__global_null
+	#define xs_assert_dbg(%1,%2) if (!xs_assertfunc(%1, %2)) xs__global_null /= xs__global_null
 #else
 	#define xs_assert_dbg(%1,%2)
 #endif
-
-new xs__global_null = 0;
 
 /**
  * Gets the sign of a value.
@@ -286,41 +272,41 @@ stock Float:xs_fabs(Float:pa)
 	rawr = warning_below_shows_line_number;
 	#pragma unused rawr
 }
-stock Float:xs_asin(Float:pa,Float:pb)
+stock Float:xs_asin(Float:pa, Float:pb)
 {
 	#pragma unused pa,pb
 	new rawr = you_need_two_params_for_asin;
 	rawr = warning_below_shows_line_number;
 	#pragma unused rawr
 }
-stock Float:xs_sin(Float:pa,Float:pb)
+stock Float:xs_sin(Float:pa, Float:pb)
 {
 	#pragma unused pa,pb
 	new rawr = you_need_two_params_for_sin;
 	#pragma unused rawr
 }
-stock Float:xs_acos(Float:pa,Float:pb)
+stock Float:xs_acos(Float:pa, Float:pb)
 {
-	#pragma unused pa,pb
+	#pragma unused pa 
 	new rawr = you_need_two_params_for_acos;
 	rawr = warning_below_shows_line_number;
 	#pragma unused rawr
 }
-stock Float:xs_cos(Float:pa,Float:pb)
+stock Float:xs_cos(Float:pa, Float:pb)
 {
 	#pragma unused pa,pb
 	new rawr = you_need_two_params_for_cos;
 	rawr = warning_below_shows_line_number;
 	#pragma unused rawr
 }
-stock Float:xs_atan(Float:pa,Float:pb)
+stock Float:xs_atan(Float:pa, Float:pb)
 {
 	#pragma unused pa,pb
 	new rawr = you_need_two_params_for_atan;
 	rawr = warning_below_shows_line_number;
 	#pragma unused rawr
 }
-stock Float:xs_atan2(Float:pa,Float:pb)
+stock Float:xs_atan2(Float:pa, Float:pb)
 {
 	#pragma unused pa,pb
 	new rawr = you_need_two_params_for_atan2;
@@ -344,7 +330,7 @@ stock Float:xs_tan(Float:pa, Float:pb)
 #define xs_atan2(%1,%2) floatatan2(%1, %2)
 #define xs_tan(%1,%2) floattan(%1, %2)
 
-stock xs__internalseed=0x546875;
+stock xs__internalseed = 0x546875;
 
 #define XS__IL_RMULT 1103515245
 
@@ -1054,7 +1040,7 @@ stock xs_strtrim(stringtotrim[], charstotrim, bool:fromleft = true)
  * 
  * @noreturn
  */
-stock xs_strmid(const oldmsg[], newmsg[], start, end, outlen=-1)
+stock xs_strmid(const oldmsg[], newmsg[], start, end, outlen = -1)
 {
 	new len = strlen(oldmsg);
 	
@@ -1337,7 +1323,7 @@ enum xs_paramtypes
 	xs_int,
 	xs_float,
 	xs_string
-}
+};
 
 // new task
 stock xs__TaskParam[1 + XS_TASK_MAXPARAMS + (XS_TASK_MAXPARAMSIZE char) * XS_TASK_MAXPARAMS];	// space for len + value
@@ -1363,7 +1349,6 @@ stock xs__ITaskId;
 
 #define xs__ITaskParamValue[%1] xs__ITaskParam[1 + XS_TASK_MAXPARAMS + (%1 * (XS_TASK_MAXPARAMSIZE char))]
 
-// tested
 stock xs_task_begin(Float:interval, const func[], id = 0, const flags[] = "", repeat = 0)
 {
 	xs_assert(xs__TaskInterval == 0.0, "New xs_task_begin called before xs_task_end");
@@ -1380,8 +1365,7 @@ stock xs_task_begin(Float:interval, const func[], id = 0, const flags[] = "", re
 	xs__TaskParamCount = 0;
 }
 
-// tested
-stock xs_task_pushint(value, bool:__isfl=false /*internal use only*/)
+stock xs_task_pushint(value, bool:__isfl = false /*internal use only*/)
 {
 	xs_assert(xs__TaskInterval, "xs_task_push* called without xs_task_begin");
 	if (xs__TaskParamCount >= XS_TASK_MAXPARAMS)
@@ -1394,13 +1378,11 @@ stock xs_task_pushint(value, bool:__isfl=false /*internal use only*/)
 	return 1;
 }
 
-// tested
 stock xs_task_pushfl(Float:value)
 {
 	return xs_task_pushint(_:value, true);
 }
 
-// tested
 stock xs_task_pushstr(const value[])
 {
 	xs_assert(xs__TaskInterval, "xs_task_push* called without xs_task_begin");
@@ -1413,7 +1395,6 @@ stock xs_task_pushstr(const value[])
 	return 1;
 }
 
-// tested
 stock xs_task_end()
 {
 	xs_assert(xs__TaskInterval, "xs_task_end called without xs_task_begin");
@@ -1439,10 +1420,8 @@ stock xs_task_end()
 }
 
 
-// tested
 #define XS_MAKE_TASKFUNC(%1) public %1(const _xs__taskparam[], _xs__taskid) if(xs__task_setup(_xs__taskparam, _xs__taskid))
 
-// tested
 stock xs__task_setup(const param[], taskid)
 {
 	xs__ITaskId = taskid;
@@ -1452,19 +1431,16 @@ stock xs__task_setup(const param[], taskid)
 	return 1;
 }
 
-// tested
 stock xs_task_readid()
 {
 	return xs__ITaskId;
 }
 
-// tested
 stock xs_task_paramcount()
 {
 	return xs__ITaskParamCount;
 }
 
-// tested
 stock xs_paramtypes:xs_task_paramtype(paramid)
 {
 	if (paramid < 0 || paramid >= xs__ITaskParamCount)
@@ -1473,7 +1449,6 @@ stock xs_paramtypes:xs_task_paramtype(paramid)
 	return xs_paramtypes:xs__ITaskParamType[paramid];
 }
 
-// tested
 stock xs_task_paramint(paramid)
 {
 	if (paramid < 0 || paramid >= xs__ITaskParamCount)
@@ -1484,7 +1459,6 @@ stock xs_task_paramint(paramid)
 	return xs__ITaskParamValue[paramid];
 }
 
-// tested
 stock Float:xs_task_paramfl(paramid)
 {
 	if (paramid < 0 || paramid >= xs__ITaskParamCount)
@@ -1495,7 +1469,6 @@ stock Float:xs_task_paramfl(paramid)
 	return Float:xs__ITaskParamValue[paramid];
 }
 
-// tested
 stock xs_task_paramstr(paramid, out[], maxlen)
 {
 	#pragma unused maxlen
